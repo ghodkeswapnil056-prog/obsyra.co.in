@@ -27,11 +27,15 @@
     </div>
   </div>
 
-  <!-- Navbar with Official Logo Image -->
+  <!-- Navbar with Official Logo Image & Text Fallback -->
   <nav class="navbar" id="navbar">
     <div class="container nav-container">
-      <a href="index.html" class="brand-logo">
-        <img src="assets/logo.png" alt="Obsyra Private Limited" class="brand-img-logo">
+      <a href="index.html" class="brand-logo" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
+        <img src="./assets/logo.png" alt="Obsyra Private Limited Logo" class="brand-img-logo" style="height: 52px; width: auto; max-width: 220px; object-fit: contain;">
+        <div style="display: flex; flex-direction: column;">
+          <span class="text-gold-gradient" style="font-family: var(--font-heading); font-weight: 900; font-size: 1.35rem; letter-spacing: 0.05em; line-height: 1;">OBSYRA</span>
+          <span style="font-size: 0.65rem; color: var(--silver-light); font-weight: 700; tracking: 0.1em; text-transform: uppercase;">PRIVATE LIMITED</span>
+        </div>
       </a>
 
       <ul class="nav-links" id="nav-links">
@@ -210,7 +214,7 @@
           
           <!-- Slide 1 -->
           <div class="carousel-slide active">
-            <img src="assets/slide1.jpg" alt="5G Datacenter" class="carousel-img">
+            <img src="./assets/slide1.jpg" alt="5G Datacenter" class="carousel-img">
             <div class="carousel-overlay"></div>
             <div class="carousel-caption">
               <span class="carousel-caption-badge">VIL 5G Core Datacenter</span>
@@ -221,7 +225,7 @@
 
           <!-- Slide 2 -->
           <div class="carousel-slide">
-            <img src="assets/slide2.jpg" alt="5G Cell Tower" class="carousel-img">
+            <img src="./assets/slide2.jpg" alt="5G Cell Tower" class="carousel-img">
             <div class="carousel-overlay"></div>
             <div class="carousel-caption">
               <span class="carousel-caption-badge">Nokia AirScale Infrastructure</span>
@@ -232,7 +236,7 @@
 
           <!-- Slide 3 -->
           <div class="carousel-slide">
-            <img src="assets/slide3.jpg" alt="Field Engineers" class="carousel-img">
+            <img src="./assets/slide3.jpg" alt="Field Engineers" class="carousel-img">
             <div class="carousel-overlay"></div>
             <div class="carousel-caption">
               <span class="carousel-caption-badge">VIL & Nokia Field Force</span>
@@ -243,7 +247,7 @@
 
           <!-- Slide 4 -->
           <div class="carousel-slide">
-            <img src="assets/slide4.jpg" alt="Optical Fiber Splicing" class="carousel-img">
+            <img src="./assets/slide4.jpg" alt="Optical Fiber Splicing" class="carousel-img">
             <div class="carousel-overlay"></div>
             <div class="carousel-caption">
               <span class="carousel-caption-badge">Optical Backhaul</span>
@@ -349,8 +353,12 @@
     <div class="container">
       <div class="footer-grid">
         <div>
-          <a href="index.html" class="brand-logo" style="margin-bottom: 1.25rem;">
-            <img src="assets/logo.png" alt="Obsyra Private Limited" class="brand-img-logo" style="height: 60px;">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem;">
+            <img src="./assets/logo.png" alt="Obsyra Private Limited" class="brand-img-logo" style="height: 52px; width: auto;">
+            <div>
+              <span class="text-gold-gradient" style="font-family: var(--font-heading); font-weight: 900; font-size: 1.2rem;">OBSYRA</span>
+              <span style="display: block; font-size: 0.6rem; color: var(--silver-light); font-weight: 700; text-transform: uppercase;">PRIVATE LIMITED</span>
+            </div>
           </a>
           <p style="color: var(--text-muted); font-size: 0.85rem; max-width: 340px; margin-bottom: 1rem;">
             OBSYRA PRIVATE LIMITED — Empowering Businesses with Innovation. Active partner in VIL and Nokia 5G project execution across PAN India.
