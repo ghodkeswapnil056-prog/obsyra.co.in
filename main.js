@@ -139,6 +139,22 @@ function initMovingCarousel() {
   container.addEventListener('mouseenter', stopAutoPlay);
   container.addEventListener('mouseleave', startAutoPlay);
 
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  container.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  container.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 40) {
+      nextSlide();
+    } else if (touchEndX - touchStartX > 40) {
+      prevSlide();
+    }
+  }, { passive: true });
+
   startAutoPlay();
 }
 
@@ -417,4 +433,89 @@ function showToast(message) {
     toast.style.transition = 'all 0.3s ease';
     setTimeout(() => toast.remove(), 300);
   }, 4000);
+}
+
+/* ==========================================================================
+   11. FLOATING OBSYRA CYBER AI BOT CONTROLLER
+   ========================================================================== */
+function toggleAiBot() {
+  const windowEl = document.getElementById('ai-bot-window');
+  if (windowEl) windowEl.classList.toggle('active');
+}
+
+function sendAiMessage(customText = null) {
+  const inputEl = document.getElementById('ai-bot-input');
+  const messagesEl = document.getElementById('ai-bot-messages');
+  if (!messagesEl) return;
+
+  const userMsgText = customText || inputEl?.value.trim();
+  if (!userMsgText) return;
+
+  // Add User Message Bubble
+  const userBubble = document.createElement('div');
+  userBubble.className = 'chat-bubble user';
+  userBubble.innerText = userMsgText;
+  messagesEl.appendChild(userBubble);
+
+  if (inputEl) inputEl.value = '';
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+
+  // Simulated AI Reasoning Delay
+  setTimeout(() => {
+    let botReply = "Obsyra Private Limited (CIN: U63991PN2026PTC252127) specializes in VIL 5G Core, Nokia AirScale gNB rollouts, and digital workforce management across PAN India.";
+    const lower = userMsgText.toLowerCase();
+
+    if (lower.includes('vil') || lower.includes('vodafone')) {
+      botReply = "⚡ VIL Project: We execute 5G Core Standalone testing, MME/EPG packet validation, and virtual node provisioning for Vodafone Idea Limited.";
+    } else if (lower.includes('nokia') || lower.includes('airscale') || lower.includes('tower')) {
+      botReply = "📡 Nokia Project: Turnkey integration of Nokia AirScale gNodeB, Wavence microwave backhaul links, and DWDM optical splicing.";
+    } else if (lower.includes('workforce') || lower.includes('attendance') || lower.includes('login') || lower.includes('pin')) {
+      botReply = "🆔 Workforce Portal: Access workforce.html to scan dynamic QR attendance, view PIN logins (Test Admin: OBSY-20261 / PIN 1805), and manage field staff.";
+    } else if (lower.includes('job') || lower.includes('career') || lower.includes('apply')) {
+      botReply = "💼 Careers: We are hiring 5G Core Engineers, Tower Technicians, and Optical Splicers! Apply directly on careers.html or submit your inquiry.";
+    } else if (lower.includes('contact') || lower.includes('email') || lower.includes('address')) {
+      botReply = "📍 Headquarters: M.NO. 1/448, Near Shankar Parvati Mangal Karalay, Vagholi, Pune, Maharashtra - 412207. Email: info@obsyra.co.in.";
+    }
+
+    const botBubble = document.createElement('div');
+    botBubble.className = 'chat-bubble bot';
+    botBubble.innerHTML = `<i class="fa-solid fa-robot" style="color: var(--cyan-accent); margin-right: 6px;"></i> ${botReply}`;
+    messagesEl.appendChild(botBubble);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }, 600);
+}
+
+/* ==========================================================================
+   12. INTERACTIVE GIS REGIONAL HUB SWITCHER
+   ========================================================================== */
+function selectGisHub(hubName, element) {
+  const tags = document.querySelectorAll('.hub-tag');
+  tags.forEach(t => t.classList.remove('active'));
+  if (element) element.classList.add('active');
+
+  const hubData = {
+    'Pune HQ': { throughput: '940 Gbps', sites: '280 Active Sites', status: 'RoC Pune Registered HQ' },
+    'Mumbai 5G Core': { throughput: '1.2 Tbps', sites: '420 Active Sites', status: 'VIL 5G EPC Core Hub' },
+    'Gujarat Circle': { throughput: '680 Gbps', sites: '310 Active Sites', status: 'Nokia AirScale gNB Deployment' },
+    'Delhi NCR': { throughput: '850 Gbps', sites: '390 Active Sites', status: 'DWDM Optical Transport Matrix' }
+  };
+
+  const info = hubData[hubName];
+  if (info) {
+    const throughputEl = document.getElementById('noc-throughput');
+    const fieldTechsEl = document.getElementById('noc-field-techs');
+    if (throughputEl) throughputEl.innerText = info.throughput;
+    if (fieldTechsEl) fieldTechsEl.innerText = info.sites;
+    showToast(`GIS Operational Hub Switched: ${hubName} (${info.status})`);
+  }
+}
+
+/* ==========================================================================
+   13. 1-CLICK EXECUTIVE CORPORATE PDF BROCHURE EXPORTER
+   ========================================================================== */
+function downloadCorporateProfilePdf() {
+  showToast("Preparing Official Executive Corporate Profile PDF...");
+  setTimeout(() => {
+    window.print();
+  }, 800);
 }

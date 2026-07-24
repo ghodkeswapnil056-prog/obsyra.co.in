@@ -22,7 +22,8 @@
       </div>
       <div>
         <i class="fa-solid fa-earth-asia"></i> <strong>PAN India Coverage</strong> &nbsp;|&nbsp; 
-        <i class="fa-solid fa-envelope"></i> info@obsyra.co.in
+        <i class="fa-solid fa-envelope"></i> info@obsyra.co.in &nbsp;|&nbsp;
+        <button onclick="downloadCorporateProfilePdf()" class="btn btn-gold btn-sm" style="padding: 0.2rem 0.6rem; font-size: 0.72rem; min-height: auto;"><i class="fa-solid fa-file-pdf"></i> Corporate PDF</button>
       </div>
     </div>
   </div>
@@ -44,7 +45,6 @@
         <li><a href="services.html" class="nav-link">Services & 5G</a></li>
         <li><a href="products.html" class="nav-link">Product Suite</a></li>
         <li><a href="verticals.html" class="nav-link">Industry Verticals</a></li>
-        <li><a href="estimator.html" class="nav-link">B2B Estimator</a></li>
         <li><a href="careers.html" class="nav-link">Careers</a></li>
         <li><a href="workforce.html" class="nav-link" style="color: var(--cyan-accent); font-weight: 700;"><i class="fa-solid fa-id-card-clip"></i> Workforce Portal</a></li>
         <li><a href="contact.html" class="nav-link">Contact</a></li>
@@ -107,7 +107,7 @@
       </div>
 
       <!-- Live NOC Interactive Monitor Widget -->
-      <div class="hero-visual-card obs-glass-gold">
+      <div class="hero-visual-card obs-glass-gold cyber-scanline">
         <div class="noc-header">
           <div>
             <h4 class="text-silver-gradient" style="font-size: 1.1rem;">5G VIL & NOKIA PROJECT TELEMETRY</h4>
@@ -256,6 +256,39 @@
             </div>
           </div>
 
+          <!-- Slide 5 -->
+          <div class="carousel-slide">
+            <img src="./assets/slide5.jpg" alt="5G Cyber Datacenter Racks" class="carousel-img">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="carousel-caption-badge">VIL 5G Core Architecture</span>
+              <h3>High-Tech Virtualized Server Racks</h3>
+              <p>Carrier-grade virtual EPC & SA 5G Core node testing environment for VIL network upgrades.</p>
+            </div>
+          </div>
+
+          <!-- Slide 6 -->
+          <div class="carousel-slide">
+            <img src="./assets/slide6.jpg" alt="Telecom Tower Field" class="carousel-img">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="carousel-caption-badge">Nokia AirScale Site Execution</span>
+              <h3>Turnkey 5G Tower Installation & RF Alignment</h3>
+              <p>Turnkey civil erection, Nokia AirScale gNB commissioning, and Wavence link optimization.</p>
+            </div>
+          </div>
+
+          <!-- Slide 7 -->
+          <div class="carousel-slide">
+            <img src="./assets/slide7.jpg" alt="Obsyra Field Engineering Crew" class="carousel-img">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="carousel-caption-badge">PAN India Field Engineering</span>
+              <h3>Certified Field Crew & Digital Dispatch</h3>
+              <p>Deploying specialized workforce teams equipped with real-time digital attendance & site telemetry.</p>
+            </div>
+          </div>
+
         </div>
 
         <!-- Carousel Nav Buttons -->
@@ -268,6 +301,9 @@
           <div class="carousel-dot" onclick="goToSlide(1)"></div>
           <div class="carousel-dot" onclick="goToSlide(2)"></div>
           <div class="carousel-dot" onclick="goToSlide(3)"></div>
+          <div class="carousel-dot" onclick="goToSlide(4)"></div>
+          <div class="carousel-dot" onclick="goToSlide(5)"></div>
+          <div class="carousel-dot" onclick="goToSlide(6)"></div>
         </div>
       </div>
     </div>
@@ -382,7 +418,6 @@
           <h4>Solutions & Portals</h4>
           <ul class="footer-links">
             <li><a href="workforce.html">Workforce & Attendance Portal</a></li>
-            <li><a href="estimator.html">B2B Quote Estimator</a></li>
             <li><a href="careers.html">Careers & Intake</a></li>
             <li><a href="contact.html">Contact Headquarters</a></li>
           </ul>
@@ -404,6 +439,43 @@
       </div>
     </div>
   </footer>
+
+  <!-- Floating Obsyra AI Cyber Assistant Widget -->
+  <button class="ai-bot-trigger" onclick="toggleAiBot()" aria-label="Obsyra AI Assistant">
+    <i class="fa-solid fa-robot"></i>
+    <span class="ai-bot-badge"></span>
+  </button>
+
+  <div class="ai-bot-window" id="ai-bot-window">
+    <div class="ai-bot-header">
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <i class="fa-solid fa-brain" style="color: var(--gold-primary); font-size: 1.25rem;"></i>
+        <div>
+          <h4 style="font-size: 0.95rem; color: var(--silver-light); margin: 0;">OBSYRA CYBER AI</h4>
+          <span style="font-size: 0.65rem; color: var(--cyan-accent); font-weight: 700;">● ONLINE | 5G & HR BOT</span>
+        </div>
+      </div>
+      <button onclick="toggleAiBot()" style="background: none; border: none; color: var(--text-muted); font-size: 1.25rem; cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="ai-bot-messages" id="ai-bot-messages">
+      <div class="chat-bubble bot">
+        <i class="fa-solid fa-robot" style="color: var(--cyan-accent); margin-right: 6px;"></i> Welcome to Obsyra Private Limited! How can I assist you with our VIL & Nokia 5G projects or workforce portal today?
+      </div>
+    </div>
+
+    <div class="ai-bot-quick-chips">
+      <span class="quick-chip" onclick="sendAiMessage('Tell me about VIL 5G Project')">⚡ VIL 5G Core</span>
+      <span class="quick-chip" onclick="sendAiMessage('Nokia AirScale gNB Rollout')">📡 Nokia AirScale</span>
+      <span class="quick-chip" onclick="sendAiMessage('Workforce Portal Login & PIN')">🆔 Workforce Portal</span>
+      <span class="quick-chip" onclick="sendAiMessage('Career Job Openings')">💼 Careers</span>
+    </div>
+
+    <div class="ai-bot-input-bar">
+      <input type="text" id="ai-bot-input" placeholder="Type your query..." style="flex-grow: 1; padding: 0.6rem 0.85rem; background: rgba(15,23,42,0.9); border: 1px solid var(--obs-border); border-radius: var(--radius-sm); color: var(--text-main); font-size: 0.85rem;" onkeypress="if(event.key==='Enter') sendAiMessage()">
+      <button onclick="sendAiMessage()" class="btn btn-gold btn-sm" style="min-height: auto; padding: 0.6rem 1rem;"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
 
   <div class="toast-container" id="toast-container"></div>
   <script src="main.js"></script>
