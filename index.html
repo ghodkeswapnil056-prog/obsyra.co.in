@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obsyra Private Limited | Official Home</title>
+  <meta name="description" content="Obsyra Private Limited (CIN: U63991PN2026PTC252127) - Empowering Businesses with Innovation across Telecom 5G Core, VIL & Nokia Projects, Optical Transport, IT Services, and PAN India Workforce Solutions.">
+  
+  <!-- FontAwesome Icons & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+      <div>
+        <span class="text-gold-gradient" style="font-weight: 700;">CIN:</span> U63991PN2026PTC252127 &nbsp;|&nbsp; 
+        <span class="text-gold-gradient" style="font-weight: 700;">RoC:</span> Pune, Maharashtra &nbsp;|&nbsp;
+        <span style="color: var(--success);"><i class="fa-solid fa-circle-check"></i> Active Corporate Status</span>
+      </div>
+      <div>
+        <i class="fa-solid fa-earth-asia"></i> <strong>PAN India Coverage</strong> &nbsp;|&nbsp; 
+        <i class="fa-solid fa-envelope"></i> info@obsyra.co.in
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar with Official Logo Image -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo.png" alt="Obsyra Private Limited" class="brand-img-logo">
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="services.html" class="nav-link">Services & 5G</a></li>
+        <li><a href="products.html" class="nav-link">Product Suite</a></li>
+        <li><a href="verticals.html" class="nav-link">Industry Verticals</a></li>
+        <li><a href="estimator.html" class="nav-link">B2B Estimator</a></li>
+        <li><a href="careers.html" class="nav-link">Careers</a></li>
+        <li><a href="workforce.html" class="nav-link" style="color: var(--cyan-accent); font-weight: 700;"><i class="fa-solid fa-id-card-clip"></i> Workforce Portal</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="workforce.html" class="btn btn-outline-silver btn-sm">
+          <i class="fa-solid fa-user-plus"></i> Workforce Portal
+        </a>
+        <a href="contact.html" class="btn btn-gold btn-sm">
+          <i class="fa-solid fa-paper-plane"></i> Get In Touch
+        </a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero" style="padding-top: calc(var(--header-height) + 5rem);">
+    <canvas id="hero-canvas"></canvas>
+    
+    <div class="container hero-content">
+      <div>
+        <div class="hero-badge">
+          <span class="badge-dot"></span> Active Projects with VIL (Vodafone Idea) & Nokia Networks | PAN India
+        </div>
+        <h1 class="hero-title">
+          Empowering Businesses <br>
+          <span class="text-gold-gradient">with Innovation</span>
+        </h1>
+        <p class="hero-description">
+          Obsyra Private Limited delivers enterprise-grade 5G Core Testing, EPC Networks, Microwave Backhaul, and Field Operations in active collaboration on major projects with <strong>Vodafone Idea Limited (VIL)</strong> and <strong>Nokia Siemens Networks</strong>.
+        </p>
+
+        <div class="hero-cta">
+          <a href="services.html" class="btn btn-gold">
+            VIL & Nokia Projects <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="workforce.html" class="btn btn-cyan">
+            Workforce Portal <i class="fa-solid fa-id-card-clip"></i>
+          </a>
+        </div>
+
+        <div class="hero-stats-bar">
+          <div class="stat-item">
+            <h3 class="counter" data-target="100">0</h3>
+            <p>% PAN India Coverage</p>
+          </div>
+          <div class="stat-item">
+            <h3 class="counter" data-target="99.99">0</h3>
+            <p>% Execution Accuracy</p>
+          </div>
+          <div class="stat-item">
+            <h3 class="counter" data-target="250">0</h3>
+            <p>+ Active VIL & Nokia Sites</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live NOC Interactive Monitor Widget -->
+      <div class="hero-visual-card obs-glass-gold">
+        <div class="noc-header">
+          <div>
+            <h4 class="text-silver-gradient" style="font-size: 1.1rem;">5G VIL & NOKIA PROJECT TELEMETRY</h4>
+            <span style="font-size: 0.75rem; color: var(--text-dim);">ACTIVE ENGAGEMENT: AIRSCALE & EPC NODES</span>
+          </div>
+          <div class="noc-status">
+            <span class="live-indicator"></span> VIL / NOKIA ACTIVE
+          </div>
+        </div>
+
+        <div class="noc-metrics-grid">
+          <div class="metric-box">
+            <div class="label">VIL Core Network</div>
+            <div class="value" id="noc-throughput">5G VALIDATED</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Nokia AirScale gNB</div>
+            <div class="value text-cyan">DEPLOYED</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Microwave Backhaul</div>
+            <div class="value">99.999% SLA</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Active Field Engineers</div>
+            <div class="value" id="noc-field-techs">1,480</div>
+          </div>
+        </div>
+
+        <div style="padding: 1rem; background: rgba(7,9,14,0.7); border-radius: var(--radius-sm); border: 1px solid var(--obs-border);">
+          <div style="display:flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.5rem; color: var(--text-muted);">
+            <span>Vodafone Idea (VIL) & Nokia Project Rollout Sync</span>
+            <span class="text-gold-gradient">100% OPERATIONAL</span>
+          </div>
+          <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+            <div id="noc-progress-bar" style="width: 94%; height: 100%; background: var(--gold-gradient); transition: width 0.5s;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED VIL & NOKIA PROJECTS SECTION -->
+  <section class="section-padding" style="background: rgba(15, 23, 42, 0.6); border-top: 1px solid var(--obs-border); border-bottom: 1px solid var(--obs-border);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span class="hero-badge"><i class="fa-solid fa-handshake"></i> Major Telecom Engagements</span>
+        <h2 class="section-title text-silver-gradient">Recent Projects with VIL & Nokia</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Delivering turnkey field execution, 5G protocol validation, and cell site deployment for Vodafone Idea Limited (VIL) & Nokia Networks.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+        
+        <!-- VIL Project Card -->
+        <div class="obs-glass-gold" style="padding: 2.25rem; position: relative;">
+          <div class="tech-badge" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.3);">
+            <i class="fa-solid fa-tower-cell"></i> VODAFONE IDEA (VIL) PROJECT
+          </div>
+          <h3 class="text-gold-gradient" style="font-size: 1.5rem; margin: 1rem 0 0.5rem 0;">VIL 5G Core & SA Node Testing</h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.25rem;">
+            Partnered on Vodafone Idea Limited's multi-circle 5G Core Expansion. Obsyra provides end-to-end 5G Standalone (SA) and Non-Standalone (NSA) core node validation, MME/EPG packet core testing, and FWA device throughput audits.
+          </p>
+          <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem; font-size: 0.88rem; color: var(--text-main);">
+            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-check" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> <strong>Circle Deployment:</strong> Maharashtra, Gujarat, Delhi NCR</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-check" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> <strong>Scope:</strong> EPC Core Testing & Virtual Node Commissioning</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-check" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> <strong>Workforce:</strong> 250+ Certified Field Engineers</li>
+          </ul>
+          <a href="services.html#vil-project" class="btn btn-gold btn-sm">Explore VIL Engagement</a>
+        </div>
+
+        <!-- Nokia Project Card -->
+        <div class="obs-glass" style="padding: 2.25rem; position: relative;">
+          <div class="tech-badge" style="background: rgba(14, 165, 233, 0.15); color: #38bdf8; border-color: rgba(14, 165, 233, 0.3);">
+            <i class="fa-solid fa-microchip"></i> NOKIA NETWORKS PROJECT
+          </div>
+          <h3 class="text-silver-gradient" style="font-size: 1.5rem; margin: 1rem 0 0.5rem 0;">Nokia AirScale gNB Rollout & Backhaul</h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.25rem;">
+            Executing turnkey radio access network (RAN) integration for Nokia AirScale Baseband and Massive MIMO antenna units. Turnkey tower installation, Wavence microwave link alignment, and DWDM optical backhaul splicing.
+          </p>
+          <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem; font-size: 0.88rem; color: var(--text-main);">
+            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-check" style="color: var(--cyan-accent); margin-right: 0.5rem;"></i> <strong>Equipment:</strong> Nokia AirScale gNodeB & Wavence Microwave</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-check" style="color: var(--cyan-accent); margin-right: 0.5rem;"></i> <strong>Scope:</strong> Tower Civil Erection, RF Alignment & Splicing</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-check" style="color: var(--cyan-accent); margin-right: 0.5rem;"></i> <strong>Performance:</strong> 99.99% First-Time-Right Acceptance Rate</li>
+          </ul>
+          <a href="services.html#nokia-project" class="btn btn-cyan btn-sm">Explore Nokia Integration</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Dynamic Moving Image Carousel Showcase Section -->
+  <section class="section-padding" style="padding-top: 3rem;">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+        <span class="hero-badge"><i class="fa-solid fa-film"></i> Interactive Visual Showcase</span>
+        <h2 class="section-title text-silver-gradient">Engineering Excellence in Motion</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Live operational snapshots of Obsyra's datacenters, 5G towers, VIL field crew, and Nokia optical splicing labs.</p>
+      </div>
+
+      <!-- Moving Image Slider Component -->
+      <div class="moving-carousel-wrapper" id="moving-carousel">
+        <div class="carousel-slides-container">
+          
+          <!-- Slide 1 -->
+          <div class="carousel-slide active">
+            <img src="assets/slide1.jpg" alt="5G Datacenter" class="carousel-img">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="carousel-caption-badge">VIL 5G Core Datacenter</span>
+              <h3>Virtualized EPC & Core Network Racks</h3>
+              <p>Carrier-grade server infrastructure provisioning for MME, EPG, and vWMG node testing on VIL networks.</p>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="carousel-slide">
+            <img src="assets/slide2.jpg" alt="5G Cell Tower" class="carousel-img">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="carousel-caption-badge">Nokia AirScale Infrastructure</span>
+              <h3>Cell Tower Erection & RF Optimization</h3>
+              <p>Turnkey tower civil construction, Nokia Wavence microwave link alignment, and beamforming antenna setup.</p>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="carousel-slide">
+            <img src="assets/slide3.jpg" alt="Field Engineers" class="carousel-img">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="carousel-caption-badge">VIL & Nokia Field Force</span>
+              <h3>Certified Field Engineering Crew</h3>
+              <p>24/7 rapid dispatch teams for preventive maintenance, SLA enforcement, and site audits for VIL & Nokia sites.</p>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="carousel-slide">
+            <img src="assets/slide4.jpg" alt="Optical Fiber Splicing" class="carousel-img">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="carousel-caption-badge">Optical Backhaul</span>
+              <h3>Precision Fusion Splicing & OTDR Testing</h3>
+              <p>Long-haul optical fiber backhaul architecture, DWDM transport testing, and fault localization.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Carousel Nav Buttons -->
+        <button class="carousel-control-btn carousel-prev" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="carousel-control-btn carousel-next" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+          <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+          <div class="carousel-dot" onclick="goToSlide(1)"></div>
+          <div class="carousel-dot" onclick="goToSlide(2)"></div>
+          <div class="carousel-dot" onclick="goToSlide(3)"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Infinite Moving Marquee Ticker -->
+  <div class="marquee-container">
+    <div class="marquee-content">
+      <div class="marquee-item"><i class="fa-solid fa-tower-cell"></i> <span>Vodafone Idea (VIL) 5G Core Project</span></div>
+      <div class="marquee-item"><i class="fa-solid fa-microchip"></i> <span>Nokia AirScale Baseband Integration</span></div>
+      <div class="marquee-item"><i class="fa-solid fa-network-wired"></i> <span>EPC MME & EPG Integration</span></div>
+      <div class="marquee-item"><i class="fa-solid fa-server"></i> <span>Nokia Wavence Microwave Alignment</span></div>
+      <div class="marquee-item"><i class="fa-solid fa-people-group"></i> <span>Specialized VIL Field Force</span></div>
+      <div class="marquee-item"><i class="fa-solid fa-earth-asia"></i> <span>PAN India Execution</span></div>
+    </div>
+    <div class="marquee-content" aria-hidden="true">
+      <div class="marquee-item"><i class="fa-solid fa-tower-cell"></i> <span>Vodafone Idea (VIL) 5G Core Project</span></div>
+      <div class="marquee-item"><i class="fa-solid fa-microchip"></i> <span>Nokia AirScale Baseband Integration</span></div>
+      <div class="marquee-item"><i class="fa-solid fa-network-wired"></i> <span>EPC MME & EPG Integration</span></div>
+      <div class="marquee-item"><i class="fa-solid fa-server"></i> <span>Nokia Wavence Microwave Alignment</span></div>
+      <div class="marquee-item"><i class="fa-solid fa-people-group"></i> <span>Specialized VIL Field Force</span></div>
+      <div class="marquee-item"><i class="fa-solid fa-earth-asia"></i> <span>PAN India Execution</span></div>
+    </div>
+  </div>
+
+  <!-- Benchmark Pillars -->
+  <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3.5rem;">
+        <span class="hero-badge"><i class="fa-solid fa-award"></i> World-Class Benchmarks</span>
+        <h2 class="section-title text-silver-gradient">Enterprise Engineering & Solutions</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Combining 5G network innovation, Nokia AirScale radio access, VIL core testing, and digital manpower workforce.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem;">
+        
+        <!-- VIL & Ericsson Benchmark Card -->
+        <div class="obs-glass" style="padding: 2.25rem;">
+          <div class="tech-badge">VIL & ERICSSON BENCHMARK</div>
+          <h3 class="text-silver-gradient" style="font-size: 1.4rem; margin: 0.75rem 0 0.5rem 0;">5G Core & Protocol Testing</h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.25rem;">
+            Validation of Vodafone Idea Limited (VIL) 5G Standalone core, MME/EPG packet testing, and virtual node orchestration.
+          </p>
+          <a href="services.html" class="btn btn-cyan btn-sm">Explore 5G Testing</a>
+        </div>
+
+        <!-- Nokia Benchmark Card -->
+        <div class="obs-glass" style="padding: 2.25rem;">
+          <div class="tech-badge">NOKIA BENCHMARK</div>
+          <h3 class="text-silver-gradient" style="font-size: 1.4rem; margin: 0.75rem 0 0.5rem 0;">Nokia AirScale & DWDM Access</h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.25rem;">
+            Nokia AirScale gNodeB, Wavence microwave link commissioning, DWDM optical transport, and 5G Fixed Wireless Access.
+          </p>
+          <a href="products.html" class="btn btn-cyan btn-sm">Explore Hardware</a>
+        </div>
+
+        <!-- Tata Technologies Benchmark Card -->
+        <div class="obs-glass" style="padding: 2.25rem;">
+          <div class="tech-badge">TATA TECH BENCHMARK</div>
+          <h3 class="text-silver-gradient" style="font-size: 1.4rem; margin: 0.75rem 0 0.5rem 0;">Digital IT & Workforce Portal</h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.25rem;">
+            Digital recruitment software, dynamic QR attendance, HR payroll automation, & asset management portal.
+          </p>
+          <a href="workforce.html" class="btn btn-cyan btn-sm">Launch Workforce Portal</a>
+        </div>
+
+        <!-- Javi Systems Benchmark Card -->
+        <div class="obs-glass" style="padding: 2.25rem;">
+          <div class="tech-badge">JAVI SYSTEMS BENCHMARK</div>
+          <h3 class="text-silver-gradient" style="font-size: 1.4rem; margin: 0.75rem 0 0.5rem 0;">Turnkey Field Ops & Clearance</h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.25rem;">
+            Rack installation, router/switch configuration, server deployment, and safe site clearance decommissioning.
+          </p>
+          <a href="services.html" class="btn btn-cyan btn-sm">Explore Field Ops</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer with Official Logo -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="brand-logo" style="margin-bottom: 1.25rem;">
+            <img src="assets/logo.png" alt="Obsyra Private Limited" class="brand-img-logo" style="height: 60px;">
+          </a>
+          <p style="color: var(--text-muted); font-size: 0.85rem; max-width: 340px; margin-bottom: 1rem;">
+            OBSYRA PRIVATE LIMITED — Empowering Businesses with Innovation. Active partner in VIL and Nokia 5G project execution across PAN India.
+          </p>
+          <div style="font-size: 0.75rem; color: var(--gold-primary);">
+            Directors: Surekha Avinash Aade & Avinash Dagdu Aade
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home Page</a></li>
+            <li><a href="about.html">About Us & Governance</a></li>
+            <li><a href="services.html">Services & VIL / Nokia</a></li>
+            <li><a href="products.html">Product Suite</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Solutions & Portals</h4>
+          <ul class="footer-links">
+            <li><a href="workforce.html">Workforce & Attendance Portal</a></li>
+            <li><a href="estimator.html">B2B Quote Estimator</a></li>
+            <li><a href="careers.html">Careers & Intake</a></li>
+            <li><a href="contact.html">Contact Headquarters</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Corporate Info</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">CIN: U63991PN2026PTC252127</a></li>
+            <li><a href="about.html">RoC Office: Pune</a></li>
+            <li><a href="contact.html">Wagholi, Pune, Maharashtra</a></li>
+            <li><a href="contact.html">info@obsyra.co.in</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Obsyra Private Limited. All rights reserved. CIN: U63991PN2026PTC252127 (RoC Pune).</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toast-container"></div>
+  <script src="main.js"></script>
+</body>
+</html>

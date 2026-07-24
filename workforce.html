@@ -1,0 +1,2660 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-100 dark:bg-obsidian-950 transition-colors duration-300">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obsyra Private Limited | Workforce, AI & Attendance Platform</title>
+    <meta name="description" content="OBSYRA PRIVATE LIMITED workforce management, dynamic QR attendance, HR automation, and high-tech employee experience platform." />
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        obsidian: {
+                            50: '#f4f5f7',
+                            100: '#e9ebf0',
+                            800: '#1e222b',
+                            900: '#11141a',
+                            950: '#07090E',
+                        },
+                        obsyra: {
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        gold: {
+                            400: '#F7E599',
+                            500: '#E5B842',
+                            600: '#B8860B',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(16px); }
+        .dark .glass-panel { background: rgba(17, 20, 26, 0.88); backdrop-filter: blur(16px); }
+        #reader video { object-fit: cover !important; border-radius: 1rem; }
+        #reader { border: none !important; }
+
+        .hero-background {
+            background: radial-gradient(circle at top left, rgba(99,102,241,0.18), transparent 24%),
+                        radial-gradient(circle at 80% 20%, rgba(229,184,66,0.14), transparent 16%),
+                        radial-gradient(circle at 90% 90%, rgba(0,240,255,0.12), transparent 22%);
+        }
+
+        .animate-blob {
+            animation: floatBlob 12s ease-in-out infinite;
+        }
+
+        @keyframes floatBlob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(6px, -8px) scale(1.05); }
+            50% { transform: translate(-8px, 10px) scale(0.96); }
+            75% { transform: translate(10px, 6px) scale(1.02); }
+        }
+
+        .pulse-ring {
+            position: relative;
+        }
+
+        .pulse-ring::after {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(229,184,66,0.22), transparent 55%);
+            opacity: 0.95;
+            animation: pulseGlow 2.8s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(0.98); opacity: 0.65; }
+            50% { transform: scale(1.08); opacity: 0.2; }
+        }
+
+        ::selection { background: rgba(229,184,66,0.25); color: #111827; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+        .metallic-text {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-text {
+            background: linear-gradient(135deg, #F7E599 0%, #E5B842 50%, #B8860B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-img-logo-nav {
+            height: 44px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(229, 184, 66, 0.3));
+        }
+
+        @media print {
+            body * { visibility: hidden; }
+            #printablePayslipArea, #printablePayslipArea *,
+            #printableVoucherArea, #printableVoucherArea *,
+            #printableEmployeeIdCardContainer, #printableEmployeeIdCardContainer * { visibility: visible; }
+            #printablePayslipArea, #printableVoucherArea, #printableEmployeeIdCardContainer {
+                position: absolute; left: 50%; top: 10%; transform: translate(-50%, 0) scale(1.1); width: 90%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 dark:bg-obsidian-950 dark:text-slate-100 min-h-screen flex flex-col antialiased font-sans transition-colors duration-300">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-amber-500/10 via-slate-900 to-cyan-500/10 border-b border-amber-500/20 py-1.5 px-4 text-[11px] text-slate-300 z-50">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div>
+                <span class="gold-text font-bold">CIN:</span> U63991PN2026PTC252127 &nbsp;|&nbsp; 
+                <span class="gold-text font-bold">RoC:</span> Pune, Maharashtra &nbsp;|&nbsp;
+                <span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle-check"></i> Active Corporate Status</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span><i class="fa-solid fa-tower-cell text-amber-400"></i> Active Projects: VIL & Nokia Networks</span>
+                <a href="index.html" class="hover:text-amber-400 transition-colors"><i class="fa-solid fa-house"></i> Main Website</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-obsidian-950/95 backdrop-blur-md text-white shadow-2xl border-b border-slate-800/80 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html" title="Back to Corporate Site">
+                    <img src="assets/logo.png" alt="Obsyra Private Limited" class="brand-img-logo-nav hover:scale-105 transition-transform">
+                </a>
+                <div class="hidden sm:block border-l border-slate-800 pl-3">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-lg font-black tracking-tight metallic-text">WORKFORCE PLATFORM</h1>
+                        <span class="text-[9px] bg-emerald-500/20 text-emerald-400 font-extrabold px-2 py-0.5 rounded-full border border-emerald-500/30 uppercase tracking-widest flex items-center gap-1">
+                            <i class="fa-solid fa-shield-halved text-[10px]"></i> Enterprise v6.5
+                        </span>
+                    </div>
+                    <p class="text-[9px] gold-text font-black tracking-widest uppercase">OBSYRA PRIVATE LIMITED</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button onclick="toggleDarkMode()" class="bg-slate-900 hover:bg-slate-800 text-slate-300 p-2.5 rounded-xl text-xs border border-slate-800 transition-all flex items-center gap-1.5" title="Toggle Dark/Light Mode">
+                    <i class="fa-solid fa-moon text-amber-400 dark:hidden"></i>
+                    <i class="fa-solid fa-sun text-amber-300 hidden dark:inline"></i>
+                </button>
+
+                <div class="relative">
+                    <button onclick="toggleNotificationCenter()" class="bg-slate-900 hover:bg-slate-800 text-slate-300 p-2.5 rounded-xl text-xs border border-slate-800 transition-all flex items-center relative" title="Notification Center">
+                        <i class="fa-solid fa-bell text-indigo-400"></i>
+                        <span id="notifBadge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">3</span>
+                    </button>
+
+                    <div id="notifTray" class="hidden absolute right-0 mt-2 w-80 bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-50 p-4 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
+                            <span class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">System Alerts</span>
+                            <button onclick="clearNotifications()" class="text-[10px] text-obsyra-600 dark:text-obsyra-400 font-bold hover:underline">Clear All</button>
+                        </div>
+                        <div id="notifList" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                    </div>
+                </div>
+
+                <div id="offlineSyncBadge" onclick="manualSyncOfflineQueue()" class="hidden cursor-pointer bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-xl items-center gap-2 hover:bg-amber-500/20 transition-all">
+                    <i class="fa-solid fa-wifi-slash text-amber-400 animate-pulse"></i>
+                    <span>Offline: <strong id="offlineCount">0</strong></span>
+                </div>
+
+                <span id="systemTime" class="text-xs font-mono bg-obsidian-900 px-3 py-1.5 rounded-xl text-slate-300 border border-slate-800 hidden md:inline-block"></span>
+
+                <div id="userHeaderBadge" class="hidden items-center gap-2 bg-obsyra-600/15 border border-obsyra-500/30 px-3 py-1.5 rounded-xl">
+                    <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
+                    <span id="headerUserName" class="text-xs font-bold text-slate-100"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto w-full px-4 flex-grow py-6">
+
+        <section class="hero-background rounded-[2rem] border border-slate-200/70 dark:border-slate-800/60 overflow-hidden mb-8 relative">
+            <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(229,184,66,0.16),_transparent_20%),radial-gradient(circle_at_20%_80%,_rgba(16,185,129,0.1),_transparent_20%),linear-gradient(180deg,_rgba(15,23,42,0.2),_transparent_70%)]"></div>
+            <div class="absolute right-6 top-10 w-72 h-72 rounded-full bg-gradient-to-br from-amber-500/20 to-indigo-300/20 blur-3xl animate-blob"></div>
+            <div class="absolute left-2/3 bottom-0 w-80 h-80 rounded-full bg-gradient-to-br from-emerald-400/20 to-cyan-300/0 blur-3xl animate-blob"></div>
+            <div class="relative px-6 py-10 sm:px-12 sm:py-14">
+                <div class="grid gap-6 lg:grid-cols-[1fr_auto] items-center">
+                    <div class="space-y-4">
+                        <span class="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.4em] font-black text-amber-500 dark:text-amber-300 bg-slate-100/80 dark:bg-slate-900/70 border border-amber-500/30 rounded-full px-3 py-2">
+                            <i class="fa-solid fa-tower-cell text-amber-500"></i> Active VIL & Nokia Project Deployments
+                        </span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950 dark:text-white">Powering smart attendance, HR automation, and asset control for OBSYRA.</h2>
+                        <p class="max-w-2xl text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-7">Managing certified field teams, daily wage workers, and engineers active across Vodafone Idea Limited (VIL) & Nokia AirScale project sites.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="index.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-slate-950 font-extrabold px-5 py-3 rounded-2xl transition-all shadow-lg shadow-amber-500/20">
+                                <i class="fa-solid fa-globe"></i> Visit Corporate Site
+                            </a>
+                            <span class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] font-black text-slate-500 dark:text-slate-400 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80">VIL / Nokia Field Synchronized</span>
+                        </div>
+                    </div>
+                    <div class="relative p-6 rounded-[2rem] border border-white/30 bg-white/90 dark:bg-slate-950/80 shadow-2xl backdrop-blur-xl">
+                        <div class="pulse-ring rounded-[1.75rem] bg-gradient-to-br from-slate-950 via-indigo-950 to-obsidian-900 p-6 text-center text-white">
+                            <div class="text-[10px] uppercase tracking-[0.45em] gold-text mb-3 font-bold">OBSYRA DIGITAL HUB</div>
+                            <div class="text-6xl font-black tracking-tight text-amber-400">360°</div>
+                            <div class="mt-2 text-sm text-slate-300">VIL 5G Core & Nokia AirScale project workforce control.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOGIN GATEWAY SECTION -->
+        <section id="view-gateway" class="max-w-md mx-auto space-y-6 py-4">
+            <div class="text-center space-y-2">
+                <div class="inline-flex items-center gap-2 bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-shield-halved text-amber-600 dark:text-amber-400"></i> Encrypted Gateway
+                </div>
+                <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Enterprise Access Portal</h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Log into workspace or launch hands-free site kiosk terminal below.</p>
+            </div>
+
+            <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-5">
+                <div class="flex border-b border-slate-100 dark:border-slate-800 pb-3 justify-around">
+                    <button onclick="switchLoginTab('employee')" id="login-tab-emp" class="pb-2 text-xs font-extrabold text-obsyra-600 border-b-2 border-obsyra-600 px-3 transition-all">
+                        <i class="fa-solid fa-id-card-clip mr-1.5"></i>Employee Login
+                    </button>
+                    <button onclick="switchLoginTab('signup')" id="login-tab-signup" class="pb-2 text-xs font-extrabold text-slate-400 border-b-2 border-transparent px-3 transition-all">
+                        <i class="fa-solid fa-user-plus mr-1.5"></i>Sign Up
+                    </button>
+                    <button onclick="switchLoginTab('admin')" id="login-tab-adm" class="pb-2 text-xs font-extrabold text-slate-400 border-b-2 border-transparent px-3 transition-all">
+                        <i class="fa-solid fa-user-shield mr-1.5"></i>Admin Console
+                    </button>
+                </div>
+
+                <div id="form-emp-login" class="space-y-4">
+                    <div>
+                        <label class="block text-[11px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">Employee ID</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+                            <input type="text" id="loginEmpId" class="w-full text-sm bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl pl-10 pr-4 py-3 focus:outline-none focus:border-obsyra-500 transition-all font-semibold uppercase text-slate-900 dark:text-white" placeholder="e.g. OBSY-20262">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">Security PIN</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-key"></i>
+                            </span>
+                            <input type="password" id="loginEmpPin" inputmode="numeric" pattern="[0-9]*" maxlength="6" class="w-full text-sm bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl pl-10 pr-4 py-3 focus:outline-none focus:border-obsyra-500 transition-all font-semibold text-slate-900 dark:text-white" placeholder="Enter Security PIN">
+                        </div>
+                    </div>
+
+                    <!-- 1-Click Quick Fill Helper -->
+                    <div class="p-2.5 bg-slate-50 dark:bg-obsidian-950 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between text-[10px]">
+                        <span class="text-slate-500 font-semibold">Test Account: <strong class="text-indigo-600 dark:text-indigo-400">OBSY-20262</strong> (PIN: 1234)</span>
+                        <button onclick="fillDemoEmployeeLogin()" class="text-obsyra-600 dark:text-obsyra-400 font-bold hover:underline">1-Click Fill</button>
+                    </div>
+
+                    <button onclick="attemptEmployeeLogin()" class="w-full bg-obsidian-900 dark:bg-obsyra-600 hover:bg-obsidian-800 dark:hover:bg-obsyra-700 text-white font-extrabold py-3.5 px-4 rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2">
+                        <span>Enter Employee Workspace</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- NEW EMPLOYEE SIGN UP FORM -->
+                <div id="form-emp-signup" class="space-y-3 hidden">
+                    <form onsubmit="submitEmployeeSignup(event)" class="space-y-3">
+                        <div>
+                            <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Full Legal Name *</label>
+                            <input type="text" id="signupName" required placeholder="John Doe" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Security PIN (4-6 Digits) *</label>
+                                <input type="password" id="signupPin" required maxlength="6" inputmode="numeric" placeholder="1234" class="w-full text-xs font-semibold font-mono bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Employment Type</label>
+                                <select id="signupWorkerType" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                    <option value="Full-Time Employee">Full-Time Employee</option>
+                                    <option value="Part-Time Employee">Part-Time Employee</option>
+                                    <option value="Daily Wage Worker">Daily Wage Worker</option>
+                                    <option value="Contractor">Contractor</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Designation / Role *</label>
+                                <input type="text" id="signupRole" required placeholder="VIL 5G Core Test Engineer" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Email Address *</label>
+                                <input type="email" id="signupEmail" required placeholder="john@domain.com" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Mobile Phone *</label>
+                            <input type="tel" id="signupPhone" required placeholder="+91 9876543210" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Preferred Region / PAN India</label>
+                            <select id="signupRegion" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                <option value="West India - Pune HQ">West India - Pune HQ</option>
+                                <option value="VIL Circle - Maharashtra & Goa">VIL Circle - Maharashtra & Goa</option>
+                                <option value="VIL Circle - Gujarat">VIL Circle - Gujarat</option>
+                                <option value="VIL / Nokia - Delhi NCR">VIL / Nokia - Delhi NCR</option>
+                                <option value="South India - Bengaluru / Hyderabad">South India - Bengaluru / Hyderabad</option>
+                                <option value="PAN India - Remote/Field">PAN India - Remote/Field</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Work Location</label>
+                            <select id="signupLocation" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                <option value="Main HQ (Vagholi, Pune)">Main HQ (Vagholi, Pune)</option>
+                                <option value="VIL 5G Core Datacenter Site">VIL 5G Core Datacenter Site</option>
+                                <option value="Nokia AirScale Field Deployment Site">Nokia AirScale Field Deployment Site</option>
+                                <option value="North India - Delhi / NCR">North India - Delhi / NCR</option>
+                                <option value="South India - Bengaluru / Hyderabad">South India - Bengaluru / Hyderabad</option>
+                                <option value="West India - Mumbai / Pune">West India - Mumbai / Pune</option>
+                                <option value="Work From Home / Remote">Work From Home / Remote</option>
+                            </select>
+                        </div>
+
+                        <div class="p-2.5 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-900/60 text-[10px] text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-info text-amber-500 text-xs"></i>
+                            <span>Your Employee ID will be automatically generated upon submission. Clearance from Admin is required before login.</span>
+                        </div>
+
+                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 px-4 rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 text-xs">
+                            <i class="fa-solid fa-paper-plane"></i> Submit Registration & Assign ID
+                        </button>
+                    </form>
+                </div>
+
+                <div id="form-admin-login" class="space-y-4 hidden">
+                    <div>
+                        <label class="block text-[11px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">Admin ID</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </span>
+                            <input type="text" id="loginAdminUser" class="w-full text-sm bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl pl-10 pr-4 py-3 focus:outline-none focus:border-obsyra-500 transition-all font-semibold uppercase text-slate-900 dark:text-white" placeholder="Enter Admin ID">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">Admin PIN</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                            <input type="password" id="loginAdminPass" class="w-full text-sm bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl pl-10 pr-4 py-3 focus:outline-none focus:border-obsyra-500 transition-all font-semibold text-slate-900 dark:text-white" placeholder="Enter Security PIN">
+                        </div>
+                    </div>
+
+                    <!-- 1-Click Quick Fill Helper -->
+                    <div class="p-2.5 bg-slate-50 dark:bg-obsidian-950 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between text-[10px]">
+                        <span class="text-slate-500 font-semibold">Demo Admin: <strong class="text-indigo-600 dark:text-indigo-400">OBSY-20261</strong> (PIN: 1805)</span>
+                        <button onclick="fillDemoAdminLogin()" class="text-obsyra-600 dark:text-obsyra-400 font-bold hover:underline">1-Click Fill</button>
+                    </div>
+
+                    <button onclick="attemptAdminLogin()" class="w-full bg-obsyra-600 hover:bg-obsyra-700 text-white font-extrabold py-3.5 px-4 rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2">
+                        <span>Authorize Admin Session</span> <i class="fa-solid fa-key text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- On-Site Kiosk Button -->
+            <div class="bg-gradient-to-tr from-obsidian-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-6 shadow-2xl text-center space-y-4 border border-slate-800">
+                <div class="flex justify-center">
+                    <span class="bg-slate-800/80 text-emerald-400 text-[10px] font-black tracking-widest uppercase px-3 py-1 rounded-full border border-slate-700 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Hands-Free Kiosk Terminal
+                    </span>
+                </div>
+                <h3 class="font-black text-lg tracking-tight">On-Site Attendance Terminal</h3>
+                <p class="text-xs text-slate-400 max-w-xs mx-auto">Contactless check-in/out via dynamic QR badges or PIN pad.</p>
+                <button onclick="activateKioskOnly()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-black py-3.5 px-6 rounded-2xl transition-all w-full flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/30">
+                    <i class="fa-solid fa-camera text-base"></i> Launch Kiosk Terminal
+                </button>
+            </div>
+        </section>
+
+        <!-- KIOSK TERMINAL SECTION -->
+        <section id="view-kiosk" class="hidden max-w-xl mx-auto space-y-6 py-4">
+            <div class="flex items-center justify-between">
+                <button onclick="exitKiosk()" class="text-xs font-extrabold text-slate-600 dark:text-slate-300 hover:text-slate-900 bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-2xl transition-all shadow-sm flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left-long"></i> Exit Kiosk
+                </button>
+                <span class="text-[11px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest bg-indigo-50 dark:bg-indigo-950/60 px-3 py-1.5 rounded-xl border border-indigo-100 dark:border-indigo-800 flex items-center gap-1.5">
+                    <i class="fa-solid fa-building"></i> Active Site Kiosk
+                </span>
+            </div>
+
+            <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-2xl border border-slate-200/80 dark:border-slate-800 space-y-5">
+                <div class="border-b border-slate-100 dark:border-slate-800 pb-4 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">Scan Badge or Use PIN</h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Hold QR badge to camera lens or switch to Tactile PIN pad</p>
+                    </div>
+                    <div class="p-3 bg-indigo-50 dark:bg-indigo-950/60 rounded-2xl border border-indigo-100 dark:border-indigo-800">
+                        <i class="fa-solid fa-qrcode text-2xl text-obsyra-600 dark:text-obsyra-400"></i>
+                    </div>
+                </div>
+
+                <div class="space-y-2 bg-slate-50 dark:bg-obsidian-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <label for="kioskWorkSite" class="block text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                        <i class="fa-solid fa-location-dot text-obsyra-600 dark:text-obsyra-400 mr-1"></i> Selected Work Site:
+                    </label>
+                    <select id="kioskWorkSite" class="w-full text-sm font-bold bg-white dark:bg-obsidian-900 border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-2.5 focus:outline-none focus:border-obsyra-500 text-slate-800 dark:text-white">
+                        <option value="Main HQ (Vagholi, Pune)">Main HQ (Vagholi, Pune)</option>
+                        <option value="VIL 5G Core Datacenter Site">VIL 5G Core Datacenter Site</option>
+                        <option value="Nokia AirScale Field Deployment Site">Nokia AirScale Field Deployment Site</option>
+                        <option value="Development Center / Tech Park Branch">Development Center / Tech Park Branch</option>
+                        <option value="Regional Operations Hub">Regional Operations Hub</option>
+                        <option value="Client Site / Field Work">Client Site / Field Work</option>
+                        <option value="Work From Home / Remote">Work From Home / Remote</option>
+                    </select>
+                </div>
+
+                <div class="flex border-b border-slate-100 dark:border-slate-800 pb-2 gap-2">
+                    <button id="kioskModeQrBtn" onclick="switchKioskMode('qr')" class="flex-1 py-2 text-xs font-extrabold text-obsyra-600 border-b-2 border-obsyra-600 transition-all">
+                        <i class="fa-solid fa-camera mr-1"></i> Camera Scanner
+                    </button>
+                    <button id="kioskModePinBtn" onclick="switchKioskMode('pin')" class="flex-1 py-2 text-xs font-extrabold text-slate-400 border-b-2 border-transparent transition-all">
+                        <i class="fa-solid fa-calculator mr-1"></i> PIN Pad
+                    </button>
+                </div>
+
+                <div id="kioskQrPanel" class="space-y-4">
+                    <button id="kioskStartBtn" onclick="startScannerDevice()" class="w-full bg-obsyra-600 hover:bg-obsyra-700 text-white font-extrabold py-3.5 px-4 rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-video"></i> Start Camera Stream
+                    </button>
+
+                    <div id="kioskReaderWrapper" class="hidden mt-4 overflow-hidden rounded-2xl border-4 border-slate-200 dark:border-slate-800 bg-slate-950 aspect-square max-w-sm mx-auto relative">
+                        <div id="kioskReader"></div>
+                    </div>
+                </div>
+
+                <div id="kioskSummaryPanel" class="hidden bg-slate-50 dark:bg-obsidian-950 rounded-3xl border border-slate-200 dark:border-slate-800 p-4 space-y-4 shadow-inner">
+                    <div class="flex items-center justify-between gap-3">
+                        <div>
+                            <p class="text-xs uppercase font-black tracking-[0.3em] text-slate-500 dark:text-slate-400">Check-Out Summary</p>
+                            <p class="text-sm font-black text-slate-900 dark:text-white">Employee ID: <span id="kioskSummaryEmpId" class="font-mono text-obsyra-600">--</span></p>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-[0.35em] bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 px-3 py-1 rounded-full font-black">Auto OUT</span>
+                    </div>
+                    <textarea id="kioskOutSummaryText" placeholder="Briefly describe what was completed today..." class="w-full min-h-[120px] resize-none rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-obsyra-500"></textarea>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button onclick="submitKioskOutSummary()" class="flex-1 bg-obsyra-600 hover:bg-obsyra-700 text-white font-extrabold py-3 rounded-2xl text-sm transition-all shadow-lg">Submit & Check Out</button>
+                        <button onclick="clearKioskOutSummary()" class="flex-1 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-extrabold py-3 rounded-2xl text-sm transition-all border border-slate-300 dark:border-slate-700">Cancel</button>
+                    </div>
+                </div>
+
+                <div id="kioskPinPanel" class="hidden space-y-4">
+                    <div class="space-y-3">
+                        <input type="text" id="kioskPinEmpId" placeholder="EMPLOYEE ID (e.g. OBSY-20262)" class="w-full text-center text-sm font-bold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 uppercase text-slate-900 dark:text-white">
+                        <input type="password" id="kioskPinCode" maxlength="6" placeholder="SECURITY PIN" class="w-full text-center text-lg tracking-widest font-mono bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 text-slate-900 dark:text-white">
+                        <button onclick="submitKioskPinAccess()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3.5 px-4 rounded-xl shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-right-to-bracket"></i> Verify & Record Attendance
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTAL WORKSPACE SECTION -->
+        <section id="view-portal" class="hidden space-y-6">
+            
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4 flex-wrap gap-3">
+                <div class="flex items-center gap-3">
+                    <div id="viewRoleBadge" class="px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5"></div>
+                </div>
+
+                <div class="flex gap-2 bg-slate-200/80 dark:bg-obsidian-900 p-1.5 rounded-2xl w-full sm:w-auto overflow-x-auto">
+                    <button id="tab-btn-dash" onclick="switchDashboardTab('dash')" class="flex-none py-2.5 px-4 text-xs font-extrabold rounded-xl transition-all text-slate-800 dark:text-white bg-white dark:bg-slate-800 shadow-sm">
+                        <i class="fa-solid fa-chart-line mr-1.5"></i>My Workspace
+                    </button>
+                    <button id="tab-btn-my-profile" onclick="switchDashboardTab('my-profile')" class="flex-none py-2.5 px-4 text-xs font-extrabold text-slate-600 dark:text-slate-400 hover:text-slate-900 rounded-xl transition-all">
+                        <i class="fa-solid fa-id-card-clip mr-1.5"></i>My Profile & Verification
+                    </button>
+                    <button id="tab-btn-assets-emp" onclick="switchDashboardTab('assets-emp')" class="flex-none py-2.5 px-4 text-xs font-extrabold text-slate-600 dark:text-slate-400 hover:text-slate-900 rounded-xl transition-all">
+                        <i class="fa-solid fa-laptop-code mr-1.5"></i>My Assigned Assets
+                    </button>
+
+                    <!-- Admin Only Tabs -->
+                    <button id="tab-btn-analytics" onclick="switchDashboardTab('analytics')" class="admin-only hidden flex-none py-2.5 px-4 text-xs font-extrabold text-slate-600 dark:text-slate-400 hover:text-slate-900 rounded-xl transition-all">
+                        <i class="fa-solid fa-chart-pie mr-1.5"></i>Admin Analytics
+                    </button>
+                    <button id="tab-btn-hr" onclick="switchDashboardTab('hr')" class="admin-only hidden flex-none py-2.5 px-4 text-xs font-extrabold text-slate-600 dark:text-slate-400 hover:text-slate-900 rounded-xl transition-all">
+                        <i class="fa-solid fa-sack-dollar mr-1.5"></i>HR & Payroll
+                    </button>
+                    <button id="tab-btn-assets-adm" onclick="switchDashboardTab('assets-adm')" class="admin-only hidden flex-none py-2.5 px-4 text-xs font-extrabold text-slate-600 dark:text-slate-400 hover:text-slate-900 rounded-xl transition-all">
+                        <i class="fa-solid fa-boxes-packing mr-1.5"></i>Asset Management
+                    </button>
+                    <button id="tab-btn-kyc" onclick="switchDashboardTab('kyc')" class="admin-only hidden flex-none py-2.5 px-4 text-xs font-extrabold text-slate-600 dark:text-slate-400 hover:text-slate-900 rounded-xl transition-all">
+                        <i class="fa-solid fa-user-plus mr-1.5"></i>KYC & Onboarding Queue
+                    </button>
+                </div>
+                
+                <button onclick="terminatePortalSession()" class="bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 text-rose-700 dark:text-rose-300 font-extrabold py-2.5 px-4 rounded-2xl text-xs border border-rose-200/60 dark:border-rose-800 transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-power-off"></i> Logout
+                </button>
+            </div>
+
+            <!-- DASHBOARD TAB -->
+            <div id="dashTab-dash" class="dash-tab active space-y-6">
+                
+                <!-- Verification Status Banner -->
+                <div id="kycStatusBanner" class="p-4 rounded-3xl border flex items-center justify-between gap-4 shadow-md bg-amber-500/10 border-amber-500/30 text-amber-900 dark:text-amber-200">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+                            <i id="kycStatusIcon" class="fa-solid fa-clock"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h4 id="kycStatusTitle" class="text-sm font-black uppercase tracking-wide">Verification Pending Admin Audit</h4>
+                                <span id="kycStatusBadge" class="text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-amber-500 text-white">Pending HR Review</span>
+                            </div>
+                            <p id="kycStatusSubtext" class="text-xs opacity-90 mt-0.5">Please complete all 5 sections under "My Profile & Verification" tab for official HR clearance.</p>
+                        </div>
+                    </div>
+                    <button onclick="switchDashboardTab('my-profile')" class="bg-amber-600 hover:bg-amber-700 text-white font-extrabold px-3.5 py-2 rounded-xl text-xs transition-all flex-shrink-0">
+                        Update Profile Info
+                    </button>
+                </div>
+
+                <!-- Active Shift & Shift Break Controller -->
+                <div id="activeShiftBanner" class="hidden bg-gradient-to-r from-emerald-600 via-teal-700 to-indigo-800 text-white rounded-3xl p-5 shadow-xl space-y-3">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center font-bold text-xl relative">
+                                <i class="fa-solid fa-business-time"></i>
+                                <span class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-extrabold uppercase tracking-widest text-emerald-200 block">Active Duty Shift</span>
+                                <div class="flex items-center gap-2">
+                                    <h4 id="shiftDurationCounter" class="text-2xl font-black font-mono">On Duty</h4>
+                                    <span id="shiftStatusTag" class="text-[10px] bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 px-2 py-0.5 rounded-full font-bold uppercase">On Duty</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="triggerEmergencySos()" class="bg-rose-600 hover:bg-rose-700 text-white font-extrabold px-3.5 py-2 rounded-xl text-xs transition-all shadow-md flex items-center gap-1.5">
+                            <i class="fa-solid fa-triangle-exclamation"></i> SOS Alert
+                        </button>
+                    </div>
+
+                    <div class="bg-black/20 backdrop-blur-md rounded-2xl p-3 border border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-mug-hot text-amber-300"></i>
+                            <span class="font-extrabold">Log Shift Break / Duty Transit:</span>
+                            <span id="breakTimerDisplay" class="hidden font-mono font-bold bg-amber-400/20 text-amber-200 px-2 py-0.5 rounded border border-amber-300/30">Break: 00m 00s</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="toggleShiftBreak('Lunch')" id="btnBreakLunch" class="bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-xl font-bold text-[11px] transition-all flex items-center gap-1">
+                                <i class="fa-solid fa-utensils text-[10px]"></i> Lunch
+                            </button>
+                            <button onclick="toggleShiftBreak('Tea')" id="btnBreakTea" class="bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-xl font-bold text-[11px] transition-all flex items-center gap-1">
+                                <i class="fa-solid fa-mug-saucer text-[10px]"></i> Tea
+                            </button>
+                            <button onclick="toggleShiftBreak('Transit')" id="btnBreakTransit" class="bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-xl font-bold text-[11px] transition-all flex items-center gap-1">
+                                <i class="fa-solid fa-van-shuttle text-[10px]"></i> Transit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 xl:grid-cols-[1.7fr_1fr] gap-6">
+                    <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-emerald-900 text-white rounded-3xl p-6 shadow-2xl border border-white/10">
+                        <div class="flex items-center justify-between gap-4 mb-4">
+                            <div>
+                                <h3 class="text-lg font-black tracking-tight">Today's Attendance Snapshot</h3>
+                                <p class="text-xs text-slate-300">Auto-detects first scan as IN and last scan as OUT for the day.</p>
+                            </div>
+                            <span class="text-[10px] uppercase tracking-[0.35em] bg-white/10 text-slate-200 px-3 py-1 rounded-full font-black">Real-time</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div class="bg-white/10 rounded-3xl p-4">
+                                <p class="text-[10px] uppercase text-slate-300 tracking-[0.25em] font-black mb-2">Current Status</p>
+                                <p id="attendanceStatusText" class="text-base font-black">Not checked in</p>
+                            </div>
+                            <div class="bg-white/10 rounded-3xl p-4">
+                                <p class="text-[10px] uppercase text-slate-300 tracking-[0.25em] font-black mb-2">Work Site</p>
+                                <p id="attendanceSiteText" class="text-base font-black">-</p>
+                            </div>
+                            <div class="bg-white/10 rounded-3xl p-4">
+                                <p class="text-[10px] uppercase text-slate-300 tracking-[0.25em] font-black mb-2">Check-In Time</p>
+                                <p id="attendanceInText" class="text-base font-black">--:--</p>
+                            </div>
+                            <div class="bg-white/10 rounded-3xl p-4">
+                                <p class="text-[10px] uppercase text-slate-300 tracking-[0.25em] font-black mb-2">Check-Out Time</p>
+                                <p id="attendanceOutText" class="text-base font-black">--:--</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 bg-white/10 rounded-3xl p-4 text-sm text-slate-200">
+                            <p class="text-[10px] uppercase tracking-[0.25em] font-black mb-2">Latest Summary</p>
+                            <p id="attendanceLatestSummary" class="leading-6">No summary recorded yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="printableEmployeeIdCardContainer" class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+                        <div>
+                            <h3 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">Employee ID Card</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Scan this QR at the kiosk for attendance tracking.</p>
+                        </div>
+                        <button onclick="printEmployeeIdCard()" class="bg-obsyra-600 hover:bg-obsyra-700 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-print"></i> Print ID Card
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 items-center">
+                        <div class="bg-gradient-to-br from-obsyra-600 via-indigo-700 to-slate-900 text-white rounded-3xl p-6 shadow-2xl border border-white/10">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 rounded-3xl bg-white/10 border border-white/20 flex items-center justify-center text-2xl font-black"> 
+                                    <span id="idCardInitials">--</span>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] uppercase tracking-[0.3em] text-slate-200 font-black">Employee ID</p>
+                                    <p id="idCardEmpId" class="text-xl font-black tracking-tight">--</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3 text-slate-100 text-sm">
+                                <div>
+                                    <p class="text-[10px] uppercase text-slate-300 font-black tracking-wider">Name</p>
+                                    <p id="idCardName" class="font-black">--</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] uppercase text-slate-300 font-black tracking-wider">Role</p>
+                                    <p id="idCardRole" class="font-black">--</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] uppercase text-slate-300 font-black tracking-wider">Region</p>
+                                    <p id="idCardRegion" class="font-black">--</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] uppercase text-slate-300 font-black tracking-wider">Office</p>
+                                    <p id="idCardLocation" class="font-black">--</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-obsidian-950 rounded-3xl p-6 shadow-xl border border-slate-200 dark:border-slate-800">
+                            <div class="flex flex-col items-center gap-4">
+                                <canvas id="employeeIdCardQr" class="w-40 h-40"></canvas>
+                                <div class="text-center">
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-[0.15em] font-bold">Attendance QR</p>
+                                    <p id="idCardQrExpiry" class="text-[10px] text-slate-400 mt-1">Refreshed every 30s</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="flex items-center gap-5">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-obsyra-500 via-indigo-600 to-purple-600 flex items-center justify-center text-white text-2xl font-black shadow-lg">
+                            <span id="profileInitials">--</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 id="profileName" class="text-xl font-black text-slate-900 dark:text-white tracking-tight">--</h3>
+                            </div>
+                            <p id="profileDesignation" class="text-xs text-obsyra-600 dark:text-obsyra-400 font-extrabold uppercase tracking-wider mt-0.5">--</p>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span id="profileIdLabel" class="text-xs text-slate-400 font-mono font-bold">Emp ID: --</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 text-white p-4 rounded-2xl border border-slate-800 flex items-center gap-4 min-w-[280px]">
+                        <div class="bg-white p-2 rounded-xl flex flex-col items-center">
+                            <canvas id="mobileBadgeQr" class="w-16 h-16"></canvas>
+                        </div>
+                        <div class="space-y-1 flex-1">
+                            <div class="flex items-center justify-between text-[10px] text-emerald-400 font-extrabold uppercase">
+                                <span class="flex items-center gap-1">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Dynamic Token
+                                </span>
+                                <span id="badgeTimerText" class="text-slate-400 font-mono">30s</span>
+                            </div>
+                            <div id="dynamicTokenText" class="text-xs font-mono font-bold text-slate-300">TOKEN: OBS-XXXX</div>
+                            <!-- Dynamic Badge Rotation Progress Bar -->
+                            <div class="w-full bg-slate-800 rounded-full h-1 overflow-hidden mt-1">
+                                <div id="badgeProgressBar" class="bg-indigo-500 h-1 transition-all duration-1000 w-full"></div>
+                            </div>
+                            <div class="text-[9px] text-slate-400 mt-0.5">Personal Security Pass • Rotates every 30s</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payroll Estimator & Monthly Payslip -->
+                <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <div class="flex items-center gap-2">
+                            <div class="p-2 bg-emerald-50 dark:bg-emerald-950 text-emerald-600 rounded-xl">
+                                <i class="fa-solid fa-calculator text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-black text-slate-900 dark:text-white">Accrued Payroll & Flex-Pay Estimator</h3>
+                                <p class="text-[11px] text-slate-400">Estimated earnings based on recorded shift hours & billing terms</p>
+                            </div>
+                        </div>
+                        <button onclick="openMonthlyPayslipModal()" class="bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 text-indigo-700 dark:text-indigo-300 font-extrabold px-3.5 py-2 rounded-xl text-xs border border-indigo-200 dark:border-indigo-800 transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-file-invoice-dollar"></i> Generate Monthly Payslip
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Personal Activity Log -->
+                <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+                        <h3 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">Personal Attendance & Shift History</h3>
+                        <button onclick="exportPersonalLogsCsv()" class="text-xs font-bold bg-slate-100 dark:bg-obsidian-950 hover:bg-slate-200 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-file-csv text-emerald-600"></i> Export CSV
+                        </button>
+                    </div>
+                    <div id="timelineWrapper" class="space-y-4"></div>
+                </div>
+            </div>
+
+            <!-- MY PROFILE & VERIFICATION TAB -->
+            <div id="dashTab-my-profile" class="dash-tab hidden space-y-6">
+                <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+                        <div>
+                            <h2 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">Complete Official Employee Verification Profile</h2>
+                            <p class="text-xs text-slate-500">Provide personal, identity, academic, direct deposit, and emergency details for HR audit</p>
+                        </div>
+                        <span id="selfKycBadgeTag" class="text-[9px] font-black uppercase px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Pending Review</span>
+                    </div>
+
+                    <form onsubmit="submitEmployeeSelfKyc(event)" class="space-y-6">
+                        <!-- Section 1: Personal Details -->
+                        <div class="space-y-3">
+                            <h3 class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider border-l-4 border-obsyra-500 pl-2"><i class="fa-solid fa-user mr-1 text-obsyra-500"></i> 1. Personal & Contact Details</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="md:col-span-2">
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Full Legal Name</label>
+                                    <input type="text" id="selfName" required placeholder="Legal Name as per Govt ID" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Date of Birth</label>
+                                    <input type="date" id="selfDob" required class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Phone Number</label>
+                                    <input type="tel" id="selfPhone" required placeholder="+91 98765 43210" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Personal Email</label>
+                                    <input type="email" id="selfEmail" required placeholder="name@domain.com" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Permanent Residential Address</label>
+                                    <input type="text" id="selfAddress" required placeholder="Full residential street, city, state, postal code" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Identification & Tax -->
+                        <div class="space-y-3 pt-2">
+                            <h3 class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider border-l-4 border-emerald-500 pl-2"><i class="fa-solid fa-passport mr-1 text-emerald-500"></i> 2. Identification & Tax Details</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Govt ID Type</label>
+                                    <select id="selfGovIdType" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                        <option value="PAN Card (India)">PAN Card (India)</option>
+                                        <option value="Aadhaar Card (India)">Aadhaar Card (India)</option>
+                                        <option value="Passport">Passport</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Govt ID Number</label>
+                                    <input type="text" id="selfGovIdNum" required placeholder="e.g. ABCDE1234F" class="w-full text-xs font-semibold uppercase font-mono bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">PAN India Region</label>
+                                    <select id="selfRegion" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                        <option value="West India - Pune HQ">West India - Pune HQ</option>
+                                        <option value="VIL Circle - Maharashtra & Gujarat">VIL Circle - Maharashtra & Gujarat</option>
+                                        <option value="VIL / Nokia - Delhi NCR">VIL / Nokia - Delhi NCR</option>
+                                        <option value="North India">North India</option>
+                                        <option value="South India">South India</option>
+                                        <option value="East India">East India</option>
+                                        <option value="Central India">Central India</option>
+                                        <option value="Remote / PAN India">Remote / PAN India</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Direct Deposit Banking -->
+                        <div class="space-y-3 pt-2">
+                            <h3 class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider border-l-4 border-amber-500 pl-2"><i class="fa-solid fa-building-columns mr-1 text-amber-500"></i> 3. Direct Deposit Bank Information</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Bank Name</label>
+                                    <input type="text" id="selfBankName" required placeholder="HDFC Bank" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Account Number</label>
+                                    <input type="text" id="selfBankAcc" required placeholder="501002345678" class="w-full text-xs font-semibold font-mono bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">IFSC Code</label>
+                                    <input type="text" id="selfIfscCode" required placeholder="HDFC0001234" class="w-full text-xs font-semibold font-mono uppercase bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">UPI ID</label>
+                                    <input type="text" id="selfUpiId" placeholder="name@bank" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 4: Emergency Contacts -->
+                        <div class="space-y-3 pt-2">
+                            <h3 class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider border-l-4 border-rose-500 pl-2"><i class="fa-solid fa-heart-pulse mr-1 text-rose-500"></i> 4. Emergency Liaison Contact</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Emergency Contact Name</label>
+                                    <input type="text" id="selfEmergName" required placeholder="Liaison Person Name" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Relationship</label>
+                                    <input type="text" id="selfEmergRel" required placeholder="Spouse / Parent / Sibling" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Emergency Phone</label>
+                                    <input type="tel" id="selfEmergPhone" required placeholder="+91 98989 00000" class="w-full text-xs font-semibold bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-slate-900 dark:text-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-obsyra-600 hover:bg-obsyra-700 text-white font-extrabold py-3.5 px-4 rounded-2xl transition-all shadow-lg text-sm">
+                            Submit Verification Profile to HR Admin
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- MY ASSIGNED ASSETS TAB -->
+            <div id="dashTab-assets-emp" class="dash-tab hidden space-y-6">
+                <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-4">
+                    <h3 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">My Assigned Equipment & Tools</h3>
+                    <div id="empAssetsList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                </div>
+            </div>
+
+            <!-- ADMIN ANALYTICS TAB -->
+            <div id="dashTab-analytics" class="dash-tab hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white dark:bg-obsidian-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
+                            <h4 class="text-xs font-black uppercase text-slate-800 dark:text-slate-200 tracking-wider">
+                                <i class="fa-solid fa-chart-line text-obsyra-500 mr-1.5"></i> Weekly Attendance Volume
+                            </h4>
+                            <span class="text-[10px] bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded-md font-extrabold">Real-Time Data</span>
+                        </div>
+                        <div class="h-48 relative">
+                            <canvas id="weeklyAttendanceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-obsidian-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
+                            <h4 class="text-xs font-black uppercase text-slate-800 dark:text-slate-200 tracking-wider">
+                                <i class="fa-solid fa-chart-pie text-emerald-500 mr-1.5"></i> Location Distribution
+                            </h4>
+                            <span class="text-[10px] bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-md font-extrabold">Site Breakdown</span>
+                        </div>
+                        <div class="h-48 relative flex items-center justify-center">
+                            <canvas id="siteDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white dark:bg-obsidian-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <span class="text-[10px] font-black uppercase text-slate-400 block">Total Workforce</span>
+                        <div id="kpiTotalStaff" class="text-2xl font-black text-slate-900 dark:text-white">4</div>
+                    </div>
+                    <div class="bg-white dark:bg-obsidian-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <span class="text-[10px] font-black uppercase text-slate-400 block">Today Check-Ins</span>
+                        <div id="kpiTodayIn" class="text-2xl font-black text-emerald-600">2</div>
+                    </div>
+                    <div class="bg-white dark:bg-obsidian-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <span class="text-[10px] font-black uppercase text-slate-400 block">VIL & Nokia Field Crew</span>
+                        <div id="kpiActiveContractors" class="text-2xl font-black text-indigo-600">2</div>
+                    </div>
+                    <div class="bg-white dark:bg-obsidian-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <span class="text-[10px] font-black uppercase text-slate-400 block">Avg SLA Score</span>
+                        <div id="kpiAvgQuality" class="text-2xl font-black text-emerald-500">99.9%</div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <h3 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">Contractor Roster & Daily Wage Vouchers</h3>
+                        <div class="relative w-full sm:w-64">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                                <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                            </span>
+                            <input type="text" id="rosterSearchInput" onkeyup="filterContractorRoster()" placeholder="Search Worker ID or Name..." class="w-full text-xs bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-xl pl-9 pr-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-obsyra-500">
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+                            <thead class="bg-slate-50 dark:bg-obsidian-950 uppercase text-[9px] font-black tracking-wider border-b border-slate-100 dark:border-slate-800">
+                                <tr>
+                                    <th class="p-3">Worker ID</th>
+                                    <th class="p-3">Name</th>
+                                    <th class="p-3">Region</th>
+                                    <th class="p-3">Classification</th>
+                                    <th class="p-3">Billing Rate</th>
+                                    <th class="p-3">Expiry</th>
+                                    <th class="p-3 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contractorRosterTableBody" class="divide-y divide-slate-100 dark:divide-slate-800 font-semibold"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADMIN HR & PAYROLL TAB -->
+            <div id="dashTab-hr" class="dash-tab hidden space-y-6">
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-4">
+                        <h3 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">HR & Payroll Summary</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-50 dark:bg-obsidian-950 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 text-center">
+                                <span class="text-[10px] uppercase font-black tracking-wider text-slate-500 block">Monthly Payroll</span>
+                                <div id="hrTotalPayroll" class="text-2xl font-black text-indigo-700 mt-2">₹0</div>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-obsidian-950 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 text-center">
+                                <span class="text-[10px] uppercase font-black tracking-wider text-slate-500 block">Active Contracts</span>
+                                <div id="hrActiveContracts" class="text-2xl font-black text-emerald-600 mt-2">0</div>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-obsidian-950 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 text-center">
+                                <span class="text-[10px] uppercase font-black tracking-wider text-slate-500 block">Pending Payments</span>
+                                <div id="hrPendingPayments" class="text-2xl font-black text-amber-600 mt-2">0</div>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-obsidian-950 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 text-center">
+                                <span class="text-[10px] uppercase font-black tracking-wider text-slate-500 block">Daily Hires</span>
+                                <div id="hrDailyHires" class="text-2xl font-black text-indigo-600 mt-2">0</div>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-obsidian-950 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 text-center col-span-2">
+                                <span class="text-[10px] uppercase font-black tracking-wider text-slate-500 block">Next Payday</span>
+                                <div id="hrNextPayday" class="text-2xl font-black text-rose-700 mt-2">--</div>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 space-y-3">
+                            <h4 class="text-sm font-black text-slate-900 dark:text-white">Smart Insights</h4>
+                            <div id="hrSmartInsights" class="grid grid-cols-1 gap-3"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-4">
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <h3 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">Contract Register</h3>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400">Track employee agreements and billing terms.</p>
+                            </div>
+                        </div>
+                        <form onsubmit="saveHrContract(event)" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <input id="hrContractEmpId" oninput="updateHrContractHint(this.value)" placeholder="Employee ID" class="w-full text-xs bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3" required>
+                            <input id="hrContractName" placeholder="Employee Name" class="w-full text-xs bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3" required>
+                            <input id="hrContractEnd" type="date" placeholder="Contract End" class="w-full text-xs bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3" required>
+                            <input id="hrContractRate" type="number" min="0" placeholder="Monthly Rate" class="w-full text-xs bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3" required>
+                            <select id="hrContractRateType" class="w-full text-xs bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3">
+                                <option value="Monthly">Monthly</option>
+                                <option value="Hourly">Hourly</option>
+                                <option value="Daily">Daily</option>
+                            </select>
+                            <button type="submit" class="w-full bg-obsyra-600 hover:bg-obsyra-700 text-white font-extrabold py-3 rounded-2xl text-xs">Save Contract</button>
+                            <div id="hrContractHint" class="col-span-2 text-[11px] text-slate-500 dark:text-slate-400 italic px-4 py-3 rounded-2xl bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800">Enter an employee ID to get smart contract suggestions.</div>
+                        </form>
+                    </div>
+
+                    <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-4 xl:col-span-3">
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <h3 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">Payment Ledger</h3>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400">Log employee salary disbursements and payout approvals.</p>
+                            </div>
+                            <button onclick="renderAdminPaymentsTable()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-2xl px-4 py-2 text-xs font-bold">Refresh Ledger</button>
+                        </div>
+                        <form onsubmit="savePaymentRecord(event)" class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                            <input id="hrPaymentEmpId" oninput="updateHrPaymentHint(this.value)" placeholder="Employee ID" class="w-full text-xs bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3" required>
+                            <input id="hrPaymentAmount" type="number" min="0" placeholder="Amount" class="w-full text-xs bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3" required>
+                            <input id="hrPaymentDate" type="date" class="w-full text-xs bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3" required>
+                            <select id="hrPaymentMode" class="w-full text-xs bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3">
+                                <option value="Direct Credit">Direct Credit</option>
+                                <option value="UPI">UPI</option>
+                                <option value="Cash">Cash</option>
+                            </select>
+                            <select id="hrPaymentStatus" class="w-full text-xs bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3">
+                                <option value="Pending">Pending</option>
+                                <option value="Cleared">Cleared</option>
+                            </select>
+                            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3 rounded-2xl text-xs">Log Payment</button>
+                            <div id="hrPaymentHint" class="col-span-4 text-[11px] text-slate-500 dark:text-slate-400 italic px-4 py-3 rounded-2xl bg-slate-50 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800">Enter an employee ID to auto-fill payment details.</div>
+                        </form>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+                                <thead class="bg-slate-50 dark:bg-obsidian-950 uppercase text-[9px] font-black tracking-wider border-b border-slate-100 dark:border-slate-800">
+                                    <tr>
+                                        <th class="p-3">Employee ID</th>
+                                        <th class="p-3">Amount</th>
+                                        <th class="p-3">Payment Date</th>
+                                        <th class="p-3">Mode</th>
+                                        <th class="p-3">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="paymentLedgerBody" class="divide-y divide-slate-100 dark:divide-slate-800 font-semibold"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADMIN ASSET MANAGEMENT TAB -->
+            <div id="dashTab-assets-adm" class="dash-tab hidden space-y-6">
+                <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-6">
+                    <h3 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">Issue New Equipment (Handover)</h3>
+                    
+                    <form onsubmit="saveAssetHandover(event)" class="bg-slate-50 dark:bg-obsidian-950 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Asset Tag</label>
+                                <input type="text" id="assetTag" required placeholder="LAP-9021" class="w-full text-xs font-semibold bg-white dark:bg-obsidian-900 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Category</label>
+                                <input type="text" id="assetCategory" placeholder="5G Toolkit / OTDR" class="w-full text-xs font-semibold bg-white dark:bg-obsidian-900 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Worker ID</label>
+                                <input type="text" id="assetWorkerId" required placeholder="OBSY-20262" class="w-full text-xs font-semibold uppercase bg-white dark:bg-obsidian-900 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Serial Number</label>
+                                <input type="text" id="assetSerial" placeholder="SN-9981-X" class="w-full text-xs font-semibold bg-white dark:bg-obsidian-900 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Issue Date</label>
+                                <input type="date" id="assetIssueDate" class="w-full text-xs font-semibold bg-white dark:bg-obsidian-900 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-extrabold text-slate-500 uppercase mb-1">Due Date</label>
+                                <input type="date" id="assetDueDate" class="w-full text-xs font-semibold bg-white dark:bg-obsidian-900 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 text-slate-900 dark:text-white">
+                            </div>
+                        </div>
+                        <button type="submit" class="bg-obsyra-600 hover:bg-obsyra-700 text-white font-extrabold py-2.5 px-5 rounded-xl text-xs">Save Handover</button>
+                    </form>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+                            <thead class="bg-slate-50 dark:bg-obsidian-950 uppercase text-[9px] font-black tracking-wider border-b border-slate-100 dark:border-slate-800">
+                                <tr>
+                                    <th class="p-3">Asset Tag</th>
+                                    <th class="p-3">Worker ID</th>
+                                    <th class="p-3">Category</th>
+                                    <th class="p-3">Issue Date</th>
+                                    <th class="p-3">Status</th>
+                                    <th class="p-3 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminAssetTableBody" class="divide-y divide-slate-100 dark:divide-slate-800 font-semibold"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADMIN KYC APPROVAL QUEUE TAB -->
+            <div id="dashTab-kyc" class="dash-tab hidden space-y-6">
+                <div class="bg-white dark:bg-obsidian-900 rounded-3xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <h3 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">Pending HR Profile Verifications</h3>
+                        <span id="pendingKycCountBadge" class="text-xs bg-amber-500 text-white font-bold px-2.5 py-1 rounded-full">0 Pending</span>
+                    </div>
+                    <div id="adminPendingKycContainer" class="space-y-4"></div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-100 border-t border-slate-800/80 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid gap-6 lg:grid-cols-[1fr_auto] items-center">
+            <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                    <img src="assets/logo.png" alt="Obsyra Private Limited" class="h-8 w-auto">
+                    <span class="gold-text font-black text-sm uppercase tracking-widest">OBSYRA PRIVATE LIMITED</span>
+                </div>
+                <p class="max-w-2xl text-xs text-slate-400 leading-6">A high-tech workforce ecosystem built for secure attendance, HR automation, asset management, and PAN India operations across VIL & Nokia projects. CIN: U63991PN2026PTC252127 (RoC Pune).</p>
+                <div class="flex flex-wrap items-center gap-3 text-xs text-slate-400">
+                    <span class="inline-flex items-center gap-2 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-globe text-amber-400"></i> www.obsyra.co.in
+                    </span>
+                    <span class="inline-flex items-center gap-2 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-envelope text-amber-400"></i> info@obsyra.co.in
+                    </span>
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <div class="flex flex-col items-end gap-1 text-right text-slate-400 text-xs">
+                    <span>Enterprise-grade workforce & attendance platform</span>
+                    <span class="font-semibold text-slate-200">© 2026 OBSYRA PRIVATE LIMITED</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SIGNUP PROCESS COMPLETE MODAL WINDOW -->
+    <div id="signupSuccessModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-obsidian-900 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 text-center space-y-5 relative">
+            <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 rounded-3xl flex items-center justify-center mx-auto text-3xl border border-emerald-200 dark:border-emerald-800 shadow-lg animate-bounce">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div class="space-y-1">
+                <h3 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">Registration Complete!</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Your employee account has been created successfully.</p>
+            </div>
+
+            <div class="bg-slate-50 dark:bg-obsidian-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2 text-left">
+                <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
+                    <span class="text-[11px] font-extrabold uppercase text-slate-500">Assigned Employee ID</span>
+                    <span id="modalAssignedEmpId" class="text-base font-black font-mono text-emerald-600 dark:text-emerald-400">OBSY-20262</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                    <span class="text-slate-500 font-semibold">Account Owner:</span>
+                    <span id="modalAssignedName" class="font-extrabold text-slate-800 dark:text-slate-200">--</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                    <span class="text-slate-500 font-semibold">Clearance Status:</span>
+                    <span class="text-[10px] font-black bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 px-2 py-0.5 rounded-full uppercase">Pending Admin Approval</span>
+                </div>
+            </div>
+
+            <div class="p-3 bg-indigo-50 dark:bg-indigo-950/40 rounded-2xl border border-indigo-200 dark:border-indigo-800 text-[11px] text-indigo-900 dark:text-indigo-200 text-left flex items-start gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-indigo-600 dark:text-indigo-400 text-sm mt-0.5"></i>
+                <div>
+                    <strong>Note:</strong> Save your Employee ID. Your login will be activated once an Admin approves your registration.
+                </div>
+            </div>
+
+            <button onclick="closeSignupModalAndProceed()" class="w-full bg-obsyra-600 hover:bg-obsyra-700 text-white font-extrabold py-3.5 px-4 rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 text-xs">
+                <span>Proceed to Employee Login</span> <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ADMIN EMPLOYEE QR MODAL -->
+    <div id="adminEmployeeQrModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-obsidian-900 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 space-y-5 relative">
+            <button onclick="closeAdminEmployeeQrModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="flex items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-xl font-black tracking-tight">Employee Attendance QR</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Use this QR to provision the employee for kiosk attendance scanning.</p>
+                </div>
+                <span class="text-[10px] uppercase tracking-[0.35em] bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 px-3 py-1 rounded-full font-black">Admin Action</span>
+            </div>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-[1fr_140px]">
+                <div class="space-y-3">
+                    <div class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400 font-black">Employee Details</div>
+                    <div class="text-sm font-bold">Name: <span id="adminQrEmployeeName">--</span></div>
+                    <div class="text-sm font-bold">Employee ID: <span id="adminQrEmployeeId" class="font-mono">--</span></div>
+                    <div class="text-sm font-bold">Region: <span id="adminQrEmployeeRegion">--</span></div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400">QR Payload:</div>
+                    <div id="adminQrPayloadText" class="font-mono text-[11px] bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3 break-all">--</div>
+                </div>
+                <div class="bg-slate-50 dark:bg-obsidian-950 rounded-3xl p-4 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+                    <canvas id="adminEmployeeQrCanvas" class="w-full h-full"></canvas>
+                </div>
+            </div>
+            <div class="flex gap-3 flex-col sm:flex-row">
+                <button onclick="downloadAdminEmployeeQr()" class="flex-1 bg-obsyra-600 hover:bg-obsyra-700 text-white font-extrabold py-3 rounded-2xl text-sm transition-all">Download QR Image</button>
+                <button onclick="closeAdminEmployeeQrModal()" class="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-extrabold py-3 rounded-2xl text-sm transition-all border border-slate-200 dark:border-slate-700">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MONTHLY PAYSLIP MODAL -->
+    <div id="monthlyPayslipModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 text-slate-900 space-y-4 relative">
+            <button onclick="closeMonthlyPayslipModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-lg"></i></button>
+
+            <div id="printablePayslipArea" class="space-y-4 p-2">
+                <div class="border-b-2 border-slate-900 pb-3 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-black tracking-tight text-slate-900">OBSYRA PRIVATE LIMITED</h2>
+                        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">OFFICIAL SALARY PAYSLIP STATEMENT</p>
+                    </div>
+                    <span id="payslipMonthYear" class="text-xs font-mono font-black text-indigo-700 uppercase bg-indigo-50 px-3 py-1 rounded-lg border border-indigo-200">July 2026</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-200 text-xs">
+                    <div>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase block">Employee Name:</span>
+                        <span id="psEmpName" class="font-extrabold text-slate-900">--</span>
+                    </div>
+                    <div>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase block">Employee ID:</span>
+                        <span id="psEmpId" class="font-mono font-bold text-indigo-600">--</span>
+                    </div>
+                    <div>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase block">Designation:</span>
+                        <span id="psDesignation" class="font-bold text-slate-700">--</span>
+                    </div>
+                    <div>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase block">Bank & Account:</span>
+                        <span id="psBankDetails" class="font-mono font-semibold text-slate-700">--</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                    <div class="space-y-2 border border-slate-200 rounded-2xl p-3">
+                        <span class="font-black text-emerald-700 uppercase tracking-wider text-[10px] block border-b pb-1">Earnings</span>
+                        <div class="flex justify-between py-0.5"><span class="text-slate-600">Basic Salary:</span><span id="psBasicSalary" class="font-mono font-bold">₹0.00</span></div>
+                        <div class="flex justify-between py-0.5"><span class="text-slate-600">HRA:</span><span id="psHra" class="font-mono font-bold">₹0.00</span></div>
+                        <div class="flex justify-between py-0.5"><span class="text-slate-600">Special Allowance:</span><span id="psAllowance" class="font-mono font-bold">₹0.00</span></div>
+                        <div class="flex justify-between pt-1 border-t border-slate-100 font-extrabold text-emerald-700"><span>Gross Earnings:</span><span id="psGrossEarnings" class="font-mono">₹0.00</span></div>
+                    </div>
+
+                    <div class="space-y-2 border border-slate-200 rounded-2xl p-3">
+                        <span class="font-black text-rose-700 uppercase tracking-wider text-[10px] block border-b pb-1">Deductions</span>
+                        <div class="flex justify-between py-0.5"><span class="text-slate-600">Provident Fund (PF):</span><span id="psPfDeduction" class="font-mono font-bold">₹0.00</span></div>
+                        <div class="flex justify-between py-0.5"><span class="text-slate-600">Professional Tax (PT):</span><span id="psPtDeduction" class="font-mono font-bold">₹200.00</span></div>
+                        <div class="flex justify-between py-0.5"><span class="text-slate-600">TDS / Tax:</span><span id="psTdsDeduction" class="font-mono font-bold">₹0.00</span></div>
+                        <div class="flex justify-between pt-1 border-t border-slate-100 font-extrabold text-rose-700"><span>Total Deductions:</span><span id="psTotalDeductions" class="font-mono">₹200.00</span></div>
+                    </div>
+                </div>
+
+                <div class="bg-indigo-50 border-2 border-indigo-600 p-4 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <span class="text-[10px] font-black uppercase text-indigo-900 block">Net Payable Amount</span>
+                        <span id="psNetSalary" class="text-2xl font-black font-mono text-indigo-700">₹0.00</span>
+                    </div>
+                    <span class="text-[9px] bg-indigo-200 text-indigo-900 font-black px-3 py-1 rounded-full uppercase">Direct Credit</span>
+                </div>
+            </div>
+
+            <div class="flex gap-2 pt-2">
+                <button onclick="window.print()" class="flex-1 bg-obsidian-900 text-white font-bold py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5"><i class="fa-solid fa-print"></i> Print Statement</button>
+                <button onclick="closeMonthlyPayslipModal()" class="bg-slate-100 text-slate-700 font-bold py-3 px-4 rounded-xl text-xs">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DAILY WAGE VOUCHER MODAL -->
+    <div id="payoutVoucherModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 text-slate-900 space-y-4 relative">
+            <button onclick="closePayoutVoucherModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-lg"></i></button>
+            
+            <div id="printableVoucherArea" class="space-y-4 p-2">
+                <div class="border-b-2 border-slate-900 pb-3 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-base font-black tracking-tight text-slate-900">OBSYRA PRIVATE LIMITED</h2>
+                        <p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">OFFICIAL DAILY WAGE PAYOUT VOUCHER</p>
+                    </div>
+                </div>
+
+                <div class="space-y-2 text-xs">
+                    <div class="flex justify-between py-1 border-b"><span class="text-slate-500 font-bold">Worker ID:</span><span id="voucherEmpId" class="font-mono font-black text-slate-900">--</span></div>
+                    <div class="flex justify-between py-1 border-b"><span class="text-slate-500 font-bold">Worker Name:</span><span id="voucherName" class="font-bold text-slate-900">--</span></div>
+                    <div class="flex justify-between py-1 border-b"><span class="text-slate-500 font-bold">Classification:</span><span id="voucherType" class="font-bold text-slate-700">--</span></div>
+                    <div class="flex justify-between py-1 border-b"><span class="text-slate-500 font-bold">Work Site:</span><span id="voucherSite" class="font-semibold text-slate-700">--</span></div>
+                    <div class="flex justify-between py-1 border-b"><span class="text-slate-500 font-bold">Date / Time:</span><span id="voucherDate" class="font-mono font-semibold text-slate-700">--</span></div>
+                </div>
+
+                <div class="bg-emerald-50 border-2 border-emerald-500 p-3 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <span class="text-[10px] font-black uppercase text-emerald-800 block">Net Payable Amount</span>
+                        <span id="voucherTotalAmount" class="text-xl font-black font-mono text-emerald-700">₹0.00</span>
+                    </div>
+                    <span class="text-[9px] bg-emerald-200 text-emerald-900 font-black px-2.5 py-1 rounded-full uppercase">Settlement Cash / UPI</span>
+                </div>
+            </div>
+
+            <div class="flex gap-2 pt-2">
+                <button onclick="window.print()" class="flex-1 bg-slate-900 text-white font-bold py-2.5 px-3 rounded-xl text-xs flex items-center justify-center gap-1"><i class="fa-solid fa-print"></i> Print Voucher Slip</button>
+                <button onclick="closePayoutVoucherModal()" class="bg-slate-100 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toastNotification" class="hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-950 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-800 flex items-center gap-2.5 text-xs max-w-md z-50">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toastText">Action completed successfully.</span>
+    </div>
+
+    <!-- CLIENT SCRIPT LOGIC -->
+    <script>
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwEzp0hSOe6iqaiP65lOjWFIhclQ1R1io2KS9Omn-IdBr2pSBF_t2QDKZUFjvFRemXzBg/exec';
+
+        function getStorage(key, defaultVal = []) {
+            try {
+                const val = localStorage.getItem(key);
+                return val ? JSON.parse(val) : defaultVal;
+            } catch (e) {
+                return defaultVal;
+            }
+        }
+
+        function setStorage(key, val) {
+            try {
+                localStorage.setItem(key, JSON.stringify(val));
+            } catch (e) {}
+        }
+
+        let activePortalUser = null;
+        let currentRole = 'guest';
+        let newlyAssignedId = '';
+        let notifications = [
+            { title: 'System Online', text: 'Welcome to Obsyra Enterprise Workforce Portal.' },
+            { title: 'VIL & Nokia Projects', text: 'Active field teams deployed across Vodafone Idea & Nokia sites.' },
+            { title: 'Kiosk Terminal Ready', text: 'Use contactless QR scanning for quick check-ins.' }
+        ];
+        let html5QrcodeScanner = null;
+        let mobileBadgeQrInstance = null;
+        let employeeIdCardQrInstance = null;
+        let adminEmployeeQrInstance = null;
+        let adminQrCurrentEmpId = null;
+        let shiftBreakInterval = null;
+        let activeShiftClockInterval = null;
+        let kioskPendingOutEmpId = null;
+        let kioskPendingOutLocation = null;
+        let isShiftOnBreak = false;
+        let activeBreakType = "";
+        let shiftBreakSeconds = 0;
+        let badgeCountdownSeconds = 30;
+        let attendanceChartInstance = null;
+        let siteChartInstance = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            seedInitialTestData();
+            initClock();
+            initDynamicMobileBadge();
+            renderNotifications();
+            syncFromCloudDatabase();
+        });
+
+        function seedInitialTestData() {
+            const defaultAdmin = {
+                empId: "OBSY-20261",
+                pin: "1805",
+                isAdmin: true,
+                name: "Surekha Aade",
+                role: "Director / HR Super Admin",
+                officeLocation: "Main HQ (Vagholi, Pune)",
+                workerType: "Full-Time Employee",
+                kycStatus: "VERIFIED"
+            };
+
+            const defaultEmployee = {
+                empId: "OBSY-20262",
+                pin: "1234",
+                isAdmin: false,
+                name: "Vikram Sharma",
+                role: "VIL 5G Protocol Specialist",
+                officeLocation: "VIL 5G Core Datacenter Site",
+                workerType: "Full-Time Employee",
+                region: "VIL Circle - Maharashtra & Gujarat",
+                email: "vikram@obsyra.co.in",
+                phone: "+91 98765 43210",
+                billingRate: "55000",
+                rateType: "Monthly",
+                kycStatus: "VERIFIED"
+            };
+
+            const defaultEmployee2 = {
+                empId: "OBSY-20263",
+                pin: "1234",
+                isAdmin: false,
+                name: "Rahul Verma",
+                role: "Nokia AirScale Field Engineer",
+                officeLocation: "Nokia AirScale Field Deployment Site",
+                workerType: "Full-Time Employee",
+                region: "VIL / Nokia - Delhi NCR",
+                email: "rahul@obsyra.co.in",
+                phone: "+91 98112 33445",
+                billingRate: "48000",
+                rateType: "Monthly",
+                kycStatus: "VERIFIED"
+            };
+
+            const defaultDirector2 = {
+                empId: "OBSY-20260",
+                pin: "2026",
+                isAdmin: true,
+                name: "Avinash Aade",
+                role: "Director / Operations Lead",
+                officeLocation: "Main HQ (Vagholi, Pune)",
+                workerType: "Full-Time Employee",
+                kycStatus: "VERIFIED"
+            };
+
+            const dbProfiles = getStorage("obsyra_profiles", []);
+            if (!dbProfiles.some(p => p && p.empId === "OBSY-20261")) dbProfiles.push(defaultAdmin);
+            if (!dbProfiles.some(p => p && p.empId === "OBSY-20262")) dbProfiles.push(defaultEmployee);
+            if (!dbProfiles.some(p => p && p.empId === "OBSY-20263")) dbProfiles.push(defaultEmployee2);
+            if (!dbProfiles.some(p => p && p.empId === "OBSY-20260")) dbProfiles.push(defaultDirector2);
+            
+            setStorage("obsyra_profiles", dbProfiles);
+
+            if (!getStorage("obsyra_attendance_history", null)) setStorage("obsyra_attendance_history", []);
+            if (!getStorage("obsyra_assets", null)) setStorage("obsyra_assets", []);
+            if (!getStorage("obsyra_hr_contracts", null)) setStorage("obsyra_hr_contracts", []);
+            if (!getStorage("obsyra_payment_ledger", null)) setStorage("obsyra_payment_ledger", []);
+        }
+
+        function initClock() {
+            const timeEl = document.getElementById("systemTime");
+            if (timeEl) {
+                setInterval(() => {
+                    timeEl.innerText = new Date().toLocaleTimeString();
+                }, 1000);
+            }
+        }
+
+        function fillDemoEmployeeLogin() {
+            if (document.getElementById("loginEmpId")) document.getElementById("loginEmpId").value = "OBSY-20262";
+            if (document.getElementById("loginEmpPin")) document.getElementById("loginEmpPin").value = "1234";
+        }
+
+        function fillDemoAdminLogin() {
+            if (document.getElementById("loginAdminUser")) document.getElementById("loginAdminUser").value = "OBSY-20261";
+            if (document.getElementById("loginAdminPass")) document.getElementById("loginAdminPass").value = "1805";
+        }
+
+        function switchLoginTab(tab) {
+            const empTab = document.getElementById("login-tab-emp");
+            const signupTab = document.getElementById("login-tab-signup");
+            const admTab = document.getElementById("login-tab-adm");
+
+            const empForm = document.getElementById("form-emp-login");
+            const signupForm = document.getElementById("form-emp-signup");
+            const admForm = document.getElementById("form-admin-login");
+
+            [empTab, signupTab, admTab].forEach(t => {
+                if (t) t.className = "pb-2 text-xs font-extrabold text-slate-400 border-b-2 border-transparent px-3 transition-all";
+            });
+            [empForm, signupForm, admForm].forEach(f => f?.classList.add("hidden"));
+
+            if (tab === 'employee') {
+                if (empTab) empTab.className = "pb-2 text-xs font-extrabold text-obsyra-600 border-b-2 border-obsyra-600 px-3 transition-all";
+                empForm?.classList.remove("hidden");
+            } else if (tab === 'signup') {
+                if (signupTab) signupTab.className = "pb-2 text-xs font-extrabold text-emerald-600 border-b-2 border-emerald-600 px-3 transition-all";
+                signupForm?.classList.remove("hidden");
+            } else {
+                if (admTab) admTab.className = "pb-2 text-xs font-extrabold text-obsyra-600 border-b-2 border-obsyra-600 px-3 transition-all";
+                admForm?.classList.remove("hidden");
+            }
+        }
+
+        function generateUniqueEmpId() {
+            const currentYear = new Date().getFullYear();
+            const prefix = `OBSY-${currentYear}`;
+            const dbProfiles = getStorage("obsyra_profiles", []);
+            
+            let maxSrNo = 3;
+            dbProfiles.forEach(p => {
+                if (p && p.empId) {
+                    const empIdUpper = String(p.empId).toUpperCase().trim();
+                    if (empIdUpper.startsWith(prefix)) {
+                        const srPart = empIdUpper.replace(prefix, "");
+                        const srNum = parseInt(srPart, 10);
+                        if (!isNaN(srNum) && srNum > maxSrNo) {
+                            maxSrNo = srNum;
+                        }
+                    }
+                }
+            });
+
+            let nextSrNo = maxSrNo + 1;
+            let generatedId = `${prefix}${nextSrNo}`;
+
+            while (dbProfiles.some(p => p && p.empId && String(p.empId).toUpperCase().trim() === generatedId)) {
+                nextSrNo++;
+                generatedId = `${prefix}${nextSrNo}`;
+            }
+
+            return generatedId;
+        }
+
+        function submitEmployeeSignup(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById("signupName")?.value.trim();
+            const pin = document.getElementById("signupPin")?.value.trim();
+            const role = document.getElementById("signupRole")?.value.trim();
+            const email = document.getElementById("signupEmail")?.value.trim();
+            const phone = document.getElementById("signupPhone")?.value.trim();
+            const workerType = document.getElementById("signupWorkerType")?.value || "Full-Time Employee";
+            const region = document.getElementById("signupRegion")?.value || "West India - Pune HQ";
+            const location = document.getElementById("signupLocation")?.value;
+
+            if (!name || !pin) {
+                triggerToast("Please fill in required fields.", false);
+                return;
+            }
+
+            newlyAssignedId = generateUniqueEmpId();
+
+            const newProfile = {
+                action: "saveProfile",
+                empId: newlyAssignedId,
+                pin: pin,
+                isAdmin: false,
+                name: name,
+                role: role || "Employee",
+                workerType: workerType,
+                region: region,
+                officeLocation: location || "Main HQ (Vagholi, Pune)",
+                email: email,
+                phone: phone,
+                kycStatus: "PENDING_APPROVAL",
+                kycNotes: "Self Sign-up Registration",
+                billingRate: workerType === "Daily Wage Worker" ? "850" : "45000",
+                rateType: workerType === "Daily Wage Worker" ? "Daily" : "Monthly"
+            };
+
+            const dbProfiles = getStorage("obsyra_profiles", []);
+            dbProfiles.push(newProfile);
+            setStorage("obsyra_profiles", dbProfiles);
+
+            sendToDatabase(newProfile, () => {
+                if (document.getElementById("modalAssignedEmpId")) document.getElementById("modalAssignedEmpId").innerText = newlyAssignedId;
+                if (document.getElementById("modalAssignedName")) document.getElementById("modalAssignedName").innerText = name;
+                
+                document.getElementById("signupSuccessModal")?.classList.remove("hidden");
+                event.target.reset();
+            });
+        }
+
+        function closeSignupModalAndProceed() {
+            document.getElementById("signupSuccessModal")?.classList.add("hidden");
+            switchLoginTab("employee");
+            if (document.getElementById("loginEmpId")) {
+                document.getElementById("loginEmpId").value = newlyAssignedId;
+            }
+            triggerToast(`Assigned Employee ID: ${newlyAssignedId}`);
+        }
+
+        function attemptEmployeeLogin() {
+            const empIdInput = document.getElementById("loginEmpId")?.value.trim().toUpperCase();
+            const empPinInput = document.getElementById("loginEmpPin")?.value.trim();
+
+            if (!empIdInput || !empPinInput) { triggerToast("Enter Employee ID and PIN", false); return; }
+
+            const dbProfiles = getStorage("obsyra_profiles", []);
+            const match = dbProfiles.find(p => p && p.empId && String(p.empId).toUpperCase().trim() === empIdInput);
+
+            if (match && match.pin === empPinInput) {
+                if (match.kycStatus === "PENDING_APPROVAL" || match.kycStatus === "PENDING") {
+                    triggerToast("Account pending Admin approval. Contact HR Admin.", false);
+                    return;
+                }
+                if (match.kycStatus === "REJECTED") {
+                    triggerToast("Signup request was rejected by HR Admin.", false);
+                    return;
+                }
+                activePortalUser = match;
+                currentRole = "employee";
+                launchPortalView();
+                triggerToast(`Welcome back, ${match.name}!`);
+            } else {
+                triggerToast("Invalid ID or PIN.", false);
+            }
+        }
+
+        function attemptAdminLogin() {
+            const user = document.getElementById("loginAdminUser")?.value.trim().toUpperCase();
+            const pass = document.getElementById("loginAdminPass")?.value.trim();
+
+            if (!user || !pass) { triggerToast("Enter Admin ID and PIN.", false); return; }
+
+            const dbProfiles = getStorage("obsyra_profiles", []);
+            const adminMatch = dbProfiles.find(p => p && p.empId && String(p.empId).toUpperCase().trim() === user && p.pin === pass && p.isAdmin === true);
+
+            if (adminMatch) {
+                activePortalUser = adminMatch;
+                currentRole = "admin";
+                launchPortalView();
+                triggerToast(`Admin clearance granted for ${activePortalUser.name}.`);
+            } else {
+                triggerToast("Invalid Admin credentials.", false);
+            }
+        }
+
+        function launchPortalView() {
+            document.getElementById("view-gateway")?.classList.add("hidden");
+            document.getElementById("view-portal")?.classList.remove("hidden");
+
+            const adminElements = document.querySelectorAll(".admin-only");
+            const roleBadge = document.getElementById("viewRoleBadge");
+
+            if (currentRole === "admin") {
+                adminElements.forEach(el => el.classList.remove("hidden"));
+                if (roleBadge) {
+                    roleBadge.className = "px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300 flex items-center gap-1.5";
+                    roleBadge.innerHTML = `<i class="fa-solid fa-shield-halved text-indigo-600"></i> Enterprise Admin Console`;
+                }
+            } else {
+                adminElements.forEach(el => el.classList.add("hidden"));
+                if (roleBadge) {
+                    roleBadge.className = "px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5";
+                    roleBadge.innerHTML = `<i class="fa-solid fa-user-check text-emerald-600"></i> Employee Self-Service Portal`;
+                }
+            }
+
+            document.getElementById("userHeaderBadge")?.classList.remove("hidden");
+            if (document.getElementById("headerUserName")) document.getElementById("headerUserName").innerText = activePortalUser.name;
+
+            populateDashboardDetails();
+            checkLiveShiftStatus();
+            switchDashboardTab("dash");
+        }
+
+        function populateDashboardDetails() {
+            if (!activePortalUser) return;
+            const u = activePortalUser;
+
+            if (document.getElementById("profileName")) document.getElementById("profileName").innerText = u.name;
+            if (document.getElementById("profileDesignation")) document.getElementById("profileDesignation").innerText = u.role || "Employee";
+            if (document.getElementById("profileIdLabel")) document.getElementById("profileIdLabel").innerText = `Emp ID: ${u.empId}`;
+
+            const initials = u.name ? u.name.split(" ").map(n => n[0]).join("").toUpperCase().substring(0, 2) : "OP";
+            if (document.getElementById("profileInitials")) document.getElementById("profileInitials").innerText = initials;
+            if (document.getElementById("idCardInitials")) document.getElementById("idCardInitials").innerText = initials;
+            if (document.getElementById("idCardName")) document.getElementById("idCardName").innerText = u.name;
+            if (document.getElementById("idCardRole")) document.getElementById("idCardRole").innerText = u.role || "Employee";
+            if (document.getElementById("idCardRegion")) document.getElementById("idCardRegion").innerText = u.region || "PAN India";
+            if (document.getElementById("idCardLocation")) document.getElementById("idCardLocation").innerText = u.officeLocation || "Main HQ";
+            if (document.getElementById("idCardEmpId")) document.getElementById("idCardEmpId").innerText = u.empId;
+            renderEmployeeIdCard();
+
+            const banner = document.getElementById("kycStatusBanner");
+            const icon = document.getElementById("kycStatusIcon");
+            const title = document.getElementById("kycStatusTitle");
+            const badge = document.getElementById("kycStatusBadge");
+            const subtext = document.getElementById("kycStatusSubtext");
+
+            if (u.kycStatus === "VERIFIED") {
+                if (banner) banner.className = "p-4 rounded-3xl border flex items-center justify-between gap-4 shadow-md bg-emerald-500/10 border-emerald-500/30 text-emerald-900 dark:text-emerald-200";
+                if (icon) icon.className = "fa-solid fa-shield-check";
+                if (title) title.innerText = "HR Verification Complete & Active";
+                if (badge) {
+                    badge.className = "text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-emerald-500 text-white";
+                    badge.innerText = "Verified Profile";
+                }
+                if (subtext) subtext.innerText = "All identification, academic, and banking records verified by HR.";
+            }
+
+            renderPersonalPresenceTimeline();
+            renderAttendanceSnapshot();
+        }
+
+        function renderAttendanceSnapshot() {
+            if (!activePortalUser) return;
+            const today = getTodayDate();
+            const history = getStorage("obsyra_attendance_history", []);
+            const todays = history.filter(h => h && h.empId && String(h.empId).toUpperCase().trim() === String(activePortalUser.empId).toUpperCase().trim() && h.date === today);
+            const lastLog = todays[0] || null;
+            const checkInLog = todays.slice().reverse().find(h => h.type === "IN");
+            const checkOutLog = todays.slice().reverse().find(h => h.type === "OUT");
+            const status = lastLog ? (lastLog.type === "IN" ? "Checked in" : "Checked out") : "Not checked in";
+            const summary = checkOutLog?.notes || checkInLog?.notes || "No summary recorded yet.";
+
+            if (document.getElementById("attendanceStatusText")) document.getElementById("attendanceStatusText").innerText = status;
+            if (document.getElementById("attendanceSiteText")) document.getElementById("attendanceSiteText").innerText = lastLog?.location || "-";
+            if (document.getElementById("attendanceInText")) document.getElementById("attendanceInText").innerText = checkInLog?.timestamp || "--:--";
+            if (document.getElementById("attendanceOutText")) document.getElementById("attendanceOutText").innerText = checkOutLog?.timestamp || "--:--";
+            if (document.getElementById("attendanceLatestSummary")) document.getElementById("attendanceLatestSummary").innerText = summary;
+        }
+
+        function terminatePortalSession() {
+            activePortalUser = null;
+            currentRole = "guest";
+            if (activeShiftClockInterval) clearInterval(activeShiftClockInterval);
+            document.getElementById("view-portal")?.classList.add("hidden");
+            document.getElementById("view-gateway")?.classList.remove("hidden");
+            triggerToast("Session terminated.");
+        }
+
+        function switchDashboardTab(tabId) {
+            if (currentRole !== "admin" && (tabId === 'analytics' || tabId === 'kyc' || tabId === 'assets-adm' || tabId === 'hr')) {
+                tabId = 'dash';
+            }
+
+            document.querySelectorAll('.dash-tab').forEach(t => t.classList.add('hidden'));
+            document.getElementById(`dashTab-${tabId}`)?.classList.remove('hidden');
+
+            if (tabId === 'dash') populateDashboardDetails();
+            if (tabId === 'my-profile') populateEmployeeSelfKycForm();
+            if (tabId === 'assets-emp') renderEmployeeAssetsList();
+            if (tabId === 'assets-adm' && currentRole === 'admin') renderAdminAssetMasterTable();
+            if (tabId === 'analytics' && currentRole === 'admin') {
+                renderAdminContractorRoster();
+                initAnalyticsCharts();
+            }
+            if (tabId === 'hr' && currentRole === 'admin') renderHrPayrollDashboard();
+            if (tabId === 'kyc' && currentRole === 'admin') renderAdminKycApprovalQueue();
+        }
+
+        function populateEmployeeSelfKycForm() {
+            if (!activePortalUser) return;
+            const u = activePortalUser;
+
+            if (document.getElementById("selfName")) document.getElementById("selfName").value = u.name || "";
+            if (document.getElementById("selfDob")) document.getElementById("selfDob").value = u.dob || "";
+            if (document.getElementById("selfPhone")) document.getElementById("selfPhone").value = u.phone || "";
+            if (document.getElementById("selfEmail")) document.getElementById("selfEmail").value = u.email || "";
+            if (document.getElementById("selfAddress")) document.getElementById("selfAddress").value = u.address || "";
+            if (document.getElementById("selfGovIdType")) document.getElementById("selfGovIdType").value = u.govIdType || "PAN Card (India)";
+            if (document.getElementById("selfGovIdNum")) document.getElementById("selfGovIdNum").value = u.govIdNum || "";
+            if (document.getElementById("selfRegion")) document.getElementById("selfRegion").value = u.region || "West India - Pune HQ";
+            if (document.getElementById("selfBankName")) document.getElementById("selfBankName").value = u.bankName || "";
+            if (document.getElementById("selfBankAcc")) document.getElementById("selfBankAcc").value = u.bankAcc || "";
+            if (document.getElementById("selfIfscCode")) document.getElementById("selfIfscCode").value = u.ifscCode || "";
+            if (document.getElementById("selfUpiId")) document.getElementById("selfUpiId").value = u.upiId || "";
+            if (document.getElementById("selfEmergName")) document.getElementById("selfEmergName").value = u.emergName || "";
+            if (document.getElementById("selfEmergRel")) document.getElementById("selfEmergRel").value = u.emergRel || "";
+            if (document.getElementById("selfEmergPhone")) document.getElementById("selfEmergPhone").value = u.emergPhone || "";
+
+            const tag = document.getElementById("selfKycBadgeTag");
+            if (tag) {
+                tag.innerText = u.kycStatus || "Pending Review";
+                tag.className = u.kycStatus === "VERIFIED" ? "text-[9px] font-black uppercase px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300" : "text-[9px] font-black uppercase px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
+            }
+        }
+
+        function submitEmployeeSelfKyc(event) {
+            event.preventDefault();
+            if (!activePortalUser) return;
+
+            activePortalUser.name = document.getElementById("selfName")?.value.trim() || activePortalUser.name;
+            activePortalUser.dob = document.getElementById("selfDob")?.value || "";
+            activePortalUser.phone = document.getElementById("selfPhone")?.value.trim() || "";
+            activePortalUser.email = document.getElementById("selfEmail")?.value.trim() || "";
+            activePortalUser.address = document.getElementById("selfAddress")?.value.trim() || "";
+            activePortalUser.govIdType = document.getElementById("selfGovIdType")?.value || "";
+            activePortalUser.govIdNum = document.getElementById("selfGovIdNum")?.value.trim() || "";
+            activePortalUser.bankName = document.getElementById("selfBankName")?.value.trim() || "";
+            activePortalUser.bankAcc = document.getElementById("selfBankAcc")?.value.trim() || "";
+            activePortalUser.ifscCode = document.getElementById("selfIfscCode")?.value.trim() || "";
+            activePortalUser.upiId = document.getElementById("selfUpiId")?.value.trim() || "";
+            activePortalUser.emergName = document.getElementById("selfEmergName")?.value.trim() || "";
+            activePortalUser.emergRel = document.getElementById("selfEmergRel")?.value.trim() || "";
+            activePortalUser.emergPhone = document.getElementById("selfEmergPhone")?.value.trim() || "";
+            activePortalUser.kycStatus = "PENDING";
+            activePortalUser.action = "saveProfile";
+
+            const dbProfiles = getStorage("obsyra_profiles", []);
+            const idx = dbProfiles.findIndex(p => p && String(p.empId).toUpperCase().trim() === activePortalUser.empId.toUpperCase());
+            if (idx > -1) dbProfiles[idx] = activePortalUser;
+            setStorage("obsyra_profiles", dbProfiles);
+
+            sendToDatabase(activePortalUser, () => {
+                triggerToast("Verification profile submitted to HR Admin.");
+                switchDashboardTab("dash");
+            });
+        }
+
+        function initAnalyticsCharts() {
+            const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+            const checkInCounts = [18, 26, 22, 29, 25, 14, 8];
+
+            const ctxAttendance = document.getElementById('weeklyAttendanceChart')?.getContext('2d');
+            if (ctxAttendance) {
+                if (attendanceChartInstance) attendanceChartInstance.destroy();
+                attendanceChartInstance = new Chart(ctxAttendance, {
+                    type: 'line',
+                    data: {
+                        labels: daysOfWeek,
+                        datasets: [{
+                            label: 'Daily Check-Ins',
+                            data: checkInCounts,
+                            borderColor: '#E5B842',
+                            backgroundColor: 'rgba(229, 184, 66, 0.15)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#B8860B'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+                            y: { grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { font: { size: 10 } } }
+                        }
+                    }
+                });
+            }
+
+            const ctxSite = document.getElementById('siteDistributionChart')?.getContext('2d');
+            if (ctxSite) {
+                if (siteChartInstance) siteChartInstance.destroy();
+                siteChartInstance = new Chart(ctxSite, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['VIL 5G Core', 'Nokia AirScale Site', 'Pune HQ', 'Remote / Field'],
+                        datasets: [{
+                            data: [40, 35, 15, 10],
+                            backgroundColor: ['#ef4444', '#38bdf8', '#E5B842', '#6366f1'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'right', labels: { font: { size: 10 }, boxWidth: 12 } }
+                        },
+                        cutout: '65%'
+                    }
+                });
+            }
+        }
+
+        function filterContractorRoster() {
+            const query = document.getElementById("rosterSearchInput")?.value.toLowerCase() || "";
+            const rows = document.querySelectorAll("#contractorRosterTableBody tr");
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(query) ? "" : "none";
+            });
+        }
+
+        function renderAdminKycApprovalQueue() {
+            const container = document.getElementById("adminPendingKycContainer");
+            const badge = document.getElementById("pendingKycCountBadge");
+            if (!container) return;
+
+            const dbProfiles = getStorage("obsyra_profiles", []);
+            const pendingList = dbProfiles.filter(p => p && (p.kycStatus === "PENDING" || p.kycStatus === "PENDING_APPROVAL"));
+
+            if (badge) badge.innerText = `${pendingList.length} Pending`;
+
+            if (pendingList.length === 0) {
+                container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs italic">No profile submissions or signups awaiting HR verification.</div>`;
+                return;
+            }
+
+            container.innerHTML = "";
+            pendingList.forEach(p => {
+                const isSignup = p.kycStatus === "PENDING_APPROVAL";
+                const card = document.createElement("div");
+                card.className = "bg-slate-50 dark:bg-obsidian-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2">
+                        <div>
+                            <span class="font-bold text-sm text-slate-900 dark:text-white">${p.name} (${p.empId})</span>
+                            <span class="text-[10px] text-slate-400 block">${p.role || 'Employee'} • ${p.officeLocation || 'Main HQ'}</span>
+                        </div>
+                        <span class="text-[10px] ${isSignup ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300' : 'bg-amber-100 text-amber-800'} font-bold px-2 py-0.5 rounded-full">
+                            ${isSignup ? 'NEW SIGNUP REQUEST' : 'PROFILE VERIFICATION'}
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-300">
+                        <div><strong>Email:</strong> ${p.email || 'N/A'}</div>
+                        <div><strong>Phone:</strong> ${p.phone || 'N/A'}</div>
+                        <div><strong>Region:</strong> ${p.region || 'N/A'}</div>
+                        <div><strong>Govt ID:</strong> ${p.govIdType || 'ID'} - ${p.govIdNum || 'N/A'}</div>
+                        <div><strong>Bank:</strong> ${p.bankName || 'N/A'} - ${p.bankAcc || 'N/A'}</div>
+                    </div>
+                    <div class="flex gap-2 justify-end pt-1">
+                        <button onclick="rejectEmployeeKyc('${p.empId}')" class="bg-rose-100 hover:bg-rose-200 text-rose-700 px-3 py-1.5 rounded-xl text-xs font-bold transition-all"><i class="fa-solid fa-xmark"></i> Reject</button>
+                        <button onclick="approveEmployeeKyc('${p.empId}')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-1.5 rounded-xl text-xs font-bold transition-all"><i class="fa-solid fa-check"></i> Approve & Grant Access</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function approveEmployeeKyc(empId) {
+            const dbProfiles = getStorage("obsyra_profiles", []);
+            const profile = dbProfiles.find(p => p && String(p.empId).toUpperCase().trim() === String(empId).toUpperCase().trim());
+            if (profile) {
+                profile.kycStatus = "VERIFIED";
+                profile.kycNotes = "Approved by HR Admin";
+                setStorage("obsyra_profiles", dbProfiles);
+                sendToDatabase(profile, () => {
+                    triggerToast(`Access granted for ${profile.name}.`);
+                    renderAdminKycApprovalQueue();
+                });
+            }
+        }
+
+        function rejectEmployeeKyc(empId) {
+            const dbProfiles = getStorage("obsyra_profiles", []);
+            const profile = dbProfiles.find(p => p && String(p.empId).toUpperCase().trim() === String(empId).toUpperCase().trim());
+            if (profile) {
+                profile.kycStatus = "REJECTED";
+                profile.kycNotes = "Rejected by HR Admin";
+                setStorage("obsyra_profiles", dbProfiles);
+                sendToDatabase(profile, () => {
+                    triggerToast(`Request rejected for ${profile.name}.`, false);
+                    renderAdminKycApprovalQueue();
+                });
+            }
+        }
+
+        function renderPersonalPresenceTimeline() {
+            const wrapper = document.getElementById("timelineWrapper");
+            if (!wrapper || !activePortalUser) return;
+
+            const history = getStorage("obsyra_attendance_history", []);
+            const userHistory = history.filter(h => h && h.empId && String(h.empId).toUpperCase().trim() === String(activePortalUser.empId).toUpperCase().trim());
+
+            if (userHistory.length === 0) {
+                wrapper.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs italic">No activity logs recorded yet.</div>`;
+                return;
+            }
+
+            wrapper.innerHTML = "";
+            userHistory.forEach(log => {
+                const isCheckIn = log.type === "IN";
+                
+                let punctualityBadge = "";
+                if (isCheckIn && log.timestamp) {
+                    const timePart = log.timestamp.split(" ")[0];
+                    const hour = parseInt(timePart.split(":")[0], 10);
+                    const isPm = log.timestamp.toLowerCase().includes("pm");
+                    const hour24 = isPm && hour !== 12 ? hour + 12 : (!isPm && hour === 12 ? 0 : hour);
+                    
+                    if (hour24 <= 9) {
+                        punctualityBadge = `<span class="text-[9px] bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-extrabold px-2 py-0.5 rounded-md"><i class="fa-solid fa-circle-check mr-0.5"></i> On Time</span>`;
+                    } else if (hour24 > 9 && hour24 < 18) {
+                        punctualityBadge = `<span class="text-[9px] bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 font-extrabold px-2 py-0.5 rounded-md"><i class="fa-solid fa-clock mr-0.5"></i> Late Arrival</span>`;
+                    } else {
+                        punctualityBadge = `<span class="text-[9px] bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-extrabold px-2 py-0.5 rounded-md"><i class="fa-solid fa-business-time mr-0.5"></i> Overtime Shift</span>`;
+                    }
+                }
+
+                const card = document.createElement("div");
+                card.className = "p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-obsidian-950 space-y-1.5";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-extrabold ${isCheckIn ? 'text-emerald-600' : 'text-indigo-600'}">${isCheckIn ? 'Shift Check-In' : 'Shift Check-Out'}</span>
+                            ${punctualityBadge}
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-400">${log.date || 'Today'} @ ${log.timestamp}</span>
+                    </div>
+                    <p class="text-[10px] text-slate-500"><i class="fa-solid fa-location-dot mr-1"></i> ${log.location}</p>
+                    ${log.notes ? `<p class="text-[11px] text-slate-700 dark:text-slate-300 bg-white dark:bg-obsidian-900 p-2 rounded-xl border border-slate-200 dark:border-slate-800"><i class="fa-solid fa-clipboard-check text-obsyra-500 mr-1"></i> ${log.notes}</p>` : ''}
+                `;
+                wrapper.appendChild(card);
+            });
+        }
+
+        function renderEmployeeAssetsList() {
+            const list = document.getElementById("empAssetsList");
+            if (!list || !activePortalUser) return;
+
+            const assets = getStorage("obsyra_assets", []);
+            const myAssets = assets.filter(a => a && a.workerId && String(a.workerId).toUpperCase().trim() === String(activePortalUser.empId).toUpperCase().trim());
+
+            if (myAssets.length === 0) {
+                list.innerHTML = `<div class="col-span-2 text-center py-6 text-slate-400 text-xs italic">No equipment currently assigned to your account.</div>`;
+                return;
+            }
+
+            list.innerHTML = "";
+            myAssets.forEach(a => {
+                const card = document.createElement("div");
+                card.className = "p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-obsidian-950 space-y-1";
+                card.innerHTML = `
+                    <div class="flex justify-between text-xs font-bold"><span class="text-indigo-600">${a.assetTag}</span><span>${a.category}</span></div>
+                    <div class="text-[10px] text-slate-400">Issued: ${a.issueDate} • Due: ${a.dueDate}</div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function saveAssetHandover(event) {
+            event.preventDefault();
+            const payload = {
+                action: "saveAssetHandover",
+                assetTag: document.getElementById('assetTag')?.value.trim().toUpperCase() || '',
+                category: document.getElementById('assetCategory')?.value.trim() || 'Equipment',
+                workerId: document.getElementById('assetWorkerId')?.value.trim().toUpperCase() || '',
+                serial: document.getElementById('assetSerial')?.value.trim() || 'N/A',
+                issueDate: document.getElementById('assetIssueDate')?.value || new Date().toISOString().slice(0,10),
+                dueDate: document.getElementById('assetDueDate')?.value || new Date().toISOString().slice(0,10),
+                status: 'ISSUED'
+            };
+
+            const assets = getStorage('obsyra_assets', []);
+            assets.unshift(payload);
+            setStorage('obsyra_assets', assets);
+
+            sendToDatabase(payload, () => {
+                triggerToast(`Asset ${payload.assetTag} issued to ${payload.workerId}`);
+                renderAdminAssetMasterTable();
+            });
+        }
+
+        function renderAdminAssetMasterTable() {
+            const tbody = document.getElementById("adminAssetTableBody");
+            if (!tbody) return;
+            const assets = getStorage("obsyra_assets", []);
+            tbody.innerHTML = "";
+            assets.forEach(a => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="p-3 font-mono font-bold">${a.assetTag}</td>
+                    <td class="p-3 font-mono text-indigo-600">${a.workerId}</td>
+                    <td class="p-3">${a.category}</td>
+                    <td class="p-3 font-mono">${a.issueDate}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[9px] font-bold ${a.status === 'ISSUED' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">${a.status}</span></td>
+                    <td class="p-3 text-right"><button onclick="markAssetReturned('${a.assetTag}')" class="text-[10px] bg-slate-100 px-2 py-1 rounded font-bold">Return</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function markAssetReturned(assetTag) {
+            const assets = getStorage("obsyra_assets", []);
+            const match = assets.find(a => a.assetTag === assetTag);
+            if (match) {
+                match.status = "RETURNED";
+                setStorage("obsyra_assets", assets);
+                renderAdminAssetMasterTable();
+                triggerToast(`Asset ${assetTag} marked as returned.`);
+            }
+        }
+
+        function renderAdminContractorRoster() {
+            const tbody = document.getElementById("contractorRosterTableBody");
+            if (!tbody) return;
+            const profiles = getStorage("obsyra_profiles", []);
+            tbody.innerHTML = "";
+            profiles.forEach(p => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="p-3 font-mono font-bold">${p.empId}</td>
+                    <td class="p-3 font-bold">${p.name}</td>
+                    <td class="p-3">${p.region || 'N/A'}</td>
+                    <td class="p-3">${p.workerType || 'Full-Time'}</td>
+                    <td class="p-3 font-mono">₹${p.billingRate || '0'} / ${p.rateType || 'Monthly'}</td>
+                    <td class="p-3 font-mono">${p.contractEnd || 'Permanent'}</td>
+                    <td class="p-3 text-right space-x-2">
+                        <button onclick="generateEmployeeQrModal('${p.empId}')" class="bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-xl text-[10px] font-bold hover:bg-indigo-100 transition-all">Generate QR</button>
+                        <button onclick="generateWageVoucherModal('${p.empId}')" class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-xl text-[10px] font-bold hover:bg-emerald-100 transition-all">Wage Slip</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderHrPayrollDashboard() {
+            const contracts = getStorage("obsyra_hr_contracts", []);
+            const profiles = getStorage("obsyra_profiles", []);
+            const payments = getStorage("obsyra_payment_ledger", []);
+            const activeContracts = contracts.filter(c => c.contractEnd && new Date(c.contractEnd) >= new Date().setHours(0,0,0,0)).length;
+            const dailyHires = profiles.filter(p => p.workerType === "Daily Wage Worker").length;
+            const pendingPayments = payments.filter(p => p && p.status === "Pending").length;
+            const totalPayroll = contracts.reduce((sum, c) => sum + parseFloat(c.rate || 0), 0);
+            const nextPayday = new Date();
+            nextPayday.setDate(nextPayday.getDate() + 7);
+
+            if (document.getElementById("hrTotalPayroll")) document.getElementById("hrTotalPayroll").innerText = `₹${totalPayroll.toLocaleString('en-IN')}`;
+            if (document.getElementById("hrActiveContracts")) document.getElementById("hrActiveContracts").innerText = activeContracts;
+            if (document.getElementById("hrPendingPayments")) document.getElementById("hrPendingPayments").innerText = pendingPayments;
+            if (document.getElementById("hrDailyHires")) document.getElementById("hrDailyHires").innerText = dailyHires;
+            if (document.getElementById("hrNextPayday")) document.getElementById("hrNextPayday").innerText = nextPayday.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+            if (document.getElementById("hrSmartInsights")) document.getElementById("hrSmartInsights").innerHTML = renderHrSmartInsights(contracts, profiles, payments);
+            updateSmartNotifications(contracts, profiles, payments);
+            renderAdminPaymentsTable();
+        }
+
+        function renderHrSmartInsights(contracts, profiles, payments) {
+            const today = new Date().setHours(0,0,0,0);
+            const nextWeek = new Date(today + 7 * 24 * 60 * 60 * 1000);
+            const expiringSoon = contracts.filter(c => c.contractEnd && new Date(c.contractEnd) >= today && new Date(c.contractEnd) <= nextWeek).length;
+            const pendingKyc = profiles.filter(p => p && (p.kycStatus === "PENDING" || p.kycStatus === "PENDING_APPROVAL")).length;
+            const regionCounts = profiles.reduce((count, p) => {
+                if (p && p.region) count[p.region] = (count[p.region] || 0) + 1;
+                return count;
+            }, {});
+            const topRegion = Object.keys(regionCounts).sort((a, b) => regionCounts[b] - regionCounts[a])[0] || 'None';
+            const topRegionCount = regionCounts[topRegion] || 0;
+
+            return `
+                <div class="bg-slate-50 dark:bg-obsidian-950 rounded-3xl p-4 border border-slate-200 dark:border-slate-800">
+                    <span class="block text-[10px] uppercase font-black tracking-wider text-slate-500 mb-2">Contracts expiring soon</span>
+                    <div class="text-base font-black ${expiringSoon > 0 ? 'text-rose-700' : 'text-emerald-700'}">${expiringSoon} contract${expiringSoon === 1 ? '' : 's'} expiring within 7 days</div>
+                </div>
+                <div class="bg-slate-50 dark:bg-obsidian-950 rounded-3xl p-4 border border-slate-200 dark:border-slate-800">
+                    <span class="block text-[10px] uppercase font-black tracking-wider text-slate-500 mb-2">Top hiring region</span>
+                    <div class="text-base font-black text-slate-900 dark:text-white">${topRegion} (${topRegionCount})</div>
+                </div>
+                <div class="bg-slate-50 dark:bg-obsidian-950 rounded-3xl p-4 border border-slate-200 dark:border-slate-800">
+                    <span class="block text-[10px] uppercase font-black tracking-wider text-slate-500 mb-2">Active Projects</span>
+                    <div class="text-base font-black text-indigo-600 dark:text-indigo-400">VIL 5G Core & Nokia AirScale</div>
+                </div>
+                <div class="bg-slate-50 dark:bg-obsidian-950 rounded-3xl p-4 border border-slate-200 dark:border-slate-800">
+                    <span class="block text-[10px] uppercase font-black tracking-wider text-slate-500 mb-2">Pending verifications</span>
+                    <div class="text-base font-black ${pendingKyc > 0 ? 'text-amber-700' : 'text-emerald-700'}">${pendingKyc} profile${pendingKyc === 1 ? '' : 's'} need HR review</div>
+                </div>
+            `;
+        }
+
+        function updateHrContractHint(empId) {
+            const hint = document.getElementById("hrContractHint");
+            const nameInput = document.getElementById("hrContractName");
+            if (!hint) return;
+            const cleaned = String(empId || "").trim().toUpperCase();
+            if (!cleaned) {
+                hint.innerText = "Enter an employee ID to get smart contract suggestions.";
+                return;
+            }
+            const profiles = getStorage("obsyra_profiles", []);
+            const profile = profiles.find(p => p && String(p.empId).toUpperCase().trim() === cleaned);
+            if (!profile) {
+                hint.innerText = "No matching employee found. Confirm the ID or complete registration first.";
+                return;
+            }
+            if (nameInput && !nameInput.value.trim()) nameInput.value = profile.name || "";
+            const roleLabel = profile.workerType === "Daily Wage Worker" ? "Daily hire" : profile.workerType === "Contractor" ? "Contractor" : "Staff";
+            const suggestedRate = profile.billingRate && parseFloat(profile.billingRate) ? `Suggested rate ₹${parseFloat(profile.billingRate).toLocaleString('en-IN')}` : "No saved rate available yet.";
+            hint.innerText = `${roleLabel} in ${profile.region || 'PAN India'}; ${suggestedRate}`;
+        }
+
+        function updateHrPaymentHint(empId) {
+            const hint = document.getElementById("hrPaymentHint");
+            if (!hint) return;
+            const cleaned = String(empId || "").trim().toUpperCase();
+            if (!cleaned) {
+                hint.innerText = "Enter an employee ID to auto-fill payment details.";
+                return;
+            }
+            const profiles = getStorage("obsyra_profiles", []);
+            const payments = getStorage("obsyra_payment_ledger", []);
+            const profile = profiles.find(p => p && String(p.empId).toUpperCase().trim() === cleaned);
+            if (!profile) {
+                hint.innerText = "Employee not found in directory. Verify the ID before logging payment.";
+                return;
+            }
+            const recentPayment = payments.find(p => p && String(p.empId).toUpperCase().trim() === cleaned);
+            const pendingCount = payments.filter(p => p && String(p.empId).toUpperCase().trim() === cleaned && p.status === "Pending").length;
+            if (recentPayment) {
+                hint.innerText = `${profile.name} (${profile.region || 'PAN India'}) last paid ₹${parseFloat(recentPayment.amount || 0).toFixed(2)} on ${recentPayment.date}. ${pendingCount ? `${pendingCount} pending payment(s).` : 'No pending payments.'}`;
+            } else {
+                hint.innerText = `Ready to log the first payment for ${profile.name} in ${profile.region || 'PAN India'}.`;
+            }
+        }
+
+        function updateSmartNotifications(contracts, profiles, payments) {
+            const smartNotes = [];
+            const today = new Date().setHours(0,0,0,0);
+            const soon = new Date(today + 5 * 24 * 60 * 60 * 1000);
+            const expiringSoon = contracts.filter(c => c.contractEnd && new Date(c.contractEnd) >= today && new Date(c.contractEnd) <= soon).length;
+            const pendingKyc = profiles.filter(p => p && (p.kycStatus === "PENDING" || p.kycStatus === "PENDING_APPROVAL")).length;
+            const pendingPayments = payments.filter(p => p && p.status === "Pending").length;
+            if (expiringSoon) smartNotes.push({ title: "Contract Alert", text: `${expiringSoon} contract${expiringSoon === 1 ? '' : 's'} expiring in the next 5 days.` });
+            if (pendingKyc) smartNotes.push({ title: "HR Review", text: `${pendingKyc} profile${pendingKyc === 1 ? '' : 's'} awaiting HR approval.` });
+            if (pendingPayments) smartNotes.push({ title: "Payment Alert", text: `${pendingPayments} payment${pendingPayments === 1 ? '' : 's'} pending clearance.` });
+            notifications = notifications.filter(n => !n.smart);
+            smartNotes.forEach(n => notifications.unshift({ ...n, smart: true }));
+            renderNotifications();
+        }
+
+        function saveHrContract(event) {
+            event.preventDefault();
+            const contract = {
+                empId: document.getElementById("hrContractEmpId")?.value.trim().toUpperCase() || "",
+                name: document.getElementById("hrContractName")?.value.trim() || "",
+                contractEnd: document.getElementById("hrContractEnd")?.value || "",
+                rate: document.getElementById("hrContractRate")?.value || "0",
+                rateType: document.getElementById("hrContractRateType")?.value || "Monthly",
+                createdAt: new Date().toISOString(),
+            };
+            if (!contract.empId || !contract.name) {
+                triggerToast("Enter employee ID and name for contract.", false);
+                return;
+            }
+            const contracts = getStorage("obsyra_hr_contracts", []);
+            contracts.unshift(contract);
+            setStorage("obsyra_hr_contracts", contracts);
+            event.target.reset();
+            renderHrPayrollDashboard();
+            triggerToast(`Contract saved for ${contract.empId}.`);
+        }
+
+        function savePaymentRecord(event) {
+            event.preventDefault();
+            const payment = {
+                empId: document.getElementById("hrPaymentEmpId")?.value.trim().toUpperCase() || "",
+                amount: parseFloat(document.getElementById("hrPaymentAmount")?.value || 0),
+                date: document.getElementById("hrPaymentDate")?.value || new Date().toISOString().slice(0,10),
+                mode: document.getElementById("hrPaymentMode")?.value || "Direct Credit",
+                status: document.getElementById("hrPaymentStatus")?.value || "Pending"
+            };
+            if (!payment.empId || payment.amount <= 0) {
+                triggerToast("Enter a valid employee ID and amount.", false);
+                return;
+            }
+            const ledger = getStorage("obsyra_payment_ledger", []);
+            ledger.unshift(payment);
+            setStorage("obsyra_payment_ledger", ledger);
+            event.target.reset();
+            renderAdminPaymentsTable();
+            renderHrPayrollDashboard();
+            triggerToast(`Payment record added for ${payment.empId}.`);
+        }
+
+        function renderAdminPaymentsTable() {
+            const tbody = document.getElementById("paymentLedgerBody");
+            if (!tbody) return;
+            const payments = getStorage("obsyra_payment_ledger", []);
+            tbody.innerHTML = "";
+            payments.forEach(p => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="p-3 font-mono font-bold">${p.empId}</td>
+                    <td class="p-3">₹${parseFloat(p.amount || 0).toFixed(2)}</td>
+                    <td class="p-3">${p.date}</td>
+                    <td class="p-3">${p.mode}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[9px] font-bold ${p.status === 'Cleared' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${p.status}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function generateWageVoucherModal(empId) {
+            const profiles = getStorage("obsyra_profiles", []);
+            const worker = profiles.find(p => p && String(p.empId).toUpperCase().trim() === String(empId).toUpperCase().trim());
+            if (!worker) return;
+
+            document.getElementById("voucherEmpId").innerText = worker.empId;
+            document.getElementById("voucherName").innerText = worker.name;
+            document.getElementById("voucherType").innerText = worker.workerType || "Daily Wage Worker";
+            document.getElementById("voucherSite").innerText = worker.officeLocation || "Main HQ";
+            document.getElementById("voucherDate").innerText = new Date().toLocaleString();
+            document.getElementById("voucherTotalAmount").innerText = `₹${parseFloat(worker.billingRate || 850).toFixed(2)}`;
+
+            document.getElementById("payoutVoucherModal")?.classList.remove("hidden");
+        }
+
+        function generateEmployeeQrModal(empId) {
+            const profiles = getStorage("obsyra_profiles", []);
+            const worker = profiles.find(p => p && String(p.empId).toUpperCase().trim() === String(empId).toUpperCase().trim());
+            if (!worker) return;
+
+            adminQrCurrentEmpId = worker.empId;
+            const qrPayload = `${worker.empId}-TOKEN-${Math.floor(1000 + Math.random() * 9000)}`;
+
+            const canvas = document.getElementById("adminEmployeeQrCanvas");
+            if (canvas) {
+                if (!adminEmployeeQrInstance) {
+                    adminEmployeeQrInstance = new QRious({ element: canvas, size: 220, value: qrPayload });
+                } else {
+                    adminEmployeeQrInstance.value = qrPayload;
+                }
+            }
+
+            if (document.getElementById("adminQrEmployeeName")) document.getElementById("adminQrEmployeeName").innerText = worker.name;
+            if (document.getElementById("adminQrEmployeeId")) document.getElementById("adminQrEmployeeId").innerText = worker.empId;
+            if (document.getElementById("adminQrEmployeeRegion")) document.getElementById("adminQrEmployeeRegion").innerText = worker.region || "PAN India";
+            if (document.getElementById("adminQrPayloadText")) document.getElementById("adminQrPayloadText").innerText = qrPayload;
+
+            document.getElementById("adminEmployeeQrModal")?.classList.remove("hidden");
+        }
+
+        function downloadAdminEmployeeQr() {
+            const canvas = document.getElementById("adminEmployeeQrCanvas");
+            if (!canvas || !adminQrCurrentEmpId) return;
+            const link = document.createElement("a");
+            link.href = canvas.toDataURL("image/png");
+            link.download = `${adminQrCurrentEmpId}_attendance_qr.png`;
+            link.click();
+        }
+
+        function closeAdminEmployeeQrModal() {
+            document.getElementById("adminEmployeeQrModal")?.classList.add("hidden");
+        }
+
+        function closePayoutVoucherModal() {
+            document.getElementById("payoutVoucherModal")?.classList.add("hidden");
+        }
+
+        function openMonthlyPayslipModal() {
+            if (!activePortalUser) return;
+            const u = activePortalUser;
+
+            document.getElementById("psEmpName").innerText = u.name;
+            document.getElementById("psEmpId").innerText = u.empId;
+            document.getElementById("psDesignation").innerText = u.role || "Employee";
+            document.getElementById("psBankDetails").innerText = `${u.bankName || 'HDFC Bank'} - ${u.bankAcc || 'XXXXXXXX345'}`;
+
+            let monthlyRate = parseFloat(u.billingRate || "55000");
+            if (u.rateType === "Hourly") monthlyRate = monthlyRate * 160;
+            if (u.rateType === "Daily") monthlyRate = monthlyRate * 22;
+
+            const basic = monthlyRate * 0.5;
+            const hra = monthlyRate * 0.3;
+            const allowance = monthlyRate * 0.2;
+            const gross = basic + hra + allowance;
+
+            const pf = Math.min(basic * 0.12, 1800);
+            const pt = 200;
+            const deductions = pf + pt;
+            const netPay = gross - deductions;
+
+            document.getElementById("psBasicSalary").innerText = `₹${basic.toFixed(2)}`;
+            document.getElementById("psHra").innerText = `₹${hra.toFixed(2)}`;
+            document.getElementById("psAllowance").innerText = `₹${allowance.toFixed(2)}`;
+            document.getElementById("psGrossEarnings").innerText = `₹${gross.toFixed(2)}`;
+            document.getElementById("psPfDeduction").innerText = `₹${pf.toFixed(2)}`;
+            document.getElementById("psPtDeduction").innerText = `₹${pt.toFixed(2)}`;
+            document.getElementById("psTotalDeductions").innerText = `₹${deductions.toFixed(2)}`;
+            document.getElementById("psNetSalary").innerText = `₹${netPay.toFixed(2)}`;
+
+            document.getElementById("monthlyPayslipModal")?.classList.remove("hidden");
+        }
+
+        function closeMonthlyPayslipModal() {
+            document.getElementById("monthlyPayslipModal")?.classList.add("hidden");
+        }
+
+        function toggleShiftBreak(type) {
+            if (!isShiftOnBreak) {
+                isShiftOnBreak = true;
+                activeBreakType = type;
+                shiftBreakSeconds = 0;
+                document.getElementById("breakTimerDisplay")?.classList.remove("hidden");
+                shiftBreakInterval = setInterval(() => {
+                    shiftBreakSeconds++;
+                    const m = String(Math.floor(shiftBreakSeconds / 60)).padStart(2, '0');
+                    const s = String(shiftBreakSeconds % 60).padStart(2, '0');
+                    document.getElementById("breakTimerDisplay").innerText = `${activeBreakType} Break: ${m}m ${s}s`;
+                }, 1000);
+                triggerToast(`Shift break started: ${type}`);
+            } else {
+                clearInterval(shiftBreakInterval);
+                isShiftOnBreak = false;
+                triggerToast(`Break ended (${Math.ceil(shiftBreakSeconds/60)}m ${activeBreakType}). Duty resumed.`);
+                document.getElementById("breakTimerDisplay")?.classList.add("hidden");
+            }
+        }
+
+        function activateKioskOnly() {
+            document.getElementById("view-gateway")?.classList.add("hidden");
+            document.getElementById("view-kiosk")?.classList.remove("hidden");
+        }
+
+        function exitKiosk() {
+            stopScannerDevice();
+            document.getElementById("view-kiosk")?.classList.add("hidden");
+            document.getElementById("view-gateway")?.classList.remove("hidden");
+        }
+
+        function switchKioskMode(mode) {
+            if (mode === 'qr') {
+                document.getElementById("kioskQrPanel")?.classList.remove("hidden");
+                document.getElementById("kioskPinPanel")?.classList.add("hidden");
+            } else {
+                stopScannerDevice();
+                document.getElementById("kioskPinPanel")?.classList.remove("hidden");
+                document.getElementById("kioskQrPanel")?.classList.add("hidden");
+            }
+        }
+
+        async function startScannerDevice() {
+            document.getElementById("kioskReaderWrapper")?.classList.remove("hidden");
+            if (!html5QrcodeScanner) html5QrcodeScanner = new Html5Qrcode("kioskReader");
+            try {
+                await html5QrcodeScanner.start({ facingMode: "environment" }, { fps: 10, qrbox: 200 }, onScanDecodeComplete);
+            } catch (e) { triggerToast("Camera offline. Use PIN pad fallback.", false); }
+        }
+
+        function stopScannerDevice() {
+            if (html5QrcodeScanner && html5QrcodeScanner.getState() === Html5QrcodeScannerState.SCANNING) {
+                html5QrcodeScanner.stop();
+            }
+            document.getElementById("kioskReaderWrapper")?.classList.add("hidden");
+        }
+
+        function onScanDecodeComplete(scannedId) {
+            stopScannerDevice();
+            let cleanId = scannedId.split("-TOKEN-")[0].toUpperCase();
+            const action = resolveAttendanceAction(cleanId);
+            if (action === "OUT") {
+                kioskPendingOutEmpId = cleanId;
+                kioskPendingOutLocation = document.getElementById("kioskWorkSite")?.value || "Main HQ";
+                showKioskOutSummary(cleanId);
+                return;
+            }
+            executeAttendancePayload(cleanId, "IN", "Kiosk Scan Check-in");
+        }
+
+        function submitKioskPinAccess() {
+            const empId = document.getElementById("kioskPinEmpId")?.value.trim().toUpperCase();
+            const pin = document.getElementById("kioskPinCode")?.value.trim();
+            if (!empId || !pin) return;
+
+            const dbProfiles = getStorage("obsyra_profiles", []);
+            const user = dbProfiles.find(p => p && String(p.empId).toUpperCase().trim() === empId && p.pin === pin);
+
+            if (user) {
+                const action = resolveAttendanceAction(empId);
+                if (action === "OUT") {
+                    kioskPendingOutEmpId = empId;
+                    kioskPendingOutLocation = document.getElementById("kioskWorkSite")?.value || "Main HQ";
+                    showKioskOutSummary(empId);
+                } else {
+                    executeAttendancePayload(empId, "IN", "Kiosk PIN Check-in");
+                }
+            } else {
+                triggerToast("Invalid ID or PIN.", false);
+            }
+        }
+
+        function executeAttendancePayload(empId, type, notes) {
+            const payload = {
+                action: "markAttendance",
+                empId: empId,
+                type: type,
+                date: getTodayDate(),
+                timestamp: new Date().toLocaleTimeString(),
+                location: kioskPendingOutLocation || document.getElementById("kioskWorkSite")?.value || "Main HQ",
+                notes: notes,
+                aiScore: 96
+            };
+
+            const history = getStorage("obsyra_attendance_history", []);
+            history.unshift(payload);
+            setStorage("obsyra_attendance_history", history);
+
+            sendToDatabase(payload, () => {
+                triggerToast(`Recorded: ${type} for ${empId}!`);
+                checkLiveShiftStatus();
+            });
+        }
+
+        function checkLiveShiftStatus() {
+            if (!activePortalUser) return;
+            const history = getStorage("obsyra_attendance_history", []);
+            const userLogs = history.filter(h => h && h.empId && String(h.empId).toUpperCase().trim() === String(activePortalUser.empId).toUpperCase().trim());
+            const activeBanner = document.getElementById("activeShiftBanner");
+            if (userLogs.length > 0 && userLogs[0].type === "IN") {
+                if (activeBanner) activeBanner.classList.remove("hidden");
+                startActiveShiftClock(userLogs[0].timestamp);
+            } else {
+                if (activeBanner) activeBanner.classList.add("hidden");
+                if (activeShiftClockInterval) clearInterval(activeShiftClockInterval);
+            }
+        }
+
+        function startActiveShiftClock(checkInTimeStr) {
+            if (activeShiftClockInterval) clearInterval(activeShiftClockInterval);
+            const counter = document.getElementById("shiftDurationCounter");
+            if (!counter) return;
+
+            activeShiftClockInterval = setInterval(() => {
+                counter.innerText = `On Duty (${new Date().toLocaleTimeString()})`;
+            }, 1000);
+        }
+
+        function getTodayDate() {
+            return new Date().toLocaleDateString();
+        }
+
+        function resolveAttendanceAction(empId) {
+            const today = getTodayDate();
+            const history = getStorage("obsyra_attendance_history", []);
+            const todays = history.filter(h => h && h.empId && String(h.empId).toUpperCase().trim() === String(empId).toUpperCase().trim() && h.date === today);
+            if (todays.length === 0) return "IN";
+            return todays[0].type === "IN" ? "OUT" : "IN";
+        }
+
+        function showKioskOutSummary(empId) {
+            const panel = document.getElementById("kioskSummaryPanel");
+            const tag = document.getElementById("kioskSummaryEmpId");
+            const note = document.getElementById("kioskOutSummaryText");
+            if (panel) panel.classList.remove("hidden");
+            if (tag) tag.innerText = empId;
+            if (note) note.value = "";
+            triggerToast("Check-out detected. Add today's work summary.", true);
+        }
+
+        function submitKioskOutSummary() {
+            const summary = document.getElementById("kioskOutSummaryText")?.value.trim();
+            if (!kioskPendingOutEmpId) {
+                triggerToast("No check-out in progress.", false);
+                return;
+            }
+            executeAttendancePayload(kioskPendingOutEmpId, "OUT", summary || "Daily work summary not provided.");
+            clearKioskOutSummary();
+        }
+
+        function clearKioskOutSummary() {
+            kioskPendingOutEmpId = null;
+            kioskPendingOutLocation = null;
+            const panel = document.getElementById("kioskSummaryPanel");
+            if (panel) panel.classList.add("hidden");
+            if (document.getElementById("kioskOutSummaryText")) document.getElementById("kioskOutSummaryText").value = "";
+        }
+
+        function sendToDatabase(payload, onSuccess) {
+            if (!WEB_APP_URL || WEB_APP_URL === '') {
+                if (onSuccess) onSuccess();
+                return;
+            }
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(payload)
+            }).then(() => { if (onSuccess) onSuccess(); }).catch(() => { if (onSuccess) onSuccess(); });
+        }
+
+        async function syncFromCloudDatabase() {
+            if (!WEB_APP_URL || WEB_APP_URL === '') return;
+            try {
+                const res = await fetch(WEB_APP_URL);
+                const data = await res.json();
+                if (data && data.status === "success" && data.profiles) {
+                    getStorage("obsyra_profiles", null) ? null : setStorage("obsyra_profiles", data.profiles);
+                }
+            } catch (e) {}
+        }
+
+        function exportPersonalLogsCsv() {
+            if (!activePortalUser) return;
+            const history = getStorage("obsyra_attendance_history", []);
+            const myLogs = history.filter(h => h && String(h.empId).toUpperCase().trim() === String(activePortalUser.empId).toUpperCase().trim());
+            let csv = "Date,Emp ID,Type,Timestamp,Location,Notes\n";
+            myLogs.forEach(l => { csv += `"${l.date}","${l.empId}","${l.type}","${l.timestamp}","${l.location}","${l.notes || ''}"\n`; });
+            const link = document.createElement("a");
+            link.href = encodeURI("data:text/csv;charset=utf-8," + csv);
+            link.download = `Attendance_${activePortalUser.empId}.csv`;
+            link.click();
+        }
+
+        function initDynamicMobileBadge() {
+            const badgeCanvas = document.getElementById('mobileBadgeQr');
+            if (badgeCanvas) mobileBadgeQrInstance = new QRious({ element: badgeCanvas, size: 100, value: 'OBS-INIT' });
+            const cardCanvas = document.getElementById('employeeIdCardQr');
+            if (cardCanvas) employeeIdCardQrInstance = new QRious({ element: cardCanvas, size: 200, value: 'OBS-INIT' });
+            
+            badgeCountdownSeconds = 30;
+            setInterval(() => {
+                badgeCountdownSeconds--;
+                if (badgeCountdownSeconds < 0) badgeCountdownSeconds = 30;
+                
+                const percent = (badgeCountdownSeconds / 30) * 100;
+                const progressBar = document.getElementById("badgeProgressBar");
+                const timerText = document.getElementById("badgeTimerText");
+                
+                if (progressBar) progressBar.style.width = `${percent}%`;
+                if (timerText) timerText.innerText = `${badgeCountdownSeconds}s`;
+
+                if (badgeCountdownSeconds === 30 && activePortalUser) {
+                    const token = `${activePortalUser.empId}-TOKEN-${Math.floor(1000 + Math.random() * 9000)}`;
+                    if (mobileBadgeQrInstance) mobileBadgeQrInstance.value = token;
+                    if (employeeIdCardQrInstance) employeeIdCardQrInstance.value = token;
+                    if (document.getElementById("dynamicTokenText")) document.getElementById("dynamicTokenText").innerText = `TOKEN: ${token}`;
+                    if (document.getElementById("idCardQrExpiry")) document.getElementById("idCardQrExpiry").innerText = `Valid for 30s (${new Date().toLocaleTimeString()})`;
+                }
+            }, 1000);
+        }
+
+        function renderEmployeeIdCard() {
+            if (!activePortalUser) return;
+            const u = activePortalUser;
+            if (document.getElementById("idCardInitials")) document.getElementById("idCardInitials").innerText = u.name ? u.name.split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase() : 'OP';
+            if (document.getElementById("idCardName")) document.getElementById("idCardName").innerText = u.name;
+            if (document.getElementById("idCardRole")) document.getElementById("idCardRole").innerText = u.role || 'Employee';
+            if (document.getElementById("idCardRegion")) document.getElementById("idCardRegion").innerText = u.region || 'PAN India';
+            if (document.getElementById("idCardLocation")) document.getElementById("idCardLocation").innerText = u.officeLocation || 'Main HQ';
+            if (document.getElementById("idCardEmpId")) document.getElementById("idCardEmpId").innerText = u.empId;
+            const token = `${u.empId}-TOKEN-${Math.floor(1000 + Math.random() * 9000)}`;
+            if (employeeIdCardQrInstance) employeeIdCardQrInstance.value = token;
+            if (mobileBadgeQrInstance) mobileBadgeQrInstance.value = token;
+            if (document.getElementById("dynamicTokenText")) document.getElementById("dynamicTokenText").innerText = `TOKEN: ${token}`;
+            if (document.getElementById("idCardQrExpiry")) document.getElementById("idCardQrExpiry").innerText = `Valid for 30s (${new Date().toLocaleTimeString()})`;
+        }
+
+        function printEmployeeIdCard() {
+            const card = document.getElementById("printableEmployeeIdCardContainer");
+            if (!card) return;
+            const printWindow = window.open('', '_blank');
+            if (!printWindow) return;
+            printWindow.document.write('<html><head><title>Employee ID Card</title><style>body{font-family:sans-serif;padding:20px;background:#f4f4f4;} .card{width:350px;border-radius:24px;padding:24px;background:#1f2937;color:#fff;} .card h1{font-size:24px;margin:0 0 12px;} .card p{margin:4px 0;font-size:14px;} .qr{margin-top:18px;text-align:center;}</style></head><body>');
+            printWindow.document.write(card.outerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => { printWindow.print(); printWindow.close(); }, 500);
+        }
+
+        function toggleDarkMode() { document.documentElement.classList.toggle('dark'); }
+
+        function triggerToast(msg, isSuccess = true) {
+            const toast = document.getElementById("toastNotification");
+            if (document.getElementById("toastText")) document.getElementById("toastText").innerText = msg;
+            if (toast) {
+                toast.classList.remove("hidden");
+                setTimeout(() => toast.classList.add("hidden"), 3000);
+            }
+        }
+
+        function toggleNotificationCenter() { document.getElementById("notifTray")?.classList.toggle("hidden"); }
+        function clearNotifications() { notifications = []; renderNotifications(); }
+        function renderNotifications() {
+            const list = document.getElementById("notifList");
+            if (!list) return;
+            list.innerHTML = "";
+            notifications.forEach(n => {
+                const item = document.createElement("div");
+                item.className = "p-2 bg-slate-50 dark:bg-obsidian-950 rounded-xl text-xs";
+                item.innerHTML = `<span class="font-extrabold block text-slate-900 dark:text-white">${n.title}</span><p class="text-slate-500">${n.text}</p>`;
+                list.appendChild(item);
+            });
+        }
+        function triggerEmergencySos() { triggerToast("EMERGENCY SOS BROADCAST SENT TO HR!", false); }
+    </script>
+</body>
+</html>

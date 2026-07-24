@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B2B Service & SLA Estimator | Obsyra Private Limited</title>
+  <meta name="description" content="Calculate project scope baseline estimates, site maintenance costs, fiber infrastructure distance, & SLA dispatch window for enterprise B2B tenders with Obsyra Private Limited.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+      <div>
+        <span class="text-gold-gradient" style="font-weight: 700;">CIN:</span> U63991PN2026PTC252127 &nbsp;|&nbsp; 
+        <span class="text-gold-gradient" style="font-weight: 700;">RoC:</span> Pune, Maharashtra &nbsp;|&nbsp;
+        <span style="color: var(--success);"><i class="fa-solid fa-circle-check"></i> Active Corporate Status</span>
+      </div>
+      <div>
+        <i class="fa-solid fa-earth-asia"></i> <strong>PAN India Coverage</strong> &nbsp;|&nbsp; 
+        <i class="fa-solid fa-envelope"></i> info@obsyra.co.in
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo.png" alt="Obsyra Private Limited" class="brand-img-logo">
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="services.html" class="nav-link">Services & 5G</a></li>
+        <li><a href="products.html" class="nav-link">Product Suite</a></li>
+        <li><a href="verticals.html" class="nav-link">Industry Verticals</a></li>
+        <li><a href="estimator.html" class="nav-link active">B2B Estimator</a></li>
+        <li><a href="careers.html" class="nav-link">Careers</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline-silver btn-sm" onclick="openApplyModal('General Technical Intake')">
+          <i class="fa-solid fa-user-plus"></i> Join Workforce
+        </button>
+        <a href="contact.html" class="btn btn-gold btn-sm">
+          <i class="fa-solid fa-paper-plane"></i> Get In Touch
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="section-padding" style="padding-top: calc(var(--header-height) + 5rem); background: radial-gradient(circle at 50% 0%, rgba(229,184,66,0.1) 0%, rgba(7,9,14,0.95) 70%);">
+    <div class="container text-center" style="text-align: center;">
+      <span class="hero-badge"><i class="fa-solid fa-calculator"></i> Real-time Proposal Tool</span>
+      <h1 class="section-title text-silver-gradient" style="font-size: 3.25rem;">Interactive B2B Service Estimator</h1>
+      <p class="section-subtitle" style="margin: 0 auto;">
+        Configure project scope, operational scale, site numbers, and SLA dispatch windows to calculate estimated monthly baseline retainers.
+      </p>
+    </div>
+  </section>
+
+  <!-- Calculator Tool Section -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="estimator-card" style="margin-top: 0;">
+        <div class="estimator-grid">
+          <div>
+            <h3 class="text-gold-gradient" style="margin-bottom: 1.5rem; font-size: 1.6rem;">Configure Project Parameters</h3>
+
+            <div class="range-group">
+              <div class="range-label">
+                <span>Number of Operational Sites / Towers</span>
+                <span class="range-value" id="val-sites">25 Sites</span>
+              </div>
+              <input type="range" id="slider-sites" min="5" max="250" value="25" step="5" oninput="updateEstimator()">
+            </div>
+
+            <div class="range-group">
+              <div class="range-label">
+                <span>Fiber Infrastructure Distance (KM)</span>
+                <span class="range-value" id="val-km">120 KM</span>
+              </div>
+              <input type="range" id="slider-km" min="10" max="1000" value="120" step="10" oninput="updateEstimator()">
+            </div>
+
+            <div class="range-group">
+              <div class="range-label">
+                <span>SLA Response Window</span>
+                <span class="range-value" id="val-sla">1 Hour Emergency Dispatch</span>
+              </div>
+              <input type="range" id="slider-sla" min="1" max="4" value="2" step="1" oninput="updateEstimator()">
+            </div>
+          </div>
+
+          <div class="estimation-result">
+            <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Estimated Monthly Baseline Retainer</span>
+            <div class="result-price" id="calc-total">$14,500 <span style="font-size: 1rem; color: var(--text-muted); font-weight: normal;">/ mo</span></div>
+            
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.75rem; line-height: 1.6;">
+              Includes 24/7 NOC telemetry, dedicated field vehicle unit, OTDR fiber testing, and guaranteed uptime SLA commitment.
+            </p>
+            
+            <button class="btn btn-gold" style="width: 100%;" onclick="submitEstimationRFP()">
+              Submit Proposal Request with Parameters <i class="fa-solid fa-file-contract"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="brand-logo" style="margin-bottom: 1.25rem;">
+            <img src="assets/logo.png" alt="Obsyra Private Limited" class="brand-img-logo" style="height: 60px;">
+          </a>
+          <p style="color: var(--text-muted); font-size: 0.85rem; max-width: 340px; margin-bottom: 1rem;">
+            OBSYRA PRIVATE LIMITED — Empowering Businesses with Innovation. Established on 16 February 2026 in Pune, Maharashtra.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home Page</a></li>
+            <li><a href="about.html">About Us & Governance</a></li>
+            <li><a href="services.html">Services & 5G Core</a></li>
+            <li><a href="products.html">Product Suite</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Solutions</h4>
+          <ul class="footer-links">
+            <li><a href="estimator.html">B2B Quote Estimator</a></li>
+            <li><a href="careers.html">Careers & Intake</a></li>
+            <li><a href="contact.html">Contact Headquarters</a></li>
+            <li><a href="services.html">Safe Decommissioning</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Corporate Info</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">CIN: U63991PN2026PTC252127</a></li>
+            <li><a href="about.html">RoC Office: Pune</a></li>
+            <li><a href="contact.html">Wagholi, Pune, Maharashtra</a></li>
+            <li><a href="contact.html">info@obsyra.co.in</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Obsyra Private Limited. All rights reserved. CIN: U63991PN2026PTC252127 (RoC Pune).</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toast-container"></div>
+  <script src="main.js"></script>
+</body>
+</html>
