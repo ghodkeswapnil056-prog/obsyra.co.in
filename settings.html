@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Settings — Obsyra Candidate Portal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> CAREERS</a>
+    <div class="nav-auth" id="navAuth"></div>
+  </nav>
+
+  <main class="container">
+    <div class="dashboard-grid">
+      <aside class="sidebar-nav">
+        <a href="candidate-dashboard.html">📊 Dashboard Overview</a>
+        <a href="jobs.html">🔎 Find Jobs</a>
+        <a href="applications.html">📋 My Applications</a>
+        <a href="saved-jobs.html">❤️ Saved Jobs</a>
+        <a href="interview.html">📅 Interviews</a>
+        <a href="profile.html">👤 My Profile</a>
+        <a href="resume-builder.html">📄 My Resume</a>
+        <a href="documents.html">📁 My Documents</a>
+        <a href="notifications.html">🔔 Notifications</a>
+        <a href="settings.html" class="active">⚙ Settings</a>
+      </aside>
+
+      <div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem;">Account Settings & Preferences</h2>
+
+        <!-- 14. JOB ALERT PREFERENCES -->
+        <div class="form-card" style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--primary);">🔔 JOB ALERT PREFERENCES</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Receive automatic email notifications when matching jobs are posted by Obsyra HR.</p>
+
+          <form id="formJobAlerts">
+            <div class="form-group">
+              <label>Select Job Categories</label>
+              <div style="display:flex; gap:1rem; flex-wrap:wrap; font-size:0.9rem;">
+                <label><input type="checkbox" checked> Telecom</label>
+                <label><input type="checkbox" checked> Networking</label>
+                <label><input type="checkbox" checked> 5G</label>
+                <label><input type="checkbox" checked> Testing & QA</label>
+                <label><input type="checkbox"> Field Operations</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Preferred Locations</label>
+              <div style="display:flex; gap:1rem; flex-wrap:wrap; font-size:0.9rem;">
+                <label><input type="checkbox" checked> Pune</label>
+                <label><input type="checkbox" checked> Mumbai</label>
+                <label><input type="checkbox" checked> Gujarat</label>
+                <label><input type="checkbox" checked> PAN India</label>
+              </div>
+            </div>
+
+            <button type="button" onclick="alert('Job alert preferences saved!')" class="btn btn-primary btn-sm">Save Preferences</button>
+          </form>
+        </div>
+
+        <!-- CHANGE PASSWORD -->
+        <div class="form-card">
+          <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 1rem;">🔐 Change Password</h3>
+          <form id="formChangePassword">
+            <div class="form-group">
+              <label>Current Password</label>
+              <input type="password" class="form-control" required placeholder="••••••••">
+            </div>
+            <div class="form-group">
+              <label>New Password</label>
+              <input type="password" class="form-control" required placeholder="••••••••">
+            </div>
+            <div class="form-group">
+              <label>Confirm New Password</label>
+              <input type="password" class="form-control" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Update Password</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.getElementById('formChangePassword').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Password updated successfully!');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talent Pool & Candidates — Obsyra Admin</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="dashboard.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> RECRUITER ADMIN</a>
+    <div class="nav-auth"><button onclick="AUTH.logoutAdmin()" class="btn btn-sm btn-danger">Logout</button></div>
+  </nav>
+
+  <main class="container">
+    <div class="dashboard-grid">
+      <aside class="sidebar-nav">
+        <a href="dashboard.html">📊 Executive Control</a>
+        <a href="jobs.html">💼 Jobs Management</a>
+        <a href="create-job.html">➕ Post New Job</a>
+        <a href="candidates.html" class="active">👥 Talent Pool & Search</a>
+        <a href="applications.html">📋 Master Applications</a>
+        <a href="interviews.html">🗓️ Interview Schedule</a>
+        <a href="reports.html">📈 Reports & Analytics</a>
+      </aside>
+
+      <div>
+        <h2 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 1.5rem;">Obsyra Talent Pool Search</h2>
+
+        <div class="form-card" style="margin-bottom: 1.5rem;">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Match Against Active Job</label>
+              <select id="matchJobSelect" class="form-control" onchange="runMatchEngine()">
+                <option value="JOB-2026-001">Network Engineer (Pune)</option>
+                <option value="JOB-2026-002">5G Protocol Tester (Mumbai)</option>
+                <option value="JOB-2026-003">Fiber Site Supervisor (Gujarat)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Search Skill / Keyword</label>
+              <input type="text" id="candSearchKeyword" class="form-control" placeholder="e.g. 5G, Networking" onkeyup="runMatchEngine()">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Candidate ID</th>
+                  <th>Name</th>
+                  <th>Location</th>
+                  <th>Exp</th>
+                  <th>Primary Skills</th>
+                  <th>Match Score</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="candidateTableBody">
+                <tr>
+                  <td><strong>CAN-100234</strong></td>
+                  <td><strong>Rahul Sharma</strong><br><small style="color:#64748b;">rahul@example.com</small></td>
+                  <td>Pune</td>
+                  <td>3.5 Yrs</td>
+                  <td>Networking, Telecom, BTS, Cisco</td>
+                  <td><span class="tag" style="background:#d1fae5; color:#10b981; font-weight:bold; font-size:0.9rem;">95% Match</span></td>
+                  <td>
+                    <button onclick="alert('Google Drive Folder: OBSYRA CANDIDATES/CAN-100234 - Rahul Sharma')" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">📁 Drive Folder</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>CAN-100235</strong></td>
+                  <td><strong>Priya Patil</strong><br><small style="color:#64748b;">priya@example.com</small></td>
+                  <td>Mumbai</td>
+                  <td>4.0 Yrs</td>
+                  <td>5G, Protocol Testing, Python</td>
+                  <td><span class="tag" style="background:#d1fae5; color:#10b981; font-weight:bold; font-size:0.9rem;">88% Match</span></td>
+                  <td>
+                    <button onclick="alert('Google Drive Folder: OBSYRA CANDIDATES/CAN-100235 - Priya Patil')" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">📁 Drive Folder</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    function runMatchEngine() {
+      // Free matching engine calculates match score based on skills & location match
+      console.log('Talent matching engine re-evaluating candidate pool scores.');
+    }
+  </script>
+</body>
+</html>

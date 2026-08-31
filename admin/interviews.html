@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interview Management — Obsyra Admin Portal</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar" style="background:#0f172a;">
+    <a href="dashboard.html" class="nav-brand"><span style="color:#38bdf8;">OBSYRA</span> RECRUITER ADMIN</a>
+    <ul class="nav-menu">
+      <li><a href="dashboard.html">📊 Dashboard</a></li>
+      <li><a href="jobs.html">💼 Jobs</a></li>
+      <li><a href="candidates.html">👥 Candidates</a></li>
+      <li><a href="applications.html">📋 Applications</a></li>
+      <li><a href="interviews.html" class="active">🗓 Interviews</a></li>
+      <li><a href="reports.html">📈 Reports</a></li>
+      <li><a href="settings.html">⚙️ Settings</a></li>
+    </ul>
+    <div style="color:white; font-size:0.85rem; font-weight:700;">ADMIN-002 (HR Manager)</div>
+  </nav>
+
+  <main class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
+    
+    <!-- 8. SCHEDULE INTERVIEW FORM -->
+    <div class="form-card" style="margin-bottom: 2rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--dark);">🗓 SCHEDULE NEW INTERVIEW</h2>
+      </div>
+
+      <form onsubmit="event.preventDefault(); handleScheduleSubmit();">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Candidate Name *</label>
+            <input type="text" id="intCandidateName" class="form-control" value="Rahul Sharma" required>
+          </div>
+          <div class="form-group">
+            <label>Target Vacancy *</label>
+            <input type="text" id="intJobTitle" class="form-control" value="Network Engineer (OBS-JOB-001)" required>
+          </div>
+          <div class="form-group">
+            <label>Interview Round *</label>
+            <select id="intRound" class="form-control" required>
+              <option value="Round 1 - Technical">Round 1 — Technical Evaluation</option>
+              <option value="Round 2 - HR & Operations">Round 2 — HR & Operations</option>
+              <option value="Management Final">Management Final Round</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Date *</label>
+            <input type="date" id="intDate" class="form-control" value="2026-09-05" required>
+          </div>
+          <div class="form-group">
+            <label>Time *</label>
+            <input type="time" id="intTime" class="form-control" value="10:00" required>
+          </div>
+          <div class="form-group">
+            <label>Meeting Platform / Link *</label>
+            <input type="text" id="intLink" class="form-control" value="https://meet.google.com/obs-interview-101" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="padding:0.75rem 2rem;">SCHEDULE INTERVIEW & NOTIFY CANDIDATE →</button>
+      </form>
+    </div>
+
+    <!-- TODAY'S SCHEDULED INTERVIEWS LIST -->
+    <div class="form-card">
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">📅 SCHEDULED INTERVIEWS LIST</h3>
+
+      <div style="display:grid; gap:1rem;">
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <span class="tag" style="background:#8b5cf6; color:white; font-weight:700;">10:00 AM — TODAY</span>
+            <h4 style="font-size:1.1rem; font-weight:800; margin-top:0.35rem;">Rahul Sharma — Network Engineer</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted);">Round 1 — Technical Evaluation | Platform: Google Meet</p>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <a href="https://meet.google.com/obs-interview-101" target="_blank" class="btn btn-primary btn-sm">🎥 JOIN MEETING</a>
+            
+            <!-- 11. PRE-FILLED WHATSAPP REMINDER CLICK-TO-CHAT -->
+            <a href="https://wa.me/919876543210?text=Hello%20Rahul,%20Your%20interview%20for%20the%20Network%20Engineer%20position%20at%20Obsyra%20Pvt%20Ltd%20is%20scheduled%20for%2010:00%20AM.%20Link:%20https://meet.google.com/obs-interview-101" target="_blank" class="btn btn-outline btn-sm" style="color:#10b981; border-color:#34d399;">💬 SEND WHATSAPP</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-bottom">&copy; 2026 Obsyra Pvt Ltd. Admin Control Portal.</div>
+  </footer>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    async function handleScheduleSubmit() {
+      const res = await API.request('scheduleInterview', {
+        candidateName: document.getElementById('intCandidateName').value,
+        roundName: document.getElementById('intRound').value
+      });
+
+      if (res.success) {
+        alert(res.message);
+        window.location.reload();
+      }
+    }
+  </script>
+</body>
+</html>

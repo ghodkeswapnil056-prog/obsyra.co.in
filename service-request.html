@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request a Service — Obsyra Enterprise Portal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- PUBLIC NAVIGATION HEADER -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> ENTERPRISE</a>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="service-request.html" class="active">Request Service</a></li>
+      <li><a href="service-request-status.html">Track Request</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-auth" id="navAuth"></div>
+  </nav>
+
+  <!-- 1. HERO SECTION -->
+  <header style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 3.5rem 1.5rem; text-align: center;">
+    <div style="max-width: 850px; margin: 0 auto;">
+      <span class="tag" style="background: rgba(2, 132, 199, 0.2); color: #38bdf8; padding: 0.35rem 0.85rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem; text-transform: uppercase;">Enterprise Project Inquiry</span>
+      <h1 style="font-size: 2.5rem; font-weight: 800; margin: 1rem 0 0.75rem 0;">REQUEST A SERVICE</h1>
+      <p style="font-size: 1.05rem; color: #94a3b8; max-width: 750px; margin: 0 auto 1.5rem auto;">Tell us about your project, technical requirement, infrastructure racking, or workforce deployment needs. Our engineering team will review your scope and issue formal proposals.</p>
+      <a href="#formContainer" class="btn btn-primary" style="padding: 0.75rem 1.75rem;">SUBMIT REQUIREMENT ↓</a>
+    </div>
+  </header>
+
+  <main class="container" id="formContainer" style="padding: 2.5rem 1rem;">
+    <form id="formServiceRequestFull" onsubmit="event.preventDefault(); handleFullServiceReqSubmit();">
+      
+      <!-- 2. SERVICE CATEGORIES (CHECKBOXES) -->
+      <div class="form-card">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem;">1. SELECT SERVICE(S) REQUIRED *</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">Select one or more technical and workforce capabilities required for your project.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem;">
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="Telecom Services" checked> 📡 Telecom Services</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="4G / 5G NR Testing" checked> 📶 Network / 4G / 5G</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="Protocol Testing"> 🧪 Testing Services</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="FWA Device Testing"> 📱 FWA / Device Testing</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="Rack Installation"> 🖥️ Rack Installation</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="Equipment Mounting"> 🔧 Equipment Installation</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="Data Center Support"> 🏢 Data Center Operations</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="IT Services"> 💻 IT Services</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="Software Development"> 🌐 Software Development</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="Workforce Deputation" onchange="toggleWorkforceCard(this)"> 👥 Workforce / Manpower</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="Field Engineering"> ⚙️ Engineering Services</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; font-weight:600; cursor:pointer;"><input type="checkbox" name="services" value="Other Requirements"> 📦 Other Technical Support</label>
+        </div>
+      </div>
+
+      <!-- 3. CUSTOMER INFORMATION -->
+      <div class="form-card">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">2. CUSTOMER INFORMATION</h3>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Company / Organization Name *</label>
+            <input type="text" id="srCompany" class="form-control" placeholder="e.g. ABC Telecom Pvt Ltd" required>
+          </div>
+          <div class="form-group">
+            <label>Contact Person *</label>
+            <input type="text" id="srPerson" class="form-control" placeholder="Full name" required>
+          </div>
+          <div class="form-group">
+            <label>Designation</label>
+            <input type="text" id="srDesignation" class="form-control" placeholder="e.g. Project Director / VP Infra">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <div style="display:flex; gap:0.5rem;">
+              <input type="text" value="+91" class="form-control" style="width:70px; text-align:center; font-weight:700;" readonly>
+              <input type="tel" id="srMobile" class="form-control" placeholder="98765 43210" pattern="[0-9]{10}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="srEmail" class="form-control" placeholder="name@company.com" required>
+          </div>
+          <div class="form-group">
+            <label>Alternate Contact Number</label>
+            <input type="tel" id="srAltMobile" class="form-control" placeholder="Optional phone">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>City *</label>
+            <input type="text" id="srCity" class="form-control" placeholder="e.g. Pune / Mumbai" required>
+          </div>
+          <div class="form-group">
+            <label>State *</label>
+            <select id="srState" class="form-control" required>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Delhi NCR">Delhi NCR</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Other">Other State</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. PROJECT INFORMATION -->
+      <div class="form-card">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">3. PROJECT INFORMATION</h3>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Project Name *</label>
+            <input type="text" id="srProjectName" class="form-control" placeholder="e.g. 5G Network Deployment & Testing" required>
+          </div>
+          <div class="form-group">
+            <label>Project Location *</label>
+            <input type="text" id="srProjectLocation" class="form-control" placeholder="e.g. Pune / PAN India" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Industry *</label>
+            <select id="srIndustry" class="form-control" required>
+              <option value="Telecom">Telecom & Network Operators</option>
+              <option value="IT">IT & Technology Solutions</option>
+              <option value="Infrastructure">Infrastructure & Data Centers</option>
+              <option value="Engineering">Engineering & Construction</option>
+              <option value="Manufacturing">Manufacturing</option>
+              <option value="Other">Other Sector</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Expected Start Date</label>
+            <input type="date" id="srStartDate" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Expected Duration</label>
+            <input type="text" id="srDuration" class="form-control" placeholder="e.g. 3 Months / Turnkey">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Project Priority *</label>
+          <div style="display:flex; gap:1.5rem; font-size:0.875rem;">
+            <label style="cursor:pointer;"><input type="radio" name="priority" value="Normal" checked> Normal</label>
+            <label style="cursor:pointer;"><input type="radio" name="priority" value="High"> High Priority</label>
+            <label style="cursor:pointer; color:var(--danger); font-weight:700;"><input type="radio" name="priority" value="Urgent"> 🔴 Urgent / Immediate</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. SERVICE & TECHNICAL REQUIREMENT -->
+      <div class="form-card">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">4. DETAILED SCOPE & REQUIREMENT</h3>
+        
+        <div class="form-group">
+          <label>Project Scope Description *</label>
+          <textarea id="srDescription" class="form-control" rows="4" placeholder="Describe scope of work, technical specifications, resource counts, deliverables..." required></textarea>
+        </div>
+
+        <!-- 6. TECHNICAL DETAILS EXPANDABLE CARD -->
+        <div style="background:#f8fafc; padding:1rem; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:1rem;">
+          <h4 style="font-size:0.95rem; font-weight:800; color:var(--dark); margin-bottom:0.75rem;">⚙️ Technical Details (Optional)</h4>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Technology / Platform</label>
+              <input type="text" id="srTechPlatform" class="form-control" placeholder="e.g. Cisco, Ericsson, Linux">
+            </div>
+            <div class="form-group">
+              <label>Required Testing?</label>
+              <select id="srTestingReq" class="form-control">
+                <option value="Yes">Yes, Testing Required</option>
+                <option value="No">No Testing Required</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Installation Required?</label>
+              <select id="srInstallReq" class="form-control">
+                <option value="Yes">Yes, Installation Required</option>
+                <option value="No">No Installation</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. DYNAMIC WORKFORCE REQUIREMENT CARD -->
+        <div id="workforceCard" style="display:none; background:#e0f2fe; padding:1rem; border-radius:8px; border:1px solid #0284c7; margin-bottom:1rem;">
+          <h4 style="font-size:0.95rem; font-weight:800; color:#0369a1; margin-bottom:0.75rem;">👥 Technical Workforce Requirements</h4>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Target Positions</label>
+              <input type="text" id="srWfPositions" class="form-control" placeholder="e.g. 4 Network Engineers">
+            </div>
+            <div class="form-group">
+              <label>Experience Level</label>
+              <input type="text" id="srWfExp" class="form-control" placeholder="e.g. 2–4 Years">
+            </div>
+            <div class="form-group">
+              <label>Employment Type</label>
+              <select id="srWfType" class="form-control">
+                <option value="Project">Project Based</option>
+                <option value="Contract">Contract</option>
+                <option value="Full Time">Full Time Deputation</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. FILE UPLOAD -->
+        <div class="form-group">
+          <label>📎 Attach Supporting Documents (BOQ / Scope of Work / Tech Spec)</label>
+          <input type="file" id="srFile" class="form-control" accept=".pdf,.docx,.xlsx,.jpg,.png">
+          <span style="font-size:0.75rem; color:var(--text-muted);">Accepted formats: PDF, DOCX, XLSX, JPG, PNG (Max 10 MB). Stored securely in Obsyra Business Drive.</span>
+        </div>
+      </div>
+
+      <!-- 9. COMMUNICATION PREFERENCE & 10. TERMS -->
+      <div class="form-card">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--dark); margin-bottom: 0.85rem;">5. COMMUNICATION & CONSENT</h3>
+        
+        <div class="form-group">
+          <label>Preferred Contact Channel *</label>
+          <div style="display:flex; gap:1.25rem; font-size:0.875rem;">
+            <label style="cursor:pointer;"><input type="checkbox" name="contactPref" value="Phone" checked> Phone Call</label>
+            <label style="cursor:pointer;"><input type="checkbox" name="contactPref" value="Email" checked> Email</label>
+            <label style="cursor:pointer;"><input type="checkbox" name="contactPref" value="WhatsApp" checked> WhatsApp</label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:1.5rem;">
+          <label style="display:flex; align-items:flex-start; gap:0.5rem; font-size:0.825rem; font-weight:normal; color:var(--text-muted); cursor:pointer;">
+            <input type="checkbox" required style="margin-top:0.2rem;">
+            <span>I confirm that the provided information is accurate, and I authorize Obsyra Pvt Ltd to contact our organization regarding this service request.</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="padding: 0.85rem 2.5rem; font-size: 1rem; font-weight: 800;">SUBMIT SERVICE REQUEST →</button>
+      </div>
+
+    </form>
+  </main>
+
+  <!-- 11. SUBMISSION CONFIRMATION MODAL -->
+  <div id="confirmModal" class="modal-overlay">
+    <div class="modal-content" style="text-align: center; max-width: 520px; padding: 2rem;">
+      <div style="width:70px; height:70px; border-radius:50%; background:#d1fae5; color:#10b981; display:flex; align-items:center; justify-content:center; font-size:2.25rem; margin:0 auto 1rem auto; font-weight:800;">✓</div>
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--dark);">SERVICE REQUEST RECEIVED</h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.35rem;">Thank you for contacting Obsyra Pvt Ltd. Your service request has been logged in our enterprise system.</p>
+      
+      <div style="background:#f8fafc; border:1px solid #0284c7; border-radius:8px; padding:1rem; margin:1.25rem 0;">
+        <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">YOUR SERVICE REQUEST ID:</div>
+        <div style="font-size:1.6rem; font-weight:800; color:var(--primary); margin-top:0.25rem;" id="modalReqId">OBS-SR-2026-000125</div>
+      </div>
+
+      <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 1.5rem;">Our technical director and project management team will review your requirement and contact you shortly.</p>
+
+      <div style="display:flex; flex-direction:column; gap:0.6rem;">
+        <a href="#" id="btnTrackReq" class="btn btn-primary">TRACK REQUEST STATUS →</a>
+        <a href="index.html" class="btn btn-outline" style="color:var(--dark); border-color:#cbd5e1;">RETURN TO HOME</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom">&copy; 2026 Obsyra Pvt Ltd. All rights reserved.</div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    function toggleWorkforceCard(chk) {
+      document.getElementById('workforceCard').style.display = chk.checked ? 'block' : 'none';
+    }
+
+    async function handleFullServiceReqSubmit() {
+      const checkedSvcs = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(c => c.value);
+      
+      const res = await API.request('submitServiceRequest', {
+        companyName: document.getElementById('srCompany').value,
+        contactPerson: document.getElementById('srPerson').value,
+        designation: document.getElementById('srDesignation').value,
+        mobile: '+91 ' + document.getElementById('srMobile').value,
+        email: document.getElementById('srEmail').value,
+        altMobile: document.getElementById('srAltMobile').value,
+        city: document.getElementById('srCity').value,
+        state: document.getElementById('srState').value,
+        projectName: document.getElementById('srProjectName').value,
+        location: document.getElementById('srProjectLocation').value,
+        industry: document.getElementById('srIndustry').value,
+        startDate: document.getElementById('srStartDate').value,
+        duration: document.getElementById('srDuration').value,
+        priority: document.querySelector('input[name="priority"]:checked').value,
+        primaryService: checkedSvcs[0] || 'Telecom Services',
+        services: checkedSvcs,
+        description: document.getElementById('srDescription').value
+      });
+
+      if (res.success) {
+        document.getElementById('modalReqId').innerText = res.requestId;
+        document.getElementById('btnTrackReq').href = 'service-request-status.html?id=' + res.requestId;
+        document.getElementById('confirmModal').classList.add('show');
+      }
+    }
+  </script>
+</body>
+</html>

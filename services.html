@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — Obsyra Pvt Ltd</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- PUBLIC NAVIGATION HEADER -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> PVT LTD</a>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="jobs.html">Jobs</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="careers.html">Careers</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-auth" id="navAuth"></div>
+  </nav>
+
+  <!-- 1. SERVICES HERO SECTION -->
+  <header style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 4rem 1.5rem; text-align: center;">
+    <div style="max-width: 850px; margin: 0 auto;">
+      <span class="tag" style="background: rgba(2, 132, 199, 0.2); color: #38bdf8; padding: 0.35rem 0.85rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem; text-transform: uppercase;">Corporate Services Catalogue</span>
+      <h1 style="font-size: 2.75rem; font-weight: 800; margin: 1.25rem 0 0.85rem 0; line-height: 1.2;">Technology, Telecom, Engineering & Workforce Solutions Across India</h1>
+      <p style="font-size: 1.1rem; color: #94a3b8; max-width: 750px; margin: 0 auto 2rem auto; line-height: 1.6;">Obsyra provides professional technical, infrastructure, testing, and workforce support for enterprise projects and operations.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="#serviceCategories" class="btn btn-primary" style="padding: 0.85rem 1.75rem; font-size: 1rem;">EXPLORE SERVICES</a>
+        <button onclick="document.getElementById('serviceReqModal').classList.add('show')" class="btn btn-whatsapp" style="padding: 0.85rem 1.75rem; font-size: 1rem;">REQUEST A SERVICE</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 2.5rem 1rem;">
+    <!-- 2. 6 MAIN SERVICE CATEGORIES GRID -->
+    <section id="serviceCategories" style="margin-bottom: 3rem;">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto 2.5rem auto;">
+        <h2 style="font-size: 2rem; font-weight: 800; color: var(--dark);">Main Service Capabilities</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Delivering turnkey technical support, field engineering, data center deployment, and specialized manpower.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <div class="form-card">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📡</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;">Telecom Services</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">4G/5G NR field drive testing, MME, EPG, PCG, vWMG, PCCSM, PCCMME node configuration and protocol validation.</p>
+          <a href="#secTelecom" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; width:100%;">View Telecom Details →</a>
+        </div>
+
+        <div class="form-card">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💻</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;">IT & Web Services</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">IT Support, software development, web applications, customer portals, recruitment platforms, and QA testing.</p>
+          <a href="#secIT" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; width:100%;">View IT Details →</a>
+        </div>
+
+        <div class="form-card">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🖥️</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;">Infrastructure & Data Center</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Server rack mounting, switch & router installation, compute dismantling, cabling, and 24x7 data center operations.</p>
+          <a href="#secInfra" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; width:100%;">View Infrastructure Details →</a>
+        </div>
+
+        <div class="form-card">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🧪</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;">Testing & Validation</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Network testing, 4G/5G protocol testing, FWA device validation, integration, functional, and field testing.</p>
+          <a href="#secTesting" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; width:100%;">View Testing Details →</a>
+        </div>
+
+        <div class="form-card">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">👥</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;">Workforce Solutions</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Deputation of skilled telecom, network, IT, testing, software, and project engineers for enterprise projects.</p>
+          <a href="#secWorkforce" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; width:100%;">View Workforce Details →</a>
+        </div>
+
+        <div class="form-card">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🌐</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;">Engineering & Field Services</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Site survey, equipment installation, commissioning, maintenance support, and field engineering across PAN India.</p>
+          <a href="#secEngineering" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; width:100%;">View Engineering Details →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. TELECOM SERVICES DETAILED BREAKDOWN -->
+    <section id="secTelecom" class="form-card" style="margin-bottom: 2.5rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 0.85rem;">📡 Telecom & Core Network Services</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Obsyra provides technical support and project workforce solutions for telecom network environments, including 4G LTE, 5G NR, core node configuration, and infrastructure support.</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:0.75rem; font-size:0.875rem;">
+        <div style="background:#f8fafc; padding:0.65rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✔ MME & EPG Configuration</div>
+        <div style="background:#f8fafc; padding:0.65rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✔ PCG & vWMG Testing</div>
+        <div style="background:#f8fafc; padding:0.65rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✔ PCCSM & PCCMME Nodes</div>
+        <div style="background:#f8fafc; padding:0.65rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✔ 4G LTE & 5G NR Field Drive</div>
+        <div style="background:#f8fafc; padding:0.65rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✔ FWA & VoLTE Validation</div>
+        <div style="background:#f8fafc; padding:0.65rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✔ Data Center Telecom Support</div>
+      </div>
+    </section>
+
+    <!-- 4. TESTING SERVICES & WORKFLOW -->
+    <section id="secTesting" class="form-card" style="margin-bottom: 2.5rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem;">🧪 Testing & Protocol Validation Services</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">Structured testing workflows covering network connectivity, device integration, data consumption, and RRC/NAS protocol validation.</p>
+      
+      <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem;">Our 8-Step Testing Workflow:</h4>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; font-size:0.8rem; font-weight:700; color:var(--dark);">
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Project Requirement</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Test Plan</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Test Environment</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Execution</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Issue Identification</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Reporting</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Validation</div>
+        <div>→</div>
+        <div style="background:#d1fae5; color:#10b981; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #6ee7b7;">Completion</div>
+      </div>
+    </section>
+
+    <!-- 5. INFRASTRUCTURE & DATA CENTER -->
+    <section id="secInfra" class="form-card" style="margin-bottom: 2.5rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem;">🏢 Infrastructure & Data Center Services</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">Complete physical installation, racking, cable management, and equipment mounting for mission-critical data centers.</p>
+      
+      <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem;">Rack & Hardware Installation Process:</h4>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; font-size:0.8rem; font-weight:700; color:var(--dark);">
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Rack Installation</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Equipment Mounting</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Power & Connectivity</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Cable Management</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Config Support</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #cbd5e1;">Testing</div>
+        <div>→</div>
+        <div style="background:#d1fae5; color:#10b981; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid #6ee7b7;">Handover</div>
+      </div>
+    </section>
+
+    <!-- 6. IT SERVICES -->
+    <section id="secIT" class="form-card" style="margin-bottom: 2.5rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 0.85rem;">💻 IT & Web Software Solutions</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Building corporate websites, customer portals, admin panels, HR recruitment systems, and custom web applications.</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:0.75rem; font-size:0.875rem;">
+        <div style="background:#f8fafc; padding:0.6rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0;">✔ Corporate & Business Websites</div>
+        <div style="background:#f8fafc; padding:0.6rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0;">✔ Admin Panels & Portals</div>
+        <div style="background:#f8fafc; padding:0.6rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0;">✔ HR & Recruitment Platforms</div>
+        <div style="background:#f8fafc; padding:0.6rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0;">✔ Technical Support Services</div>
+      </div>
+    </section>
+
+    <!-- 7. WORKFORCE SOLUTIONS -->
+    <section id="secWorkforce" class="form-card" style="margin-bottom: 2.5rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem;">👥 Workforce & Technical Manpower Solutions</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">Deputation of pre-screened technical manpower connected directly to our recruitment ecosystem.</p>
+      
+      <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem;">Manpower Sourcing & Deployment Process:</h4>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem; font-size:0.78rem; font-weight:700; color:var(--dark);">
+        <div style="background:#f8fafc; padding:0.4rem 0.6rem; border-radius:6px; border:1px solid #cbd5e1;">Requirement</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.4rem 0.6rem; border-radius:6px; border:1px solid #cbd5e1;">Skill ID</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.4rem 0.6rem; border-radius:6px; border:1px solid #cbd5e1;">Sourcing</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.4rem 0.6rem; border-radius:6px; border:1px solid #cbd5e1;">Screening</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.4rem 0.6rem; border-radius:6px; border:1px solid #cbd5e1;">Tech Evaluation</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.4rem 0.6rem; border-radius:6px; border:1px solid #cbd5e1;">Interview</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.4rem 0.6rem; border-radius:6px; border:1px solid #cbd5e1;">Selection</div>
+        <div>→</div>
+        <div style="background:#d1fae5; color:#10b981; padding:0.4rem 0.6rem; border-radius:6px; border:1px solid #6ee7b7;">Deployment</div>
+      </div>
+    </section>
+
+    <!-- 8. ENGINEERING & FIELD SERVICES -->
+    <section id="secEngineering" class="form-card" style="margin-bottom: 2.5rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 0.85rem;">🌐 Engineering & Field Services</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Site survey, equipment installation, commissioning, maintenance support, and troubleshooting across field sites.</p>
+    </section>
+
+    <!-- 9. INDUSTRIES WE SERVE -->
+    <section style="margin-bottom: 3rem;">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto 2rem auto;">
+        <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--dark);">Industries We Serve</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Delivering specialized technical and workforce support across key Indian industry sectors.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; text-align: center;">
+        <div class="form-card" style="padding: 1rem;">🏢 Telecom</div>
+        <div class="form-card" style="padding: 1rem;">💻 IT & Technology</div>
+        <div class="form-card" style="padding: 1rem;">🏗️ Construction</div>
+        <div class="form-card" style="padding: 1rem;">⚙️ Engineering</div>
+        <div class="form-card" style="padding: 1rem;">🏭 Manufacturing</div>
+        <div class="form-card" style="padding: 1rem;">🏦 Banking & Finance</div>
+        <div class="form-card" style="padding: 1rem;">🛡️ Insurance</div>
+        <div class="form-card" style="padding: 1rem;">🏨 Hospitality</div>
+        <div class="form-card" style="padding: 1rem;">✈️ Tourism</div>
+        <div class="form-card" style="padding: 1rem;">🏠 Real Estate</div>
+        <div class="form-card" style="padding: 1rem;">🚚 Logistics</div>
+        <div class="form-card" style="padding: 1rem;">🏥 Healthcare</div>
+      </div>
+    </section>
+
+    <!-- 10. WHY OBSYRA & 11. 6-STEP SERVICE PROCESS -->
+    <section class="form-card" style="margin-bottom: 3rem;">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto 2rem auto;">
+        <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--dark);">Our Service Delivery Process</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Transparent 6-step project execution framework ensuring quality and timely delivery.</p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; font-size: 0.85rem; font-weight: 700; color: var(--dark);">
+        <div style="background:#f8fafc; padding:0.75rem 1rem; border-radius:6px; border:1px solid #cbd5e1;">01 📞 Requirement</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.75rem 1rem; border-radius:6px; border:1px solid #cbd5e1;">02 📋 Analysis</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.75rem 1rem; border-radius:6px; border:1px solid #cbd5e1;">03 🧑💻 Resource Planning</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.75rem 1rem; border-radius:6px; border:1px solid #cbd5e1;">04 🚀 Deployment</div>
+        <div>→</div>
+        <div style="background:#f8fafc; padding:0.75rem 1rem; border-radius:6px; border:1px solid #cbd5e1;">05 📊 Monitoring</div>
+        <div>→</div>
+        <div style="background:#d1fae5; color:#10b981; padding:0.75rem 1rem; border-radius:6px; border:1px solid #6ee7b7;">06 ✅ Delivery</div>
+      </div>
+    </section>
+
+    <!-- 12. DUAL CONVERSION CTA BANNER -->
+    <section class="form-card" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 2.5rem; text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2rem; font-weight: 800; color: white;">Have a Project Requirement?</h2>
+      <p style="color: #94a3b8; font-size: 1rem; margin: 0.5rem 0 1.5rem 0;">Tell us what technical resources or service capabilities you need, and our team will contact you.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <button onclick="document.getElementById('serviceReqModal').classList.add('show')" class="btn btn-primary" style="background: #0284c7; padding:0.85rem 1.75rem; font-size:1rem;">REQUEST A SERVICE</button>
+        <a href="jobs.html" class="btn btn-outline" style="color: white; border-color: white; padding:0.85rem 1.75rem; font-size:1rem;">VIEW JOB OPPORTUNITIES</a>
+      </div>
+    </section>
+
+    <!-- 19. SERVICES FAQ -->
+    <section style="margin-bottom: 3rem;">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto 2rem auto;">
+        <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--dark);">Services FAQ</h2>
+      </div>
+
+      <div class="faq-accordion open">
+        <button class="faq-title-btn" onclick="this.parentElement.classList.toggle('open')">
+          <span>What industries does Obsyra support?</span>
+          <span>▼</span>
+        </button>
+        <div class="faq-content-pane">
+          Obsyra supports Telecom, IT & Technology, Construction, Engineering, Manufacturing, Banking, Insurance, Hospitality, Tourism, Real Estate, Logistics, and Healthcare sectors.
+        </div>
+      </div>
+
+      <div class="faq-accordion">
+        <button class="faq-title-btn" onclick="this.parentElement.classList.toggle('open')">
+          <span>Does Obsyra provide technical manpower?</span>
+          <span>▼</span>
+        </button>
+        <div class="faq-content-pane">
+          Yes! Obsyra provides project-based technical resources, telecom engineers, network administrators, and software developers tailored to client project requirements.
+        </div>
+      </div>
+
+      <div class="faq-accordion">
+        <button class="faq-title-btn" onclick="this.parentElement.classList.toggle('open')">
+          <span>Can I request a customized service?</span>
+          <span>▼</span>
+        </button>
+        <div class="faq-content-pane">
+          Yes. Enterprise clients can submit detailed BOQ or project requirements via our <strong>Request a Service</strong> modal.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 13. REQUEST A SERVICE MODAL -->
+  <div id="serviceReqModal" class="modal-overlay">
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:0.75rem; margin-bottom:1rem;">
+        <h3 style="font-size:1.15rem; font-weight:800;">📝 Request a Service</h3>
+        <button onclick="document.getElementById('serviceReqModal').classList.remove('show')" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <form id="formServiceRequest" onsubmit="event.preventDefault(); handleServiceReqSubmit();">
+        <div class="form-group">
+          <label>Company Name *</label>
+          <input type="text" id="reqCompany" class="form-control" placeholder="Enter company name" required>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Contact Person *</label>
+            <input type="text" id="reqPerson" class="form-control" placeholder="Full name" required>
+          </div>
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" id="reqMobile" class="form-control" placeholder="+91 XXXXX XXXXX" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" id="reqEmail" class="form-control" placeholder="name@company.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>Service Category Required *</label>
+          <select id="reqServiceCategory" class="form-control" required>
+            <option value="Telecom Services">📡 Telecom Services (4G/5G Testing)</option>
+            <option value="Infrastructure Services">🖥️ Data Center Infrastructure & Racking</option>
+            <option value="IT Services">💻 IT & Web Software Solutions</option>
+            <option value="Testing Services">🧪 Testing & Protocol Validation</option>
+            <option value="Workforce Solutions">👥 Technical Manpower Deployment</option>
+            <option value="Engineering Services">🌐 Engineering & Field Services</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Project Location *</label>
+          <input type="text" id="reqLocation" class="form-control" placeholder="e.g. Pune / Mumbai / PAN India" required>
+        </div>
+
+        <div class="form-group">
+          <label>Project Description & Requirements *</label>
+          <textarea id="reqDescription" class="form-control" rows="4" placeholder="Describe manpower count, scope of work, duration..." required></textarea>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+          <button type="button" onclick="document.getElementById('serviceReqModal').classList.remove('show')" class="btn btn-outline" style="color:var(--dark); border-color:#cbd5e1;">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom">&copy; 2026 Obsyra Pvt Ltd. All rights reserved.</div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    async function handleServiceReqSubmit() {
+      const res = await API.request('saveServiceRequest', {
+        companyName: document.getElementById('reqCompany').value,
+        contactPerson: document.getElementById('reqPerson').value,
+        mobile: document.getElementById('reqMobile').value,
+        email: document.getElementById('reqEmail').value,
+        serviceRequired: document.getElementById('reqServiceCategory').value,
+        location: document.getElementById('reqLocation').value,
+        description: document.getElementById('reqDescription').value
+      });
+
+      if (res.success) {
+        alert(res.message);
+        document.getElementById('serviceReqModal').classList.remove('show');
+        document.getElementById('formServiceRequest').reset();
+      }
+    }
+  </script>
+</body>
+</html>

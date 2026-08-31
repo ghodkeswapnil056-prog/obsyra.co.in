@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scheduled Interviews — Obsyra Candidate Portal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- HEADER -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> CAREERS</a>
+    <div class="nav-auth" id="navAuth"></div>
+  </nav>
+
+  <main class="container">
+    <div class="dashboard-grid">
+      <!-- SIDEBAR NAV -->
+      <aside class="sidebar-nav">
+        <a href="candidate-dashboard.html">📊 Dashboard Overview</a>
+        <a href="jobs.html">🔎 Find Jobs</a>
+        <a href="applications.html">📋 My Applications</a>
+        <a href="saved-jobs.html">❤️ Saved Jobs</a>
+        <a href="interview.html" class="active">📅 Scheduled Interviews</a>
+        <a href="profile.html">👤 My Profile</a>
+        <a href="resume-builder.html">📄 My Resume</a>
+        <a href="documents.html">📁 My Documents</a>
+        <a href="notifications.html">🔔 Notifications</a>
+        <a href="settings.html">⚙ Settings</a>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h1 style="font-size: 1.75rem; font-weight: 800; color: var(--dark);">🗓️ Scheduled Interviews</h1>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Manage upcoming interview schedules, Google Meet links, attendance confirmation & preparation.</p>
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <button onclick="APP.switchViewMode('list')" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">☷ LIST VIEW</button>
+            <button onclick="APP.switchViewMode('calendar')" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">▦ CALENDAR VIEW</button>
+          </div>
+        </div>
+
+        <!-- 2. INTERVIEW SUMMARY CARDS -->
+        <div class="stat-card-grid">
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--primary);" id="intStatUpcoming">2</div>
+            <div class="stat-label">📅 Upcoming Interviews</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--accent);" id="intStatCompleted">4</div>
+            <div class="stat-label">✅ Completed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--danger);" id="intStatCancelled">1</div>
+            <div class="stat-label">❌ Cancelled</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--warning);" id="intStatAwaiting">1</div>
+            <div class="stat-label">⏳ Awaiting Confirmation</div>
+          </div>
+        </div>
+
+        <!-- 3. UPCOMING SPOTLIGHT CARD -->
+        <div id="spotlightInterviewCard" style="margin-bottom: 1.5rem;">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+
+        <!-- 10. ATTENDANCE CONFIRMATION WIDGET -->
+        <div class="form-card" style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem;">CONFIRM YOUR ATTENDANCE</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">Will you attend the upcoming Technical Interview on <strong>05 September 2026 at 11:00 AM</strong>?</p>
+          <div style="display:flex; gap:1.5rem; flex-wrap:wrap; font-size:0.9rem; margin-bottom:0.85rem;">
+            <label style="font-weight:600;"><input type="radio" name="attendanceConfirm" value="Yes" checked> Yes, I will attend</label>
+            <label style="font-weight:600;"><input type="radio" name="attendanceConfirm" value="Reschedule"> I need to reschedule</label>
+            <label style="font-weight:600;"><input type="radio" name="attendanceConfirm" value="Cannot"> I cannot attend</label>
+          </div>
+          <button onclick="alert('✓ Attendance status submitted successfully!')" class="btn btn-primary btn-sm">Confirm Attendance</button>
+        </div>
+
+        <!-- CALENDAR VIEW SECTION (HIDDEN BY DEFAULT) -->
+        <div id="calendarViewSection" class="form-card" style="display:none; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem;">📆 September 2026 Interview Calendar</h3>
+          <div id="calendarGridContainer"></div>
+        </div>
+
+        <!-- 9. INTERVIEW INSTRUCTIONS & PREPARATION GUIDE -->
+        <div class="form-card" style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.75rem;">📋 Candidate Interview Instructions & Prep Guide</h3>
+          <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
+            <div>
+              <h4 style="font-size:0.95rem; font-weight:700; color:var(--dark); margin-bottom:0.5rem;">General Guidelines</h4>
+              <ul style="padding-left:1.2rem; font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
+                <li>Join Google Meet 10 minutes before the scheduled time.</li>
+                <li>Keep your updated resume PDF ready.</li>
+                <li>Ensure camera and microphone are tested.</li>
+                <li>Dress professionally in a quiet environment.</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="font-size:0.95rem; font-weight:700; color:var(--dark); margin-bottom:0.5rem;">Technical Preparation Topics</h4>
+              <ul style="padding-left:1.2rem; font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
+                <li>Networking fundamentals & Cisco routing protocols.</li>
+                <li>4G / 5G NR architecture and field drive testing.</li>
+                <li>Linux command-line troubleshooting.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIST VIEW OF ALL INTERVIEWS -->
+        <div id="interviewListContainer">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 11. REQUEST RESCHEDULE MODAL -->
+  <div id="rescheduleModal" class="modal-overlay">
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:0.75rem; margin-bottom:1rem;">
+        <h3 style="font-size:1.15rem; font-weight:800;">🔄 Request Interview Reschedule</h3>
+        <button onclick="document.getElementById('rescheduleModal').classList.remove('show')" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); alert('Reschedule request submitted to Obsyra HR!'); document.getElementById('rescheduleModal').classList.remove('show');">
+        <input type="hidden" id="modalRescheduleIntId">
+        <div class="form-group">
+          <label>Reason for Reschedule *</label>
+          <input type="text" class="form-control" placeholder="e.g. Prior professional commitment" required>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Preferred Date *</label>
+            <input type="date" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Preferred Time *</label>
+            <input type="time" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Additional Message to HR</label>
+          <textarea class="form-control" rows="3" placeholder="Explain your availability preference..."></textarea>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+          <button type="button" onclick="document.getElementById('rescheduleModal').classList.remove('show')" class="btn btn-outline" style="color:var(--dark); border-color:#cbd5e1;">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 12. REQUEST CANCELLATION MODAL -->
+  <div id="cancelModal" class="modal-overlay">
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:0.75rem; margin-bottom:1rem;">
+        <h3 style="font-size:1.15rem; font-weight:800;">❌ Request Interview Cancellation</h3>
+        <button onclick="document.getElementById('cancelModal').classList.remove('show')" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); alert('Cancellation request submitted.'); document.getElementById('cancelModal').classList.remove('show');">
+        <input type="hidden" id="modalCancelIntId">
+        <div class="form-group">
+          <label>Reason for Cancellation *</label>
+          <select class="form-control" required>
+            <option value="Personal Emergency">Personal Emergency</option>
+            <option value="Accepted Another Offer">Accepted Another Offer</option>
+            <option value="Not Available">Not Available</option>
+            <option value="Other">Other Reason</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Remarks</label>
+          <textarea class="form-control" rows="3" placeholder="Optional comments..."></textarea>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+          <button type="button" onclick="document.getElementById('cancelModal').classList.remove('show')" class="btn btn-outline" style="color:var(--dark); border-color:#cbd5e1;">Close</button>
+          <button type="submit" class="btn btn-danger">Confirm Cancellation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 21. CANDIDATE FEEDBACK MODAL -->
+  <div id="feedbackModal" class="modal-overlay">
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:0.75rem; margin-bottom:1rem;">
+        <h3 style="font-size:1.15rem; font-weight:800;">⭐ Submit Interview Feedback</h3>
+        <button onclick="document.getElementById('feedbackModal').classList.remove('show')" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); alert('Thank you! Your feedback has been submitted.'); document.getElementById('feedbackModal').classList.remove('show');">
+        <div class="form-group">
+          <label>How was your interview experience? (1 to 5 Stars)</label>
+          <select class="form-control">
+            <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+            <option value="4">⭐⭐⭐⭐ Very Good</option>
+            <option value="3">⭐⭐⭐ Good</option>
+            <option value="2">⭐⭐ Fair</option>
+            <option value="1">⭐ Poor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Was the interview process clear?</label>
+          <label style="margin-right:1rem;"><input type="radio" name="fbClear" checked> Yes</label>
+          <label><input type="radio" name="fbClear"> No</label>
+        </div>
+        <div class="form-group">
+          <label>Comments / Suggestions</label>
+          <textarea class="form-control" rows="3" placeholder="Share your experience..."></textarea>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+          <button type="button" onclick="document.getElementById('feedbackModal').classList.remove('show')" class="btn btn-outline" style="color:var(--dark); border-color:#cbd5e1;">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      APP.initInterviewsModule();
+    });
+  </script>
+</body>
+</html>

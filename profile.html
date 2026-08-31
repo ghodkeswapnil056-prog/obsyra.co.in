@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — Obsyra Candidate Portal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- CANDIDATE PORTAL NAVBAR -->
+  <nav class="navbar">
+    <a href="candidate-dashboard.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> CANDIDATE PORTAL</a>
+    <ul class="nav-menu">
+      <li><a href="candidate-dashboard.html">Dashboard</a></li>
+      <li><a href="profile.html" class="active">My Profile</a></li>
+      <li><a href="resume-builder.html">Resume Builder</a></li>
+      <li><a href="documents.html">Document Vault</a></li>
+      <li><a href="jobs.html">Job Search</a></li>
+      <li><a href="applications.html">My Applications</a></li>
+      <li><a href="interview.html">Interviews</a></li>
+    </ul>
+    <div class="nav-auth" id="navAuth"></div>
+  </nav>
+
+  <!-- 1. PROFILE HEADER SPOTLIGHT -->
+  <header style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 2.5rem 1.5rem;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="display: flex; align-items: center; gap: 1.25rem;">
+        <div style="width: 75px; height: 75px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; border: 3px solid white;">RS</div>
+        <div>
+          <span class="tag" style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-weight: 700; font-size: 0.75rem;">Verified Candidate Account</span>
+          <h1 style="font-size: 1.85rem; font-weight: 800; margin: 0.2rem 0 0 0;" id="profHeaderName">Rahul Sharma</h1>
+          <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;" id="profHeaderTitle">Network Engineer | Candidate ID: <strong style="color:#38bdf8;">CAN-2026-000125</strong></p>
+        </div>
+      </div>
+
+      <div style="text-align: right; min-width: 240px;">
+        <div style="font-size: 0.825rem; color: #94a3b8; margin-bottom: 0.35rem; font-weight: 600;">Profile Completion: <strong style="color:white;" id="profHeaderScoreText">85%</strong></div>
+        <div style="background: #334155; border-radius: 10px; height: 10px; overflow: hidden; margin-bottom: 0.75rem;">
+          <div id="profHeaderScoreBar" style="background: var(--primary); height: 100%; width: 85%;"></div>
+        </div>
+        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+          <a href="#personalSection" class="btn btn-primary btn-sm">✏ EDIT PROFILE</a>
+          <button onclick="document.getElementById('previewModal').classList.add('show')" class="btn btn-outline btn-sm" style="color:white; border-color:white;">👁 PREVIEW PROFILE</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
+
+    <!-- 2. ACTIONABLE PROFILE COMPLETION WIDGET -->
+    <section class="form-card" style="margin-bottom: 2rem; background: #f0f9ff; border: 1px solid #0284c7;">
+      <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem;">📊 ACTIONABLE PROFILE COMPLETION</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Complete remaining sections to increase recruiter visibility and job match accuracy.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; font-size: 0.85rem; font-weight: 600;">
+        <a href="#personalSection" style="color:#10b981; text-decoration:none;">✓ Basic Information</a>
+        <a href="#contactSection" style="color:#10b981; text-decoration:none;">✓ Contact Information</a>
+        <a href="#educationSection" style="color:#10b981; text-decoration:none;">✓ Education History</a>
+        <a href="#experienceSection" style="color:#10b981; text-decoration:none;">✓ Work Experience</a>
+        <a href="#skillsSection" style="color:#10b981; text-decoration:none;">✓ Skills Matrix</a>
+        <a href="#resumeSection" style="color:#10b981; text-decoration:none;">✓ Master Resume</a>
+        <a href="#certSection" style="color:#d97706; text-decoration:none; font-weight:700;">⚠ Add Technical Certifications</a>
+        <a href="#prefSection" style="color:#d97706; text-decoration:none; font-weight:700;">⚠ Add Career Preferences</a>
+      </div>
+    </section>
+
+    <!-- 17. REAL-TIME JOB MATCHING WIDGET -->
+    <section class="form-card" style="margin-bottom: 2rem; background: #f8fafc;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--dark);">🎯 JOB MATCHING SPOTLIGHT</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Real-time match scores calculated against current Obsyra open vacancies.</p>
+        </div>
+        <a href="jobs.html" class="btn btn-primary btn-sm">VIEW RECOMMENDED JOBS →</a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+        <div style="background: white; border: 1px solid #0284c7; padding: 0.85rem; border-radius: 6px;">
+          <div style="display:flex; justify-content:space-between; font-weight:800; font-size:0.9rem;">
+            <span>Network Engineer</span> <span style="color:var(--primary);">🎯 92%</span>
+          </div>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin:0.25rem 0;">Pune, Maharashtra • Telecom</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #cbd5e1; padding: 0.85rem; border-radius: 6px;">
+          <div style="display:flex; justify-content:space-between; font-weight:800; font-size:0.9rem;">
+            <span>5G Testing Engineer</span> <span style="color:var(--primary);">🎯 84%</span>
+          </div>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin:0.25rem 0;">Pune / Hybrid • Testing</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #cbd5e1; padding: 0.85rem; border-radius: 6px;">
+          <div style="display:flex; justify-content:space-between; font-weight:800; font-size:0.9rem;">
+            <span>Field Engineer</span> <span style="color:var(--primary);">🎯 78%</span>
+          </div>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin:0.25rem 0;">PAN India • Engineering</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN EDIT FORM -->
+    <form id="formProfile" onsubmit="event.preventDefault(); handleSaveProfileSubmit();">
+      
+      <!-- 3. PERSONAL INFORMATION -->
+      <div class="form-card" id="personalSection" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">👤 1. PERSONAL INFORMATION</h3>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label>System Candidate ID (Read-Only)</label>
+            <input type="text" value="CAN-2026-000125" class="form-control" style="background:#f1f5f9; font-weight:800; color:var(--primary);" readonly>
+          </div>
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="profFullName" class="form-control" value="Rahul Sharma" required>
+          </div>
+          <div class="form-group">
+            <label>Professional Headline *</label>
+            <input type="text" id="profTitle" class="form-control" value="Network Engineer" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" id="profDOB" class="form-control" value="1996-08-15">
+          </div>
+          <div class="form-group">
+            <label>Gender</label>
+            <select id="profGender" class="form-control">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Nationality</label>
+            <input type="text" id="profNationality" class="form-control" value="Indian">
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. CONTACT INFORMATION -->
+      <div class="form-card" id="contactSection" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">📞 2. CONTACT INFORMATION</h3>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Primary Mobile * <span class="tag" style="background:#d1fae5; color:#10b981; font-size:0.7rem;">✓ Verified</span></label>
+            <input type="tel" id="profMobile" class="form-control" value="+91 98765 43210" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address * <span class="tag" style="background:#d1fae5; color:#10b981; font-size:0.7rem;">✓ Verified</span></label>
+            <input type="email" id="profEmail" class="form-control" value="rahul.sharma@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Alternate Mobile</label>
+            <input type="tel" id="profAltMobile" class="form-control" value="+91 98123 45678">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>WhatsApp Number</label>
+            <input type="tel" id="profWhatsapp" class="form-control" value="+91 98765 43210">
+          </div>
+          <div class="form-group">
+            <label>LinkedIn Profile</label>
+            <input type="url" id="profLinkedin" class="form-control" value="https://linkedin.com/in/rahulsharma">
+          </div>
+          <div class="form-group">
+            <label>Portfolio / Website</label>
+            <input type="url" id="profPortfolio" class="form-control" value="https://rahulsharma.dev">
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. ADDRESS -->
+      <div class="form-card" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">📍 3. ADDRESS</h3>
+        
+        <div class="form-group">
+          <label>Current Address</label>
+          <input type="text" id="profAddress" class="form-control" value="Wagholi, Pune">
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>State *</label>
+            <select id="profState" class="form-control" required>
+              <option value="Maharashtra" selected>Maharashtra</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Delhi">Delhi NCR</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Other">Other State</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>City *</label>
+            <select id="profCity" class="form-control" required>
+              <option value="Pune" selected>Pune</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Nagpur">Nagpur</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>PIN Code</label>
+            <input type="text" id="profPin" class="form-control" value="412207">
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. CAREER PROFILE & 7. PREFERENCES -->
+      <div class="form-card" id="prefSection" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">🎯 4. CAREER PROFILE & PREFERENCES</h3>
+        
+        <div class="form-group">
+          <label>Professional Summary *</label>
+          <textarea id="profSummary" class="form-control" rows="3" required>Experienced Network Engineer with 3+ years in 4G/5G NR field deployment, Cisco switch mounting, and telecom troubleshooting.</textarea>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Total Experience</label>
+            <input type="text" id="profTotalExp" class="form-control" value="3 Years">
+          </div>
+          <div class="form-group">
+            <label>Current Employment Status</label>
+            <select id="profEmpStatus" class="form-control">
+              <option value="Employed" selected>Employed</option>
+              <option value="Fresher">Fresher</option>
+              <option value="Notice Period">Serving Notice Period</option>
+              <option value="Unemployed">Unemployed / Immediate</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Expected Salary</label>
+            <input type="text" id="profExpSalary" class="form-control" value="₹6,50,000 p.a.">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Preferred Work Mode</label>
+          <div style="display:flex; gap:1.25rem; font-size:0.875rem;">
+            <label style="cursor:pointer;"><input type="checkbox" checked> On-Site</label>
+            <label style="cursor:pointer;"><input type="checkbox" checked> Hybrid</label>
+            <label style="cursor:pointer;"><input type="checkbox" checked> Field Work</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. EDUCATION & 9. EXPERIENCE -->
+      <div class="form-card" id="educationSection" style="margin-bottom: 1.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+          <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark);">🎓 5. EDUCATION HISTORY</h3>
+          <button type="button" onclick="alert('Adding education entry...')" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">+ ADD EDUCATION</button>
+        </div>
+
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:1rem; border-radius:8px; margin-bottom:0.75rem;">
+          <div style="font-size:0.95rem; font-weight:800;">B.E. Electronics & Telecommunication (Graduation)</div>
+          <div style="font-size:0.85rem; color:var(--text-muted);">Pune University — Year: 2023 | CGPA: 7.8</div>
+        </div>
+      </div>
+
+      <div class="form-card" id="experienceSection" style="margin-bottom: 1.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+          <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark);">💼 6. WORK EXPERIENCE</h3>
+          <button type="button" onclick="alert('Adding work experience entry...')" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">+ ADD EXPERIENCE</button>
+        </div>
+
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:1rem; border-radius:8px; margin-bottom:0.75rem;">
+          <div style="display:flex; justify-content:space-between; font-weight:800; font-size:0.95rem;">
+            <span>Network Engineer — ABC Telecom Pvt Ltd</span>
+            <span style="font-size:0.8rem; color:var(--text-muted);">01/2024 - Present</span>
+          </div>
+          <p style="font-size:0.825rem; color:var(--text-muted); margin-top:0.25rem;">Handled 4G/5G NR field troubleshooting, Cisco router mounts, and site surveys across Pune region.</p>
+        </div>
+      </div>
+
+      <!-- 10. SKILLS MATRIX -->
+      <div class="form-card" id="skillsSection" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">🛠️ 7. SKILLS MATRIX</h3>
+        <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
+          <span class="tag" style="background:#e0f2fe; color:#0369a1; font-size:0.85rem; font-weight:700;">Networking ×</span>
+          <span class="tag" style="background:#e0f2fe; color:#0369a1; font-size:0.85rem; font-weight:700;">4G LTE ×</span>
+          <span class="tag" style="background:#e0f2fe; color:#0369a1; font-size:0.85rem; font-weight:700;">5G NR ×</span>
+          <span class="tag" style="background:#e0f2fe; color:#0369a1; font-size:0.85rem; font-weight:700;">Troubleshooting ×</span>
+          <span class="tag" style="background:#e0f2fe; color:#0369a1; font-size:0.85rem; font-weight:700;">Linux ×</span>
+          <span class="tag" style="background:#e0f2fe; color:#0369a1; font-size:0.85rem; font-weight:700;">Cisco Routers ×</span>
+        </div>
+      </div>
+
+      <!-- 14. RESUME & 15. VAULT CONNECTIONS -->
+      <div class="form-card" id="resumeSection" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">📄 8. RESUME & DOCUMENT VAULT CONNECTIONS</h3>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+          <a href="resume-builder.html" class="btn btn-outline" style="color:var(--dark); border-color:#0284c7; flex:1; text-align:center;">📄 OPEN RESUME BUILDER</a>
+          <a href="documents.html" class="btn btn-outline" style="color:var(--dark); border-color:#cbd5e1; flex:1; text-align:center;">📁 OPEN DOCUMENT VAULT</a>
+        </div>
+      </div>
+
+      <!-- 16. PROFILE VISIBILITY & 19. SAVE SYSTEM -->
+      <div class="form-card" style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--dark); margin-bottom: 0.75rem;">🔐 PROFILE VISIBILITY</h3>
+        <div style="display:flex; gap:1.5rem; font-size:0.875rem; margin-bottom:1.5rem;">
+          <label style="cursor:pointer;"><input type="radio" name="visibility" value="Private"> Private (Only You)</label>
+          <label style="cursor:pointer;"><input type="radio" name="visibility" value="Recruiter Searchable"> Recruiter Searchable</label>
+          <label style="cursor:pointer; font-weight:700;"><input type="radio" name="visibility" value="Application Only" checked> Application Only (Recommended)</label>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; border-top:1px solid #e2e8f0; padding-top:1rem;">
+          <span style="font-size:0.8rem; color:var(--text-muted);" id="saveTimestampText">Last saved: 01 September 2026</span>
+          <button type="submit" class="btn btn-primary" style="padding:0.75rem 2rem; font-weight:800;">SAVE CHANGES ✓</button>
+        </div>
+      </div>
+
+    </form>
+  </main>
+
+  <!-- 18. RECRUITER PROFILE PREVIEW MODAL -->
+  <div id="previewModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 650px; padding: 2rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:0.75rem; margin-bottom:1rem;">
+        <h3 style="font-size:1.2rem; font-weight:800;">👁 RECRUITER PROFILE PREVIEW</h3>
+        <button onclick="document.getElementById('previewModal').classList.remove('show')" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:1.25rem; border-radius:8px; font-size:0.875rem;">
+        <h2 style="font-size:1.4rem; font-weight:800; color:var(--dark); margin:0;">Rahul Sharma</h2>
+        <div style="font-weight:700; color:var(--primary);">Network Engineer — Candidate ID: CAN-2026-000125</div>
+        <div style="color:var(--text-muted); margin:0.35rem 0 1rem 0;">📍 Pune, Maharashtra | ✉ rahul.sharma@example.com | 📞 +91 98765 43210</div>
+        
+        <h4 style="font-weight:800; margin-bottom:0.25rem;">PROFESSIONAL SUMMARY</h4>
+        <p style="color:var(--text-muted); font-size:0.825rem;">Experienced Network Engineer with 3+ years in 4G/5G NR field deployment, Cisco switch mounting, and telecom troubleshooting.</p>
+        
+        <h4 style="font-weight:800; margin:0.85rem 0 0.25rem 0;">KEY SKILLS</h4>
+        <div style="font-weight:600; color:#0369a1;">Networking | 4G LTE | 5G NR | Troubleshooting | Linux | Cisco Routers</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom">&copy; 2026 Obsyra Pvt Ltd. All rights reserved.</div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    async function handleSaveProfileSubmit() {
+      const res = await API.request('saveCandidateProfile', {
+        candidateId: 'CAN-2026-000125',
+        fullName: document.getElementById('profFullName').value,
+        jobTitle: document.getElementById('profTitle').value,
+        email: document.getElementById('profEmail').value,
+        mobile: document.getElementById('profMobile').value,
+        city: document.getElementById('profCity').value,
+        state: document.getElementById('profState').value
+      });
+
+      if (res.success) {
+        document.getElementById('saveTimestampText').innerText = 'Last saved: ' + res.lastUpdated;
+        alert(res.message);
+      }
+    }
+  </script>
+</body>
+</html>

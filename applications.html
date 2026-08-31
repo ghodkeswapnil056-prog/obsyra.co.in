@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Applications — Obsyra Candidate Portal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- HEADER -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> CAREERS</a>
+    <div class="nav-auth" id="navAuth"></div>
+  </nav>
+
+  <main class="container">
+    <div class="dashboard-grid">
+      <!-- SIDEBAR NAV -->
+      <aside class="sidebar-nav">
+        <a href="candidate-dashboard.html">📊 Dashboard Overview</a>
+        <a href="jobs.html">🔎 Find Jobs</a>
+        <a href="applications.html" class="active">📋 My Applications</a>
+        <a href="saved-jobs.html">❤️ Saved Jobs</a>
+        <a href="interview.html">📅 Scheduled Interviews</a>
+        <a href="profile.html">👤 My Profile</a>
+        <a href="resume-builder.html">📄 My Resume</a>
+        <a href="documents.html">📁 My Documents</a>
+        <a href="notifications.html">🔔 Notifications</a>
+        <a href="settings.html">⚙ Settings</a>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h1 style="font-size: 1.75rem; font-weight: 800; color: var(--dark);">📋 Job Application Tracking Center</h1>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Real-time status tracking, submitted resume snapshots, timeline progress & interviews.</p>
+          </div>
+          <a href="jobs.html" class="btn btn-primary">🔎 Browse More Jobs</a>
+        </div>
+
+        <!-- 2. APPLICATION SUMMARY CARDS -->
+        <div class="stat-card-grid">
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--primary);" id="appStatTotal">8</div>
+            <div class="stat-label">📤 Total Applied</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--accent);" id="appStatActive">5</div>
+            <div class="stat-label">🟢 Active Applications</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: #0284c7;" id="appStatInterviews">2</div>
+            <div class="stat-label">🗓️ Interviews</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: #047857;" id="appStatSelected">1</div>
+            <div class="stat-label">🎉 Selected</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--danger);" id="appStatRejected">2</div>
+            <div class="stat-label">❌ Not Selected</div>
+          </div>
+        </div>
+
+        <!-- 16. SELECTED APPLICATION OFFER BANNER -->
+        <div class="form-card" style="background: linear-gradient(135deg, #0284c7 0%, #1e3a8a 100%); color: white; margin-bottom: 1.5rem;">
+          <span class="tag" style="background:#d1fae5; color:#10b981; font-weight:800;">🎉 CONGRATULATIONS!</span>
+          <h2 style="font-size: 1.35rem; font-weight: 800; margin-top: 0.4rem; color:white;">Selected for: Telecom Operations Analyst</h2>
+          <p style="font-size: 0.875rem; color: #e0f2fe; margin-top: 0.25rem;">Application ID: <strong>APP-2026-00045</strong> | Selection Date: 10 Sept 2026</p>
+          <div style="display:flex; gap:0.75rem; margin-top:1rem; flex-wrap:wrap;">
+            <button onclick="alert('Viewing Official Offer Letter PDF...')" class="btn btn-outline" style="color:white; border-color:white;">📄 View Offer Letter</button>
+            <button onclick="APP.request('acceptJobOffer', {applicationId:'APP-2026-00045'}).then(r => alert(r.message))" class="btn btn-whatsapp">✓ ACCEPT OFFER</button>
+            <a href="documents.html" class="btn btn-outline" style="color:white; border-color:#93c5fd;">📁 Complete Onboarding Docs</a>
+          </div>
+        </div>
+
+        <!-- 3. SEARCH & FILTERS -->
+        <div class="vault-filter-bar" style="margin-bottom: 1rem;">
+          <button class="app-filter-btn active" onclick="APP.filterApplications('All')">All Applications</button>
+          <button class="app-filter-btn" onclick="APP.filterApplications('Shortlisted')">🟢 Shortlisted</button>
+          <button class="app-filter-btn" onclick="APP.filterApplications('Under Review')">🟡 Under Review</button>
+          <button class="app-filter-btn" onclick="APP.filterApplications('Selected')">🎉 Selected</button>
+          <button class="app-filter-btn" onclick="APP.filterApplications('Rejected')">❌ Rejected</button>
+          <button class="app-filter-btn" onclick="APP.filterApplications('Withdrawn')">⚪ Withdrawn</button>
+        </div>
+
+        <!-- APPLICATION CARDS -->
+        <div id="applicationCardsContainer">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 6. APPLICATION DETAILS MODAL -->
+  <div id="appDetailsModal" class="modal-overlay">
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:0.75rem; margin-bottom:1rem;">
+        <h3 style="font-size:1.15rem; font-weight:800;" id="modalJobTitle">Application Details</h3>
+        <button onclick="document.getElementById('appDetailsModal').classList.remove('show')" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <div style="background:#f8fafc; border-radius:8px; padding:0.85rem; border:1px solid #e2e8f0; margin-bottom:1rem; font-size:0.85rem;">
+        <div><strong>Application ID:</strong> <span id="modalAppId">APP-2026-00125</span></div>
+        <div><strong>Applied Date:</strong> <span id="modalAppliedDate">31 August 2026</span></div>
+        <div><strong>Status:</strong> <span id="modalAppStatus" style="color:var(--primary); font-weight:bold;">Shortlisted</span></div>
+      </div>
+
+      <!-- 5. 9-STAGE TIMELINE TREE -->
+      <h4 style="font-size:0.95rem; font-weight:800; margin-bottom:0.5rem;">📊 Application Stage Timeline</h4>
+      <div id="modalAppStagesTree" style="background:white; padding:0.85rem; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:1rem;"></div>
+
+      <!-- 7. SUBMITTED RESUME SNAPSHOT -->
+      <h4 style="font-size:0.95rem; font-weight:800; margin-bottom:0.4rem;">📄 Submitted Resume Version</h4>
+      <div style="background:#f8fafc; padding:0.75rem; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <strong id="modalResumeName" style="font-size:0.875rem;">Rahul_Sharma_5G_V3.pdf</strong>
+          <p id="modalResumeVer" style="font-size:0.75rem; color:#64748b;">Version: V3</p>
+        </div>
+        <button onclick="alert('Viewing submitted resume version snapshot...')" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">View Snapshot</button>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+        <a href="interview.html" class="btn btn-primary btn-sm">🗓️ Go to Interviews</a>
+        <button onclick="document.getElementById('appDetailsModal').classList.remove('show')" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. WITHDRAW APPLICATION MODAL -->
+  <div id="withdrawModal" class="modal-overlay">
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:0.75rem; margin-bottom:1rem;">
+        <h3 style="font-size:1.15rem; font-weight:800;">Withdraw Application</h3>
+        <button onclick="document.getElementById('withdrawModal').classList.remove('show')" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); APP.request('withdrawApplication', {applicationId: document.getElementById('modalWithdrawAppId').value, reason: document.getElementById('withdrawReason').value}).then(r => { alert(r.message); document.getElementById('withdrawModal').classList.remove('show'); APP.initApplicationsModule(); });">
+        <input type="hidden" id="modalWithdrawAppId">
+        <p style="font-size:0.875rem; color:var(--text-muted); margin-bottom:1rem;">Are you sure you want to withdraw this application? This action will set your status to <strong>Withdrawn by Candidate</strong>.</p>
+        
+        <div class="form-group">
+          <label>Reason for Withdrawal *</label>
+          <select id="withdrawReason" class="form-control" required>
+            <option value="Accepted another opportunity">Accepted another opportunity</option>
+            <option value="Not interested anymore">Not interested anymore</option>
+            <option value="Location issue">Location issue</option>
+            <option value="Salary expectations">Salary expectations</option>
+            <option value="Personal reason">Personal reason</option>
+          </select>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+          <button type="button" onclick="document.getElementById('withdrawModal').classList.remove('show')" class="btn btn-outline" style="color:var(--dark); border-color:#cbd5e1;">Cancel</button>
+          <button type="submit" class="btn btn-danger">Confirm Withdrawal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      APP.initApplicationsModule();
+    });
+  </script>
+</body>
+</html>

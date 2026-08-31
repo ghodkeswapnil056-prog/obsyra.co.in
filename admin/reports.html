@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports & Analytics — Obsyra Admin</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="dashboard.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> RECRUITER ADMIN</a>
+    <div class="nav-auth"><button onclick="AUTH.logoutAdmin()" class="btn btn-sm btn-danger">Logout</button></div>
+  </nav>
+
+  <main class="container">
+    <div class="dashboard-grid">
+      <aside class="sidebar-nav">
+        <a href="dashboard.html">📊 Executive Control</a>
+        <a href="jobs.html">💼 Jobs Management</a>
+        <a href="create-job.html">➕ Post New Job</a>
+        <a href="candidates.html">👥 Talent Pool & Search</a>
+        <a href="applications.html">📋 Master Applications</a>
+        <a href="interviews.html">🗓️ Interview Schedule</a>
+        <a href="reports.html" class="active">📈 Reports & Analytics</a>
+      </aside>
+
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h2 style="font-size: 1.75rem; font-weight: 800;">Recruitment Analytics & Reports</h2>
+          <button onclick="exportCSV()" class="btn btn-primary">📥 Export Report (CSV)</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+          <div class="form-card">
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">Candidate Location Distribution</h3>
+            <ul style="list-style: none; font-size: 0.9rem;">
+              <li style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>📍 Pune, Maharashtra</span> <strong>120 Candidates</strong></li>
+              <li style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>📍 Mumbai, Maharashtra</span> <strong>80 Candidates</strong></li>
+              <li style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>📍 Delhi NCR</span> <strong>60 Candidates</strong></li>
+              <li style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>📍 Gujarat</span> <strong>45 Candidates</strong></li>
+              <li style="display:flex; justify-content:space-between;"><span>📍 Rajasthan</span> <strong>35 Candidates</strong></li>
+            </ul>
+          </div>
+
+          <div class="form-card">
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">Recruitment Funnel Conversion</h3>
+            <ul style="list-style: none; font-size: 0.9rem;">
+              <li style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>Applications Received</span> <strong>126</strong></li>
+              <li style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>Shortlisted Rate</span> <strong>24.6%</strong></li>
+              <li style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>Interviews Conducted</span> <strong>14</strong></li>
+              <li style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>Offers Issued</span> <strong>8</strong></li>
+              <li style="display:flex; justify-content:space-between;"><span>Joined Obsyra</span> <strong>5</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    function exportCSV() {
+      const csv = "Candidate ID,Name,Job Title,Location,Status\nCAN-100234,Rahul Sharma,Network Engineer,Pune,Shortlisted\nCAN-100235,Priya Patil,5G Protocol Tester,Mumbai,Under Review";
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('href', url);
+      a.setAttribute('download', 'Obsyra_Recruitment_Report.csv');
+      a.click();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Careers & Recruitment Landing Page — Obsyra Pvt Ltd</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- PUBLIC NAVIGATION HEADER -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> CAREERS</a>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="jobs.html">Jobs</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="careers.html" class="active">Careers</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-auth" id="navAuth"></div>
+  </nav>
+
+  <!-- 1. CAREERS HERO SECTION -->
+  <header style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 4.5rem 1.5rem; text-align: center;">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <span class="tag" style="background: rgba(2, 132, 199, 0.2); color: #38bdf8; padding: 0.35rem 0.85rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem; text-transform: uppercase;">Obsyra Recruitment Ecosystem</span>
+      <h1 style="font-size: 2.85rem; font-weight: 800; margin: 1.25rem 0 0.85rem 0; line-height: 1.2;">BUILD YOUR CAREER WITH OBSYRA</h1>
+      <p style="font-size: 1.1rem; color: #94a3b8; max-width: 780px; margin: 0 auto 2rem auto; line-height: 1.6;">Explore opportunities across Telecom, IT, Testing, Engineering, Software, Web Development and technical project operations across India.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="jobs.html" class="btn btn-primary" style="padding: 0.85rem 1.75rem; font-size: 1rem;">🔎 FIND JOBS →</a>
+        <a href="register.html" class="btn btn-outline" style="padding: 0.85rem 1.75rem; font-size: 1rem; color: white; border-color: white;">👤 CREATE CANDIDATE ACCOUNT</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 2.5rem 1rem;">
+    <!-- 9. JOB SEARCH WIDGET -->
+    <section class="form-card" style="margin-bottom: 3rem; background: #f8fafc; border: 1px solid #0284c7;">
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem;">🔍 Find Your Next Opportunity</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Search current open vacancies in our candidate portal database.</p>
+
+      <form onsubmit="event.preventDefault(); window.location.href='jobs.html?query=' + encodeURIComponent(document.getElementById('carSearchQuery').value);">
+        <div class="form-grid" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.75rem;">Job Title / Skill</label>
+            <input type="text" id="carSearchQuery" class="form-control" placeholder="e.g. Network Engineer, 5G">
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.75rem;">Location</label>
+            <select class="form-control">
+              <option value="">All Locations</option>
+              <option value="Pune">Pune</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="PAN India">PAN India</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.75rem;">Experience</label>
+            <select class="form-control">
+              <option value="">Any Experience</option>
+              <option value="Fresher">Fresher</option>
+              <option value="1-3">1–3 Years</option>
+              <option value="3-5">3–5 Years</option>
+            </select>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+            <button type="submit" class="btn btn-primary" style="width:100%;">SEARCH JOBS</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- 2. WHY BUILD YOUR CAREER WITH OBSYRA? -->
+    <section style="margin-bottom: 3rem;">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto 2.5rem auto;">
+        <h2 style="font-size: 2rem; font-weight: 800; color: var(--dark);">Why Build Your Career With Obsyra?</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Empowering technical professionals with real project experience, skill growth, and structured career paths.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem;">
+        <div class="form-card" style="padding: 1.5rem;">
+          <div style="font-size: 2.25rem; margin-bottom: 0.5rem;">🚀</div>
+          <h4 style="font-weight: 800; color: var(--dark); margin-bottom: 0.35rem;">CAREER OPPORTUNITIES</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Opportunities to work on enterprise technical projects and advance your engineering career.</p>
+        </div>
+
+        <div class="form-card" style="padding: 1.5rem;">
+          <div style="font-size: 2.25rem; margin-bottom: 0.5rem;">📚</div>
+          <h4 style="font-weight: 800; color: var(--dark); margin-bottom: 0.35rem;">LEARNING & SKILLS</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Develop practical hands-on experience across modern 4G/5G NR, Cisco switches, and web technologies.</p>
+        </div>
+
+        <div class="form-card" style="padding: 1.5rem;">
+          <div style="font-size: 2.25rem; margin-bottom: 0.5rem;">👥</div>
+          <h4 style="font-weight: 800; color: var(--dark); margin-bottom: 0.35rem;">PROJECT EXPERIENCE</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Collaborate with experienced project leads and client operational teams across PAN India.</p>
+        </div>
+
+        <div class="form-card" style="padding: 1.5rem;">
+          <div style="font-size: 2.25rem; margin-bottom: 0.5rem;">📡</div>
+          <h4 style="font-weight: 800; color: var(--dark); margin-bottom: 0.35rem;">TELECOM OPPORTUNITIES</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Specialized roles in MME/EPG core nodes, field drive testing, and 5G protocol validation.</p>
+        </div>
+
+        <div class="form-card" style="padding: 1.5rem;">
+          <div style="font-size: 2.25rem; margin-bottom: 0.5rem;">💻</div>
+          <h4 style="font-weight: 800; color: var(--dark); margin-bottom: 0.35rem;">IT & SOFTWARE</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Build web applications, admin portals, and cloud system support infrastructure.</p>
+        </div>
+
+        <div class="form-card" style="padding: 1.5rem;">
+          <div style="font-size: 2.25rem; margin-bottom: 0.5rem;">🌐</div>
+          <h4 style="font-weight: 800; color: var(--dark); margin-bottom: 0.35rem;">PROJECT EXPOSURE</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Gain multi-client exposure across Pune, Mumbai, Gujarat, and nationwide locations.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. CAREER AREAS GRID -->
+    <section style="margin-bottom: 3rem;">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto 2.5rem auto;">
+        <h2 style="font-size: 2rem; font-weight: 800; color: var(--dark);">Explore Career Areas</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Choose your engineering or technical domain to view relevant open roles.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+        <div class="form-card">
+          <div style="font-size: 2.25rem; margin-bottom: 0.5rem;">📡</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;">Telecom Engineering</h3>
+          <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 0.85rem;">Network Engineers • Telecom Engineers • 4G/5G Field Engineers • Protocol Testers</p>
+          <a href="jobs.html?category=Telecom" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; width:100%;">VIEW RELATED JOBS →</a>
+        </div>
+
+        <div class="form-card">
+          <div style="font-size: 2.25rem; margin-bottom: 0.5rem;">💻</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;">IT & Software</h3>
+          <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 0.85rem;">Software Developers • Web Developers • IT Support • System Administrators</p>
+          <a href="jobs.html?category=Software" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; width:100%;">VIEW RELATED JOBS →</a>
+        </div>
+
+        <div class="form-card">
+          <div style="font-size: 2.25rem; margin-bottom: 0.5rem;">🧪</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;">Testing & QA</h3>
+          <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 0.85rem;">Network Testing • Device Validation • Functional Testing • Technical Validation</p>
+          <a href="jobs.html?category=Testing" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; width:100%;">VIEW RELATED JOBS →</a>
+        </div>
+
+        <div class="form-card">
+          <div style="font-size: 2.25rem; margin-bottom: 0.5rem;">⚙️</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;">Field Engineering</h3>
+          <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 0.85rem;">Site Survey • Equipment Installation • Commissioning • Data Center Racking</p>
+          <a href="jobs.html?category=Infrastructure" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; width:100%;">VIEW RELATED JOBS →</a>
+        </div>
+
+        <div class="form-card">
+          <div style="font-size: 2.25rem; margin-bottom: 0.5rem;">👥</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;">Operations & Support</h3>
+          <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 0.85rem;">Project Coordination • Technical Operations • Helpdesk & Administration</p>
+          <a href="jobs.html?category=Operations" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; width:100%;">VIEW RELATED JOBS →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. DYNAMIC CURRENT OPENINGS -->
+    <section style="margin-bottom: 3rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-size: 1.75rem; font-weight: 800; color: var(--dark);">🔥 Current Openings</h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Urgent open vacancies pulled directly from our database.</p>
+        </div>
+        <a href="jobs.html" class="btn btn-primary">VIEW ALL JOBS →</a>
+      </div>
+
+      <div id="careerJobsContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- 5. WHO CAN APPLY? -->
+    <section class="form-card" style="margin-bottom: 3rem;">
+      <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--dark); margin-bottom: 0.75rem;">Who Can Apply?</h3>
+      <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">Obsyra welcomes applications from candidates meeting posting qualifications.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; font-size: 0.875rem;">
+        <div style="background:#f8fafc; padding:0.6rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✓ Freshers (Select Postings)</div>
+        <div style="background:#f8fafc; padding:0.6rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✓ Experienced Professionals</div>
+        <div style="background:#f8fafc; padding:0.6rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✓ Technical & Field Engineers</div>
+        <div style="background:#f8fafc; padding:0.6rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✓ IT & Software Developers</div>
+        <div style="background:#f8fafc; padding:0.6rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✓ Telecom & Testing Testers</div>
+        <div style="background:#f8fafc; padding:0.6rem 0.85rem; border-radius:6px; border:1px solid #e2e8f0; font-weight:600;">✓ Project-based Contractors</div>
+      </div>
+    </section>
+
+    <!-- 6. CANDIDATE REGISTRATION ROADMAP & 7. PORTAL FEATURES -->
+    <section class="form-card" style="background: linear-gradient(135deg, #0284c7 0%, #1e3a8a 100%); color: white; padding: 2.5rem; margin-bottom: 3rem;">
+      <div style="max-width: 850px; margin: 0 auto; text-align: center;">
+        <h2 style="font-size: 2rem; font-weight: 800; color: white;">Create Your Obsyra Candidate Profile</h2>
+        <p style="color: #e0f2fe; font-size: 1rem; margin: 0.5rem 0 1.5rem 0;">Register once, build your master resume, and apply for open positions in 1 click.</p>
+        
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+          <a href="register.html" class="btn btn-primary" style="background: white; color: var(--primary); font-weight: 800;">CREATE CANDIDATE ACCOUNT</a>
+          <a href="login.html" class="btn btn-outline" style="color: white; border-color: white;">CANDIDATE LOGIN</a>
+        </div>
+
+        <!-- 8. RECRUITMENT JOURNEY -->
+        <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1.5rem; text-align: left;">
+          <h3 style="font-size: 1.1rem; font-weight: 800; color: white; margin-bottom: 0.85rem; text-align: center;">Your Recruitment Journey With Obsyra:</h3>
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; font-size: 0.78rem; font-weight: 700; color: #e0f2fe;">
+            <div style="background:rgba(255,255,255,0.1); padding:0.4rem 0.6rem; border-radius:6px;">01 Create Account</div>
+            <div>→</div>
+            <div style="background:rgba(255,255,255,0.1); padding:0.4rem 0.6rem; border-radius:6px;">02 Complete Profile</div>
+            <div>→</div>
+            <div style="background:rgba(255,255,255,0.1); padding:0.4rem 0.6rem; border-radius:6px;">03 Find Job</div>
+            <div>→</div>
+            <div style="background:rgba(255,255,255,0.1); padding:0.4rem 0.6rem; border-radius:6px;">04 Apply Online</div>
+            <div>→</div>
+            <div style="background:rgba(255,255,255,0.1); padding:0.4rem 0.6rem; border-radius:6px;">05 Review</div>
+            <div>→</div>
+            <div style="background:rgba(255,255,255,0.1); padding:0.4rem 0.6rem; border-radius:6px;">06 Interview</div>
+            <div>→</div>
+            <div style="background:#d1fae5; color:#10b981; padding:0.4rem 0.6rem; border-radius:6px; font-weight:800;">07 Offer / Joining</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. JOB ALERTS & 11. REFERRALS -->
+    <section class="form-card" style="margin-bottom: 3rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+        <div>
+          <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--dark);">🔔 Never Miss a Relevant Opportunity</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.25rem;">Set up your job alerts inside the Candidate Portal to get notified when matching roles open up.</p>
+        </div>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="register.html" class="btn btn-primary">CREATE JOB ALERT</a>
+          <a href="contact.html" class="btn btn-outline" style="color:var(--dark); border-color:#cbd5e1;">🤝 REFER A PROFESSIONAL</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. CAREERS FAQ ACCORDIONS -->
+    <section style="margin-bottom: 3rem;">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto 2rem auto;">
+        <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--dark);">Careers FAQ</h2>
+      </div>
+
+      <div class="faq-accordion open">
+        <button class="faq-title-btn" onclick="this.parentElement.classList.toggle('open')">
+          <span>How do I apply for an Obsyra job posting?</span>
+          <span>▼</span>
+        </button>
+        <div class="faq-content-pane">
+          Create a Candidate Account (`register.html`), complete your master profile, select an active vacancy under <strong>Jobs (`jobs.html`)</strong>, choose your resume snapshot, and click <strong>Submit Application</strong>.
+        </div>
+      </div>
+
+      <div class="faq-accordion">
+        <button class="faq-title-btn" onclick="this.parentElement.classList.toggle('open')">
+          <span>Can I apply for multiple job vacancies?</span>
+          <span>▼</span>
+        </button>
+        <div class="faq-content-pane">
+          Yes! Candidates can submit applications for multiple vacancies across telecom, IT, testing, and engineering domains provided requirements are met.
+        </div>
+      </div>
+
+      <div class="faq-accordion">
+        <button class="faq-title-btn" onclick="this.parentElement.classList.toggle('open')">
+          <span>Can freshers apply for positions?</span>
+          <span>▼</span>
+        </button>
+        <div class="faq-content-pane">
+          Yes, where a job posting explicitly permits fresher applications (e.g., Trainee Field Engineers or Junior IT Testers).
+        </div>
+      </div>
+
+      <div class="faq-accordion">
+        <button class="faq-title-btn" onclick="this.parentElement.classList.toggle('open')">
+          <span>How do I track my submitted applications?</span>
+          <span>▼</span>
+        </button>
+        <div class="faq-content-pane">
+          All submitted applications appear under <strong>My Applications (`applications.html`)</strong> inside your Candidate Portal, featuring real-time 9-stage status timeline trees.
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. RECRUITMENT CONTACT CTA -->
+    <section class="form-card" style="margin-bottom: 3rem; text-align: center; background: #f8fafc;">
+      <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem;">Have a Recruitment Question?</h3>
+      <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.25rem;">Reach out to our recruitment support team or browse active vacancies.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="contact.html" class="btn btn-outline" style="color:var(--dark); border-color:#cbd5e1;">CONTACT RECRUITMENT TEAM</a>
+        <a href="jobs.html" class="btn btn-primary">VIEW CURRENT JOBS</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-bottom">&copy; 2026 Obsyra Pvt Ltd. All rights reserved.</div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const res = await API.request('getJobs');
+      const container = document.getElementById('careerJobsContainer');
+      if (container && res.success && res.jobs) {
+        container.innerHTML = res.jobs.map(j => `
+          <div class="form-card">
+            <span class="tag" style="background:#d1fae5; color:#10b981; font-weight:700;">🟢 ${j.status}</span>
+            <h3 style="font-size:1.15rem; font-weight:800; margin-top:0.35rem;">${j.title}</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">${j.client} — 📍 ${j.location}</p>
+            <p style="font-size:0.825rem; color:var(--dark); margin:0.4rem 0;">💼 ${j.type} | 🕐 ${j.expDisplay}</p>
+            <div style="display:flex; gap:0.5rem; margin-top:0.75rem;">
+              <a href="job-details.html?id=${j.id}" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1; flex:1;">VIEW JOB</a>
+              <a href="job-details.html?id=${j.id}&apply=true" class="btn btn-primary btn-sm" style="flex:1;">APPLY</a>
+            </div>
+          </div>
+        `).join('');
+      }
+    });
+  </script>
+</body>
+</html>

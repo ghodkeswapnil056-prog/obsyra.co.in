@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Candidate Account — Obsyra Portal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem;">
+  
+  <div class="form-card" style="max-width: 480px; width: 100%; padding: 2.25rem; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);">
+    <div style="text-align: center; margin-bottom: 1.75rem;">
+      <a href="index.html" class="nav-brand" style="justify-content: center; font-size: 1.6rem; color: var(--dark); font-weight: 800; text-decoration: none;">
+        <span style="color:var(--primary);">OBSYRA</span> PORTAL
+      </a>
+      <h1 style="font-size: 1.35rem; font-weight: 800; color: var(--dark); margin-top: 0.5rem;">Create Your Candidate Account</h1>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Create your free Obsyra Candidate Profile and discover job opportunities matching your skills.</p>
+    </div>
+
+    <!-- 4. DUPLICATE ACCOUNT PROTECTION WARNING -->
+    <div id="registerErrorAlert" style="display:none; background:#fee2e2; border:1px solid #f87171; color:#991b1b; padding:0.85rem; border-radius:6px; font-size:0.85rem; margin-bottom:1.25rem;"></div>
+
+    <!-- 1. REGISTRATION FORM -->
+    <form id="formRegister" onsubmit="event.preventDefault(); handleRegisterSubmit();">
+      <div class="form-group">
+        <label>Full Name *</label>
+        <input type="text" id="regFullName" class="form-control" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label>Mobile Number *</label>
+        <div style="display:flex; gap:0.5rem;">
+          <input type="text" value="+91" class="form-control" style="width:70px; text-align:center; font-weight:700;" readonly>
+          <input type="tel" id="regMobile" class="form-control" placeholder="98765 43210" pattern="[0-9]{10}" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address *</label>
+        <input type="email" id="regEmail" class="form-control" placeholder="name@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Create Password *</label>
+        <div style="position:relative;">
+          <input type="password" id="regPass" class="form-control" placeholder="Minimum 6 characters" minlength="6" required>
+          <button type="button" onclick="togglePassVisibility('regPass', this)" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); border:none; background:transparent; cursor:pointer; font-size:1.1rem;">👁</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Confirm Password *</label>
+        <div style="position:relative;">
+          <input type="password" id="regConfirmPass" class="form-control" placeholder="Re-enter password" minlength="6" required>
+          <button type="button" onclick="togglePassVisibility('regConfirmPass', this)" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); border:none; background:transparent; cursor:pointer; font-size:1.1rem;">👁</button>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1.25rem;">
+        <label style="display:flex; align-items:flex-start; gap:0.5rem; font-size:0.8rem; font-weight:normal; color:var(--text-muted); cursor:pointer;">
+          <input type="checkbox" required style="margin-top:0.2rem;">
+          <span>I agree to the <strong>Terms & Conditions</strong> and <strong>Privacy Policy</strong> of Obsyra Pvt Ltd.</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 0.95rem; font-weight: 800;">CREATE ACCOUNT</button>
+    </form>
+
+    <div style="text-align: center; margin-top: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+      Already have an account? <a href="login.html" style="font-weight: 700; color: var(--primary);">LOGIN HERE →</a>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    function togglePassVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerText = '🙈';
+      } else {
+        input.type = 'password';
+        btn.innerText = '👁';
+      }
+    }
+
+    async function handleRegisterSubmit() {
+      const errAlert = document.getElementById('registerErrorAlert');
+      errAlert.style.display = 'none';
+
+      const pass = document.getElementById('regPass').value;
+      const confirmPass = document.getElementById('regConfirmPass').value;
+
+      if (pass !== confirmPass) {
+        errAlert.innerHTML = '⚠ Passwords do not match. Please ensure both password fields match.';
+        errAlert.style.display = 'block';
+        return;
+      }
+
+      const res = await API.request('registerCandidate', {
+        fullName: document.getElementById('regFullName').value,
+        mobile: '+91 ' + document.getElementById('regMobile').value,
+        email: document.getElementById('regEmail').value,
+        password: pass
+      });
+
+      if (!res.success) {
+        errAlert.innerHTML = res.message;
+        errAlert.style.display = 'block';
+      } else {
+        AUTH.setSession(res.candidate);
+        alert(res.message + '\nCandidate ID: ' + res.candidate.candidateId);
+        window.location.href = 'candidate-dashboard.html';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Obsyra Recruiter Portal</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar" style="background:#0f172a;">
+    <a href="dashboard.html" class="nav-brand"><span style="color:#38bdf8;">OBSYRA</span> RECRUITER ADMIN</a>
+    <ul class="nav-menu">
+      <li><a href="dashboard.html" class="active">📊 Dashboard</a></li>
+      <li><a href="jobs.html">💼 Jobs</a></li>
+      <li><a href="candidates.html">👥 Candidates</a></li>
+      <li><a href="applications.html">📋 Applications</a></li>
+      <li><a href="interviews.html">🗓 Interviews</a></li>
+      <li><a href="reports.html">📈 Reports</a></li>
+      <li><a href="notifications.html">📢 Alerts</a></li>
+      <li><a href="settings.html">⚙️ Settings</a></li>
+    </ul>
+    <div style="color:white; font-size:0.85rem; font-weight:700;">ADMIN-002 (HR Manager)</div>
+  </nav>
+
+  <header style="background: #1e293b; color: white; padding: 2rem 1.5rem;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="tag" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; font-weight: 700; font-size: 0.8rem;">Master HR Control Center</span>
+        <h1 style="font-size: 1.85rem; font-weight: 800; margin-top: 0.35rem;">ADMIN RECRUITMENT DASHBOARD</h1>
+        <p style="color: #94a3b8; font-size: 0.875rem;">Real-time analytics across PAN India candidates, job postings, and automated vacancy fulfillment.</p>
+      </div>
+      <div style="display: flex; gap: 0.75rem;">
+        <a href="create-job.html" class="btn btn-primary">+ CREATE NEW JOB</a>
+        <a href="applications.html" class="btn btn-outline" style="color: white; border-color: white;">MANAGE APPLICATIONS</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
+    
+    <!-- MAIN STATISTICS CARDS -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+      <a href="candidates.html" class="form-card" style="text-decoration:none; padding:1.25rem;">
+        <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">TOTAL CANDIDATES</div>
+        <div style="font-size:1.85rem; font-weight:800; color:var(--dark); margin-top:0.25rem;">1,248</div>
+        <div style="font-size:0.75rem; color:#10b981; font-weight:700; margin-top:0.25rem;">+18 New Today</div>
+      </a>
+
+      <a href="jobs.html" class="form-card" style="text-decoration:none; padding:1.25rem;">
+        <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">OPEN JOBS</div>
+        <div style="font-size:1.85rem; font-weight:800; color:var(--primary); margin-top:0.25rem;">27</div>
+        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">1 Closed (Fulfilled)</div>
+      </a>
+
+      <a href="applications.html" class="form-card" style="text-decoration:none; padding:1.25rem;">
+        <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">APPLICATIONS</div>
+        <div style="font-size:1.85rem; font-weight:800; color:var(--dark); margin-top:0.25rem;">386</div>
+        <div style="font-size:0.75rem; color:#d97706; font-weight:700; margin-top:0.25rem;">86 Under Review</div>
+      </a>
+
+      <a href="applications.html?status=Joined" class="form-card" style="text-decoration:none; padding:1.25rem;">
+        <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">CANDIDATES JOINED</div>
+        <div style="font-size:1.85rem; font-weight:800; color:#10b981; margin-top:0.25rem;">11</div>
+        <div style="font-size:0.75rem; color:#10b981; font-weight:700; margin-top:0.25rem;">✓ Counted as Filled</div>
+      </a>
+    </div>
+
+    <!-- 10. RECRUITMENT REQUIREMENTS DASHBOARD WIDGET -->
+    <section class="form-card" style="margin-bottom: 2rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark);">📊 AUTOMATED VACANCY RECRUITMENT TRACKER</h3>
+        <span style="font-size:0.8rem; color:var(--text-muted);">Auto-closes when Joined = Required</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;" id="vacanciesWidgetContainer">
+        
+        <div style="background: #f0fdf4; border: 1px solid #10b981; padding: 1.25rem; border-radius: 8px;">
+          <span class="tag" style="background:#10b981; color:white; font-weight:800;">🟢 REQUIREMENT FULFILLED (CLOSED)</span>
+          <h4 style="font-size: 1.15rem; font-weight: 800; margin-top: 0.5rem; color: var(--dark);">Network Engineer (OBS-JOB-00125)</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">📍 Maharashtra</p>
+          
+          <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin:0.85rem 0 0.4rem 0;">
+            <span>Required: <strong>5</strong></span>
+            <span>Selected: <strong>5</strong></span>
+            <span>Joined: <strong style="color:#10b981;">5</strong></span>
+          </div>
+          <div style="font-size:0.85rem; font-weight:800; color:#10b981;">Remaining Vacancies: 0 (Auto-Closed)</div>
+        </div>
+
+        <div style="background: #fffbeb; border: 1px solid #f59e0b; padding: 1.25rem; border-radius: 8px;">
+          <span class="tag" style="background:#f59e0b; color:white; font-weight:800;">🟡 PARTIALLY FULFILLED (OPEN)</span>
+          <h4 style="font-size: 1.15rem; font-weight: 800; margin-top: 0.5rem; color: var(--dark);">5G Protocol Testing Engineer (OBS-JOB-00126)</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">📍 Maharashtra / Hybrid</p>
+          
+          <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin:0.85rem 0 0.4rem 0;">
+            <span>Required: <strong>5</strong></span>
+            <span>Selected: <strong>4</strong></span>
+            <span>Joined: <strong style="color:var(--primary);">3</strong></span>
+          </div>
+          <div style="font-size:0.85rem; font-weight:800; color:#d97706;">Remaining Vacancies: 2 Open</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STATE-WISE RECRUITMENT GRID -->
+    <div class="form-card">
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">📍 STATE-WISE OPEN RECRUITMENT</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.85rem;">
+        <a href="jobs.html?state=Maharashtra" style="background:#f8fafc; border:1px solid #cbd5e1; padding:0.85rem; border-radius:6px; text-decoration:none; color:var(--dark); font-weight:700; display:flex; justify-content:space-between;">
+          <span>Maharashtra</span> <span style="color:var(--primary);">17 Jobs</span>
+        </a>
+        <a href="jobs.html?state=Gujarat" style="background:#f8fafc; border:1px solid #cbd5e1; padding:0.85rem; border-radius:6px; text-decoration:none; color:var(--dark); font-weight:700; display:flex; justify-content:space-between;">
+          <span>Gujarat</span> <span style="color:var(--primary);">7 Jobs</span>
+        </a>
+        <a href="jobs.html?state=PAN India" style="background:#e0f2fe; border:1px solid #0284c7; padding:0.85rem; border-radius:6px; text-decoration:none; color:#0369a1; font-weight:800; display:flex; justify-content:space-between;">
+          <span>PAN India</span> <span>12 Jobs</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-bottom">&copy; 2026 Obsyra Pvt Ltd. Admin Control Portal.</div>
+  </footer>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

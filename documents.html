@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Vault — Obsyra Candidate Portal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- HEADER -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> CAREERS</a>
+    <div class="nav-auth" id="navAuth"></div>
+  </nav>
+
+  <main class="container">
+    <div class="dashboard-grid">
+      <!-- SIDEBAR NAV -->
+      <aside class="sidebar-nav">
+        <a href="candidate-dashboard.html">📊 Dashboard Overview</a>
+        <a href="jobs.html">🔎 Find Jobs</a>
+        <a href="applications.html">📋 My Applications</a>
+        <a href="saved-jobs.html">❤️ Saved Jobs</a>
+        <a href="interview.html">📅 Interviews</a>
+        <a href="profile.html">👤 My Profile</a>
+        <a href="resume-builder.html">📄 My Resume</a>
+        <a href="documents.html" class="active">📁 My Documents</a>
+        <a href="notifications.html">🔔 Notifications</a>
+        <a href="settings.html">⚙ Settings</a>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h1 style="font-size: 1.75rem; font-weight: 800; color: var(--dark);">📁 Secure Document Vault</h1>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Stored privately in your candidate Google Drive folder (`CAN-000125 - Rahul Sharma`).</p>
+          </div>
+          <button onclick="APP.openUploadModal()" class="btn btn-primary">➕ UPLOAD DOCUMENT</button>
+        </div>
+
+        <!-- 3. DOCUMENT SUMMARY CARDS -->
+        <div class="stat-card-grid">
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--primary);" id="vaultStatTotal">12</div>
+            <div class="stat-label">📁 Total Documents</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--accent);" id="vaultStatVerified">8</div>
+            <div class="stat-label">🟢 Verified</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--warning);" id="vaultStatPending">3</div>
+            <div class="stat-label">🟡 Pending Verification</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--danger);" id="vaultStatAction">1</div>
+            <div class="stat-label">⚠ Action Required</div>
+          </div>
+        </div>
+
+        <!-- DOCUMENT COMPLETION METER -->
+        <div class="form-card" style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 1.1rem; font-weight: 700;">📊 Document Vault Completion</h3>
+            <span style="font-weight: 800; color: var(--primary);" id="vaultStatCompletion">80%</span>
+          </div>
+          <div class="progress-container">
+            <div class="progress-bar" id="vaultStatCompletionBar" style="width: 80%;"></div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.4rem;">8 of 10 Required Documents verified for application & onboarding readiness.</p>
+        </div>
+
+        <!-- 13. REJECTION REASON ACTION REQUIRED BANNER -->
+        <div class="form-card" style="background:#fee2e2; border-left: 4px solid var(--danger); margin-bottom: 1.5rem;">
+          <h4 style="font-size: 1rem; font-weight: 800; color: var(--danger);">⚠ DOCUMENT ACTION REQUIRED: Experience Letter</h4>
+          <p style="font-size: 0.875rem; color: #7f1d1d; margin-top: 0.25rem;">Reason from HR: <em>"Uploaded document scan is blurred. Please upload a clear PDF file."</em></p>
+          <button onclick="APP.openUploadModal('Employment', 'Experience Letter')" class="btn btn-danger btn-sm" style="margin-top: 0.75rem;">🔄 REPLACE DOCUMENT</button>
+        </div>
+
+        <!-- 2. CATEGORY FILTERS & DOCUMENT LIST -->
+        <div class="vault-filter-bar">
+          <button class="vault-filter-btn active" onclick="APP.filterDocumentCategory('All')">📁 All Documents</button>
+          <button class="vault-filter-btn" onclick="APP.filterDocumentCategory('Identity')">📄 Identity</button>
+          <button class="vault-filter-btn" onclick="APP.filterDocumentCategory('Education')">🎓 Education</button>
+          <button class="vault-filter-btn" onclick="APP.filterDocumentCategory('Employment')">💼 Employment</button>
+          <button class="vault-filter-btn" onclick="APP.filterDocumentCategory('Certifications')">🏆 Certifications</button>
+          <button class="vault-filter-btn" onclick="APP.filterDocumentCategory('Verified')">🟢 Verified</button>
+          <button class="vault-filter-btn" onclick="APP.filterDocumentCategory('Pending Verification')">🟡 Pending</button>
+          <button class="vault-filter-btn" onclick="APP.filterDocumentCategory('Action Required')">⚠ Action Required</button>
+        </div>
+
+        <!-- DOCUMENT TABLE -->
+        <div class="form-card">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Document Name</th>
+                  <th>Category</th>
+                  <th>Upload Date</th>
+                  <th>Verification Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="documentTableBody">
+                <!-- Rendered dynamically by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 4. UPLOAD DOCUMENT MODAL -->
+  <div id="uploadDocModal" class="modal-overlay">
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:0.75rem; margin-bottom:1rem;">
+        <h3 style="font-size:1.15rem; font-weight:800;">➕ Upload Document to Vault</h3>
+        <button onclick="document.getElementById('uploadDocModal').classList.remove('show')" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <form id="formModalUpload" onsubmit="event.preventDefault(); handleModalUploadSubmit();">
+        <div class="form-group">
+          <label>Document Category *</label>
+          <select id="modalDocCategory" class="form-control" required>
+            <option value="Education">🎓 Education</option>
+            <option value="Identity">📄 Identity (PAN/Aadhaar)</option>
+            <option value="Employment">💼 Employment (Experience/Payslip)</option>
+            <option value="Certifications">🏆 Certifications</option>
+            <option value="Banking">🏦 Banking / Onboarding</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Document Type *</label>
+          <select id="modalDocType" class="form-control" required>
+            <option value="Degree Certificate">Degree Certificate</option>
+            <option value="PAN Card">PAN Card</option>
+            <option value="Aadhaar Card">Aadhaar Card</option>
+            <option value="Experience Letter">Experience Letter</option>
+            <option value="Technical Certification">Technical Certification</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Custom Document Name</label>
+          <input type="text" id="modalDocName" class="form-control" placeholder="e.g. B.Tech Degree Certificate Scan">
+        </div>
+
+        <div class="form-group">
+          <label>Upload File (Max 5MB) *</label>
+          <div class="drag-upload-box" onclick="document.getElementById('modalFileInp').click()">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">📤</div>
+            <strong style="color:var(--dark); font-size:0.9rem;">Drag & Drop File Here</strong>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">or click to browse PDF, JPG, PNG files</p>
+            <input type="file" id="modalFileInp" style="display:none;" accept=".pdf,image/*" onchange="document.getElementById('selectedFileName').innerText = this.files[0] ? this.files[0].name : '';">
+            <p id="selectedFileName" style="font-weight:bold; color:var(--primary); margin-top:0.5rem; font-size:0.85rem;"></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Expiry Date</label>
+          <input type="date" id="modalExpiryDate" class="form-control">
+          <label style="margin-top:0.4rem; font-weight:normal; font-size:0.825rem;"><input type="checkbox" checked onclick="document.getElementById('modalExpiryDate').disabled = this.checked;"> This document does not expire</label>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1rem;">
+          <button type="button" onclick="document.getElementById('uploadDocModal').classList.remove('show')" class="btn btn-outline" style="color:var(--dark); border-color:#cbd5e1;">Cancel</button>
+          <button type="submit" class="btn btn-primary">Upload Document</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 10. DOCUMENT PREVIEW MODAL -->
+  <div id="previewDocModal" class="modal-overlay">
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:0.75rem; margin-bottom:1rem;">
+        <h3 style="font-size:1.15rem; font-weight:800;" id="prevDocTitle">Document Preview</h3>
+        <button onclick="document.getElementById('previewDocModal').classList.remove('show')" style="border:none; background:transparent; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <div id="prevRejectionBanner" style="display:none; background:#fee2e2; border-left:4px solid var(--danger); padding:0.75rem; margin-bottom:1rem; border-radius:4px;">
+        <strong style="color:var(--danger); font-size:0.85rem;">⚠ Action Required:</strong>
+        <p style="font-size:0.8rem; color:#7f1d1d;" id="prevRejectionReason"></p>
+      </div>
+
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:2rem; text-align:center; margin-bottom:1rem;">
+        <div style="font-size:3rem; margin-bottom:0.5rem;">📄</div>
+        <p style="font-weight:bold; color:var(--dark);" id="prevDocMeta">Category: Education | Uploaded: 30 Aug 2026</p>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">Verification Status: <span id="prevDocStatus" style="font-weight:bold; color:var(--accent);">Verified</span></p>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <button onclick="alert('Downloading file from Google Drive...')" class="btn btn-outline" style="color:var(--dark); border-color:#cbd5e1;">⬇ Download File</button>
+        <button onclick="document.getElementById('previewDocModal').classList.remove('show')" class="btn btn-primary">Close Preview</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      APP.initDocumentVault();
+    });
+
+    async function handleModalUploadSubmit() {
+      const fileInp = document.getElementById('modalFileInp');
+      if (!fileInp.files || !fileInp.files[0]) {
+        alert('Please select a file to upload.');
+        return;
+      }
+      const file = fileInp.files[0];
+      const reader = new FileReader();
+      reader.onload = async function() {
+        const base64 = reader.result.split(',')[1];
+        const res = await API.request('uploadDocumentToVault', {
+          candidateId: 'CAN-000125',
+          category: document.getElementById('modalDocCategory').value,
+          docType: document.getElementById('modalDocType').value,
+          docName: document.getElementById('modalDocName').value || document.getElementById('modalDocType').value,
+          fileName: file.name,
+          fileData: base64,
+          fileSize: (file.size / (1024*1024)).toFixed(1) + ' MB'
+        });
+
+        if (res.success) {
+          alert('Document uploaded successfully to Google Drive vault!');
+          document.getElementById('uploadDocModal').classList.remove('show');
+          APP.initDocumentVault();
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Job — Obsyra Admin</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="dashboard.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> RECRUITER ADMIN</a>
+    <div class="nav-auth">
+      <button onclick="AUTH.logoutAdmin()" class="btn btn-sm btn-danger">Logout</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="dashboard-grid">
+      <aside class="sidebar-nav">
+        <a href="dashboard.html">📊 Executive Control</a>
+        <a href="jobs.html">💼 Jobs Management</a>
+        <a href="create-job.html" class="active">➕ Post New Job</a>
+        <a href="candidates.html">👥 Talent Pool & Search</a>
+        <a href="applications.html">📋 Master Applications</a>
+        <a href="interviews.html">🗓️ Interview Schedule</a>
+        <a href="reports.html">📈 Reports & Analytics</a>
+      </aside>
+
+      <div>
+        <form id="formCreateJob" class="form-card">
+          <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem;">Create New Job Opening</h2>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Job Title *</label>
+              <input type="text" id="jobTitle" class="form-control" required placeholder="e.g. 5G Protocol Test Engineer">
+            </div>
+            <div class="form-group">
+              <label>Department</label>
+              <input type="text" id="jobDept" class="form-control" placeholder="Testing & QA">
+            </div>
+            <div class="form-group">
+              <label>Job Category *</label>
+              <select id="jobCategory" class="form-control" required>
+                <option value="Telecom">Telecom</option>
+                <option value="Testing">Testing</option>
+                <option value="Networking">Networking</option>
+                <option value="Engineering">Engineering</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Client / Division</label>
+              <input type="text" id="jobClient" class="form-control" placeholder="Obsyra Labs">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Location (City) *</label>
+              <input type="text" id="jobLocation" class="form-control" required placeholder="Pune">
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" id="jobState" class="form-control" placeholder="Maharashtra">
+            </div>
+            <div class="form-group">
+              <label>Experience Required *</label>
+              <input type="text" id="jobExp" class="form-control" required placeholder="2–4 Years">
+            </div>
+            <div class="form-group">
+              <label>Salary Range</label>
+              <input type="text" id="jobSalary" class="form-control" placeholder="₹5,00,000 - ₹8,00,000 P.A.">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Employment Type</label>
+              <select id="jobEmpType" class="form-control">
+                <option value="Full Time">Full Time</option>
+                <option value="Contract">Contract</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Work Mode</label>
+              <select id="jobWorkMode" class="form-control">
+                <option value="On-site">On-site</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Remote">Remote</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Shift</label>
+              <select id="jobShift" class="form-control">
+                <option value="Day Shift">Day Shift</option>
+                <option value="Night Shift">Night Shift</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Application Deadline</label>
+              <input type="date" id="jobDeadline" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Required Skills (Comma Separated) *</label>
+            <input type="text" id="jobSkills" class="form-control" required placeholder="5G, Protocol Testing, Python, Wireshark">
+          </div>
+
+          <div class="form-group">
+            <label>Job Description *</label>
+            <textarea id="jobDesc" class="form-control" rows="3" required placeholder="Enter full job description..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Key Responsibilities</label>
+            <textarea id="jobResp" class="form-control" rows="3" placeholder="Enter key responsibilities..."></textarea>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Urgent Hiring Flag</label>
+              <select id="jobUrgent" class="form-control">
+                <option value="false">No</option>
+                <option value="true">Yes (Show Urgent Badge)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select id="jobStatus" class="form-control">
+                <option value="Published">Publish Immediately</option>
+                <option value="Scheduled">Schedule For Later</option>
+                <option value="Draft">Save as Draft</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:0.85rem; font-size:1rem; margin-top:1rem;">Publish Job Opening</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    document.getElementById('formCreateJob').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        title: document.getElementById('jobTitle').value,
+        department: document.getElementById('jobDept').value,
+        category: document.getElementById('jobCategory').value,
+        client: document.getElementById('jobClient').value,
+        location: document.getElementById('jobLocation').value,
+        state: document.getElementById('jobState').value,
+        experience: document.getElementById('jobExp').value,
+        salary: document.getElementById('jobSalary').value,
+        employmentType: document.getElementById('jobEmpType').value,
+        workMode: document.getElementById('jobWorkMode').value,
+        shift: document.getElementById('jobShift').value,
+        deadline: document.getElementById('jobDeadline').value,
+        skills: document.getElementById('jobSkills').value.split(',').map(s => s.trim()).filter(Boolean),
+        description: document.getElementById('jobDesc').value,
+        responsibilities: document.getElementById('jobResp').value,
+        urgent: document.getElementById('jobUrgent').value === 'true',
+        status: document.getElementById('jobStatus').value
+      };
+
+      const res = await API.request('createJob', payload);
+      if (res.success) {
+        alert(`Job published successfully! Job ID: ${res.job ? res.job.jobId : 'JOB-2026-004'}`);
+        window.location.href = 'jobs.html';
+      } else {
+        alert('Failed to publish job.');
+      }
+    });
+  </script>
+</body>
+</html>

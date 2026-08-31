@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidate Dashboard — Obsyra Career Portal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 1. TOP HEADER -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <span style="color:var(--primary);">OBSYRA</span> CAREERS
+    </a>
+
+    <div class="nav-auth" style="display:flex; align-items:center; gap:1rem;">
+      <a href="https://wa.me/919876543210?text=Hi%20Obsyra%20Support,%20I%20need%20assistance%20with%20my%20candidate%20account" target="_blank" class="btn btn-whatsapp btn-sm" style="border-radius:20px;">
+        💬 WhatsApp Support
+      </a>
+
+      <a href="notifications.html" style="color:white; font-size:1.1rem; position:relative; text-decoration:none;" title="Notifications">
+        🔔 <span style="position:absolute; top:-4px; right:-6px; background:var(--danger); color:white; font-size:0.65rem; font-weight:bold; border-radius:50%; width:15px; height:15px; display:flex; align-items:center; justify-content:center;">3</span>
+      </a>
+
+      <!-- PROFILE DROPDOWN MENU -->
+      <div class="profile-dropdown-container">
+        <button class="profile-avatar-btn" onclick="APP.toggleProfileDropdown()">
+          <span style="width:28px; height:28px; background:var(--primary); color:white; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-weight:bold; font-size:0.8rem;" id="headerAvatar">RS</span>
+          <span id="headerName">Rahul Sharma</span> ▼
+        </button>
+        <div class="dropdown-menu" id="profileDropdownMenu">
+          <a href="profile.html">👤 My Profile</a>
+          <a href="resume-builder.html">📄 My Resume</a>
+          <a href="documents.html">📁 My Documents</a>
+          <a href="settings.html">⚙ Account Settings</a>
+          <a href="settings.html?tab=password">🔐 Change Password</a>
+          <div class="dropdown-divider"></div>
+          <button onclick="AUTH.logoutCandidate()" style="color:var(--danger);">🚪 Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="dashboard-grid">
+      <!-- 16. CANDIDATE SIDEBAR MENU -->
+      <aside class="sidebar-nav">
+        <div style="padding: 0.75rem; border-bottom: 1px solid #e2e8f0; margin-bottom: 0.75rem; text-align: center;">
+          <div style="width:54px; height:54px; background:var(--primary-light); color:var(--primary); font-size:1.35rem; font-weight:bold; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 0.4rem auto;" id="sidebarAvatar">RS</div>
+          <h4 id="sidebarName" style="font-size: 0.95rem; font-weight: 700;">Rahul Sharma</h4>
+          <p id="sidebarCandId" style="font-size: 0.78rem; color: var(--text-muted);">CAN-100234</p>
+        </div>
+
+        <a href="candidate-dashboard.html" class="active">📊 Dashboard Overview</a>
+        <a href="jobs.html">🔎 Find Jobs</a>
+        <a href="applications.html">📋 My Applications</a>
+        <a href="saved-jobs.html">❤️ Saved Jobs</a>
+        <a href="interview.html">📅 Interviews</a>
+        <a href="profile.html">👤 My Profile</a>
+        <a href="resume-builder.html">📄 My Resume</a>
+        <a href="documents.html">📁 My Documents</a>
+        <a href="jobs.html?filter=recommended">🎯 Recommended Jobs</a>
+        <a href="notifications.html">🔔 Notifications</a>
+        <a href="settings.html?tab=alerts">🔔 Job Alerts Preferences</a>
+        <a href="https://wa.me/919876543210?text=Hi%20Obsyra%20HR,%20I%20need%20application%20help" target="_blank">💬 WhatsApp Support</a>
+        <a href="settings.html">⚙ Settings</a>
+        <a href="contact.html">❓ Help & Support</a>
+        <button onclick="AUTH.logoutCandidate()" style="color:var(--danger); border-top:1px solid #e2e8f0; margin-top:0.5rem; padding-top:0.75rem;">🚪 Logout</button>
+      </aside>
+
+      <!-- MAIN DASHBOARD CONTENT -->
+      <div>
+        <!-- 2. WELCOME SECTION -->
+        <div class="form-card" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h1 style="font-size: 1.75rem; font-weight: 800;" id="welcomeTitle">Good Morning, Rahul 👋</h1>
+              <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0.25rem;">Welcome back to your Obsyra Candidate Portal. Manage your profile, applications, and interviews in one place.</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <a href="jobs.html" class="btn btn-primary btn-sm">🔎 Find Jobs</a>
+              <a href="profile.html" class="btn btn-outline btn-sm">📄 Complete Profile</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. DASHBOARD STATISTICS (6 CARDS) -->
+        <div class="stat-card-grid-6">
+          <div class="stat-card" onclick="window.location.href='applications.html'">
+            <div class="stat-value" style="color: var(--primary);" id="statApplications">12</div>
+            <div class="stat-label">💼 Applications</div>
+          </div>
+          <div class="stat-card" onclick="window.location.href='applications.html?status=Shortlisted'">
+            <div class="stat-value" style="color: var(--accent);" id="statShortlisted">3</div>
+            <div class="stat-label">⭐ Shortlisted</div>
+          </div>
+          <div class="stat-card" onclick="window.location.href='interview.html'">
+            <div class="stat-value" style="color: var(--warning);" id="statInterviews">2</div>
+            <div class="stat-label">📅 Interviews</div>
+          </div>
+          <div class="stat-card" onclick="window.location.href='applications.html?status=Selected'">
+            <div class="stat-value" style="color: #8b5cf6;" id="statSelected">1</div>
+            <div class="stat-label">🎉 Selected</div>
+          </div>
+          <div class="stat-card" onclick="window.location.href='saved-jobs.html'">
+            <div class="stat-value" style="color: #e11d48;" id="statSavedJobs">7</div>
+            <div class="stat-label">❤️ Saved Jobs</div>
+          </div>
+          <div class="stat-card" onclick="window.location.href='profile.html'">
+            <div class="stat-value" style="color: var(--primary);" id="statProfilePercent">92%</div>
+            <div class="stat-label">👤 Profile Complete</div>
+          </div>
+        </div>
+
+        <!-- 4. PROFILE COMPLETION WIDGET -->
+        <div class="form-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--dark);">👤 Complete Your Profile</h3>
+            <span id="widgetPercentText" style="font-weight: 800; color: var(--primary); font-size: 1.2rem;">92%</span>
+          </div>
+          <div class="progress-container">
+            <div class="progress-bar" id="widgetProgressBar" style="width: 92%;"></div>
+          </div>
+
+          <div class="profile-checklist" id="profileChecklistContainer">
+            <div class="checklist-item done">✓ Personal Information</div>
+            <div class="checklist-item done">✓ Contact Information</div>
+            <div class="checklist-item done">✓ Education</div>
+            <div class="checklist-item done">✓ Experience</div>
+            <div class="checklist-item done">✓ Skills</div>
+            <div class="checklist-item done">✓ Resume Uploaded</div>
+            <div class="checklist-item pending">⚠ Preferred Location</div>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <a href="profile.html" class="btn btn-primary btn-sm">Complete Profile Details →</a>
+          </div>
+        </div>
+
+        <!-- 8. UPCOMING INTERVIEW SPOTLIGHT CARD -->
+        <div class="form-card" style="border: 2px solid var(--primary-light); background: #f0f9ff;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <div>
+              <span class="tag" style="background:#0284c7; color:white;">📅 UPCOMING INTERVIEW</span>
+              <h3 style="font-size: 1.2rem; font-weight: 800; margin-top: 0.35rem; color: var(--dark);" id="intSpotlightTitle">Network Engineer</h3>
+              <p style="font-size: 0.875rem; color: var(--text-muted);" id="intSpotlightRound">Technical Round 1 • Obsyra Recruitment Team</p>
+            </div>
+            <a href="https://meet.google.com/abc-defg-hij" target="_blank" class="btn btn-primary btn-sm">📹 Join Interview</a>
+          </div>
+          <div style="font-size: 0.9rem; color: var(--dark); font-weight: 600;">
+            🗓️ Date: 05 September 2026 at 11:00 AM | 📍 Online – Google Meet
+          </div>
+        </div>
+
+        <!-- 5. RECOMMENDED JOBS -->
+        <div class="form-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 800;">🎯 Jobs Recommended For You</h3>
+            <a href="jobs.html" style="font-size: 0.85rem; font-weight: 600;">View All Jobs →</a>
+          </div>
+
+          <div class="job-grid" id="dashboardRecommendedContainer">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- 6. RECENT APPLICATIONS TABLE -->
+        <div class="form-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 800;">📋 Recent Applications</h3>
+            <a href="applications.html" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">VIEW ALL APPLICATIONS →</a>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Job Position</th>
+                  <th>Location</th>
+                  <th>Applied Date</th>
+                  <th>Status</th>
+                  <th>Track</th>
+                </tr>
+              </thead>
+              <tbody id="recentApplicationsBody">
+                <tr>
+                  <td><strong>Network Engineer</strong><br><small style="color:#64748b;">APP-2026-00125</small></td>
+                  <td>Pune</td>
+                  <td>31 Aug 2026</td>
+                  <td><span class="tag" style="background:#f1f5f9; color:#475569;">Under Review</span></td>
+                  <td><button onclick="APP.showApplicationTimelineModal('APP-2026-00125', 'Network Engineer – Pune')" class="btn btn-primary btn-sm">📍 Track Status</button></td>
+                </tr>
+                <tr>
+                  <td><strong>5G Testing Engineer</strong><br><small style="color:#64748b;">APP-2026-00098</small></td>
+                  <td>Mumbai</td>
+                  <td>29 Aug 2026</td>
+                  <td><span class="tag" style="background:#e0f2fe; color:#0284c7;">Shortlisted</span></td>
+                  <td><button onclick="APP.showApplicationTimelineModal('APP-2026-00098', '5G Testing Engineer – Mumbai')" class="btn btn-primary btn-sm">📍 Track Status</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Telecom Engineer</strong><br><small style="color:#64748b;">APP-2026-00084</small></td>
+                  <td>Gujarat</td>
+                  <td>27 Aug 2026</td>
+                  <td><span class="tag" style="background:#d1fae5; color:#10b981;">Interview Scheduled</span></td>
+                  <td><button onclick="APP.showApplicationTimelineModal('APP-2026-00084', 'Telecom Engineer – Gujarat')" class="btn btn-primary btn-sm">📍 Track Status</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 11 & 12. RESUME & DOCUMENTS WIDGETS -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+          <!-- MY RESUME -->
+          <div class="form-card">
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;">📄 MY RESUME</h3>
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--dark);" id="resumeFileName">Rahul_Sharma_Resume.pdf</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">Uploaded: 31 August 2026 | Status: <span style="color:var(--accent); font-weight:bold;">✓ Available</span></p>
+            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+              <a href="resume-builder.html" class="btn btn-primary btn-sm">📄 View / Edit</a>
+              <a href="documents.html" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">⬆️ Update File</a>
+            </div>
+          </div>
+
+          <!-- CAREER PROFILE OVERVIEW -->
+          <div class="form-card">
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;">👤 CAREER PROFILE SUMMARY</h3>
+            <ul style="list-style: none; font-size: 0.85rem; line-height: 1.8;">
+              <li><strong>Current Role:</strong> Network Engineer</li>
+              <li><strong>Experience:</strong> 3 Years 6 Months</li>
+              <li><strong>Primary Skills:</strong> 5G • Networking • Telecom</li>
+              <li><strong>Preferred Location:</strong> Pune • Mumbai • PAN India</li>
+              <li><strong>Notice Period:</strong> 30 Days</li>
+            </ul>
+            <a href="profile.html" class="btn btn-outline btn-sm" style="margin-top:0.75rem; color:var(--primary); border-color:var(--primary);">EDIT PROFILE →</a>
+          </div>
+        </div>
+
+        <!-- 15. WHATSAPP SUPPORT SECTION -->
+        <div class="form-card" style="border-left: 4px solid #25d366;">
+          <h3 style="font-size: 1.15rem; font-weight: 800; color: #128c7e; margin-bottom: 0.5rem;">📱 OBSYRA CAREER SUPPORT</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">Need help with your job application or interview schedule? Chat directly with Obsyra HR team.</p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a href="https://wa.me/919876543210?text=Hi%20Obsyra%20HR,%20I%20need%20application%20support" target="_blank" class="btn btn-whatsapp btn-sm">💬 Application Support</a>
+            <a href="https://wa.me/919876543210?text=Hi%20Obsyra%20HR,%20I%20need%20interview%20support" target="_blank" class="btn btn-whatsapp btn-sm">💬 Interview Support</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 17. MOBILE BOTTOM NAVIGATION -->
+  <nav class="mobile-bottom-nav">
+    <a href="candidate-dashboard.html" class="mobile-nav-item active">
+      <span>🏠</span> Home
+    </a>
+    <a href="jobs.html" class="mobile-nav-item">
+      <span>🔎</span> Jobs
+    </a>
+    <a href="applications.html" class="mobile-nav-item">
+      <span>📋</span> Apply
+    </a>
+    <a href="notifications.html" class="mobile-nav-item">
+      <span>🔔</span> Alerts
+    </a>
+    <a href="profile.html" class="mobile-nav-item">
+      <span>👤</span> Me
+    </a>
+  </nav>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const data = await API.request('getCandidateDashboardData');
+      if (data.success) {
+        // Set welcome header
+        const user = data.user;
+        const firstName = user.firstName || 'Rahul';
+        document.getElementById('welcomeTitle').innerText = `Good Morning, ${firstName} 👋`;
+        document.getElementById('headerName').innerText = `${firstName} ${user.lastName || ''}`;
+        document.getElementById('sidebarName').innerText = `${firstName} ${user.lastName || ''}`;
+        document.getElementById('headerAvatar').innerText = (firstName[0] || 'R') + (user.lastName ? user.lastName[0] : 'S');
+        document.getElementById('sidebarAvatar').innerText = (firstName[0] || 'R') + (user.lastName ? user.lastName[0] : 'S');
+
+        // Set KPI stats
+        const stats = data.stats;
+        document.getElementById('statApplications').innerText = stats.totalApplications;
+        document.getElementById('statShortlisted').innerText = stats.shortlisted;
+        document.getElementById('statInterviews').innerText = stats.upcomingInterviews;
+        document.getElementById('statSelected').innerText = stats.selected;
+        document.getElementById('statSavedJobs').innerText = stats.savedJobs;
+        document.getElementById('statProfilePercent').innerText = stats.profilePercent + '%';
+
+        // Set profile checklist widget
+        document.getElementById('widgetPercentText').innerText = stats.profilePercent + '%';
+        document.getElementById('widgetProgressBar').style.width = stats.profilePercent + '%';
+
+        // Render Recommended Jobs
+        if (data.recommendedJobs) {
+          document.getElementById('dashboardRecommendedContainer').innerHTML = data.recommendedJobs.slice(0, 2).map(job => `
+            <div class="job-card">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <div>
+                  <h4 style="font-size:1.05rem; font-weight:700;">${APP.escapeHtml(job.title)}</h4>
+                  <p style="font-size:0.85rem; color:#64748b;">${APP.escapeHtml(job.client || 'Obsyra Pvt Ltd')}</p>
+                </div>
+                <span class="badge-match">🎯 ${job.matchScore || 95}% Match</span>
+              </div>
+              <div class="job-details-meta" style="margin:0.75rem 0;">
+                <span class="meta-item">📍 ${APP.escapeHtml(job.location)}</span>
+                <span class="meta-item">💼 ${APP.escapeHtml(job.experience)}</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+                <a href="job-details.html?id=${job.jobId}" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">View Details</a>
+                <a href="job-details.html?id=${job.jobId}" class="btn btn-primary btn-sm">Apply Now</a>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

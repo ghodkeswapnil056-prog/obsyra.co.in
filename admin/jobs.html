@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobs Management — Obsyra Admin</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="dashboard.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> RECRUITER ADMIN</a>
+    <div class="nav-auth">
+      <button onclick="AUTH.logoutAdmin()" class="btn btn-sm btn-danger">Logout</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="dashboard-grid">
+      <aside class="sidebar-nav">
+        <a href="dashboard.html">📊 Executive Control</a>
+        <a href="jobs.html" class="active">💼 Jobs Management</a>
+        <a href="create-job.html">➕ Post New Job</a>
+        <a href="candidates.html">👥 Talent Pool & Search</a>
+        <a href="applications.html">📋 Master Applications</a>
+        <a href="interviews.html">🗓️ Interview Schedule</a>
+        <a href="reports.html">📈 Reports & Analytics</a>
+      </aside>
+
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h2 style="font-size: 1.75rem; font-weight: 800;">Job Postings Catalog</h2>
+          <a href="create-job.html" class="btn btn-primary">+ Create New Job</a>
+        </div>
+
+        <div class="form-card">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Job ID</th>
+                  <th>Title</th>
+                  <th>Location</th>
+                  <th>Exp</th>
+                  <th>Salary</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminJobList">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const res = await API.request('getJobs');
+      if (res.success && res.jobs) {
+        document.getElementById('adminJobList').innerHTML = res.jobs.map(job => `
+          <tr>
+            <td><strong>${job.jobId}</strong></td>
+            <td><strong>${job.title}</strong><br><small style="color:#64748b;">${job.department}</small></td>
+            <td>${job.location}</td>
+            <td>${job.experience}</td>
+            <td>${job.salary}</td>
+            <td><span class="tag" style="background:#d1fae5; color:#10b981;">${job.status}</span></td>
+            <td>
+              <div style="display:flex; gap:0.35rem;">
+                <button onclick="shareWhatsAppJob('${job.jobId}', '${job.title}', '${job.location}')" class="btn btn-whatsapp btn-sm">📱 Share</button>
+                <button onclick="alert('Job status updated')" class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">Edit</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      }
+    });
+
+    function shareWhatsAppJob(id, title, loc) {
+      const text = encodeURIComponent(`🚨 *Obsyra Opening:* ${title}\n📍 Location: ${loc}\nApply here: https://obsyra.co.in/job-details.html?id=${id}`);
+      window.open(`https://wa.me/?text=${text}`, '_blank');
+    }
+  </script>
+</body>
+</html>

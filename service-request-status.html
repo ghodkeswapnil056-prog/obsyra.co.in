@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Service Request Status — Obsyra Portal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> ENTERPRISE</a>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="service-request.html">Request Service</a></li>
+      <li><a href="service-request-status.html" class="active">Track Request</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-auth" id="navAuth"></div>
+  </nav>
+
+  <main class="container" style="padding-top: 2.5rem;">
+    <!-- 12. SEARCH TRACKING PANEL -->
+    <div class="form-card" style="max-width: 650px; margin: 0 auto 2rem auto;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem; text-align: center;">🔍 Track Service Request</h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 1.5rem;">Enter your unique Service Request ID to view real-time project evaluation and deployment status.</p>
+
+      <form onsubmit="event.preventDefault(); handleTrackReqSubmit();">
+        <div class="form-group">
+          <label>Request ID *</label>
+          <input type="text" id="trackReqId" class="form-control" placeholder="e.g. OBS-SR-2026-000125" value="OBS-SR-2026-000125" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem;">TRACK REQUEST STATUS</button>
+      </form>
+    </div>
+
+    <!-- REQUEST STATUS DETAILS & TIMELINE -->
+    <div id="statusResultContainer" style="display: block;">
+      <div class="form-card" style="border: 1px solid #0284c7; background: #f0f9ff; margin-bottom: 1.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <span class="tag" style="background:#fef3c7; color:#d97706; font-weight:800;" id="stStatusBadge">🟡 REQUIREMENT REVIEW</span>
+            <h2 style="font-size: 1.5rem; font-weight: 800; margin-top: 0.35rem; color: var(--dark);" id="stProjectName">5G Network Deployment & Testing</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;" id="stCompany">ABC Telecom Pvt Ltd — 📍 Pune, Maharashtra</p>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size: 0.9rem; font-weight: 800; color: var(--primary);" id="stReqIdDisplay">OBS-SR-2026-000125</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);" id="stSubmittedDate">Submitted: 01 Sept 2026</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-top:1.25rem; background:white; padding:1rem; border-radius:8px; border:1px solid #cbd5e1; font-size:0.875rem;">
+          <div>📡 <strong>Primary Service:</strong> Telecom & 5G Testing</div>
+          <div>👤 <strong>Assigned Manager:</strong> Anil Kumar (Project Director)</div>
+          <div>📞 <strong>Contact Channel:</strong> Phone, Email, WhatsApp</div>
+        </div>
+      </div>
+
+      <!-- 13. 11-STAGE REQUEST TIMELINE TREE -->
+      <div class="form-card">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">📊 Request Progress Timeline</h3>
+        
+        <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.875rem;">
+          <div style="display:flex; gap:0.75rem; align-items:center; color:#10b981; font-weight:700;">
+            <span>✓</span> <span>Request Submitted — 01 Sept 2026</span>
+          </div>
+          <div style="display:flex; gap:0.75rem; align-items:center; color:#10b981; font-weight:700;">
+            <span>✓</span> <span>Request Received & Logged in Enterprise System — 01 Sept 2026</span>
+          </div>
+          <div style="display:flex; gap:0.75rem; align-items:center; color:var(--primary); font-weight:800; background:#e0f2fe; padding:0.5rem; border-radius:6px;">
+            <span>●</span> <span>Requirement Review — Technical Scope Evaluation in Progress</span>
+          </div>
+          <div style="display:flex; gap:0.75rem; align-items:center; color:#94a3b8;">
+            <span>○</span> <span>Requirement Discussion with Client</span>
+          </div>
+          <div style="display:flex; gap:0.75rem; align-items:center; color:#94a3b8;">
+            <span>○</span> <span>Technical Evaluation & BOQ Assessment</span>
+          </div>
+          <div style="display:flex; gap:0.75rem; align-items:center; color:#94a3b8;">
+            <span>○</span> <span>Proposal / Quotation Issuance</span>
+          </div>
+          <div style="display:flex; gap:0.75rem; align-items:center; color:#94a3b8;">
+            <span>○</span> <span>Customer Approval & Agreement</span>
+          </div>
+          <div style="display:flex; gap:0.75rem; align-items:center; color:#94a3b8;">
+            <span>○</span> <span>Project Resource Planning</span>
+          </div>
+          <div style="display:flex; gap:0.75rem; align-items:center; color:#94a3b8;">
+            <span>○</span> <span>Resource Deployment</span>
+          </div>
+          <div style="display:flex; gap:0.75rem; align-items:center; color:#94a3b8;">
+            <span>○</span> <span>Project In Progress</span>
+          </div>
+          <div style="display:flex; gap:0.75rem; align-items:center; color:#94a3b8;">
+            <span>○</span> <span>Project Completion & Handover</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-bottom">&copy; 2026 Obsyra Pvt Ltd. All rights reserved.</div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const reqId = urlParams.get('id');
+      if (reqId) {
+        document.getElementById('trackReqId').value = reqId;
+        handleTrackReqSubmit();
+      }
+    });
+
+    async function handleTrackReqSubmit() {
+      const reqId = document.getElementById('trackReqId').value;
+      const res = await API.request('getServiceRequestStatus', { requestId: reqId });
+      
+      if (res.success && res.request) {
+        document.getElementById('stReqIdDisplay').innerText = res.request.requestId;
+        document.getElementById('stCompany').innerText = res.request.companyName + ' — 📍 ' + res.request.location;
+        document.getElementById('stProjectName').innerText = res.request.projectName;
+        document.getElementById('stStatusBadge').innerText = '🟡 ' + res.request.status.toUpperCase();
+        document.getElementById('stSubmittedDate').innerText = 'Submitted: ' + res.request.submittedDate;
+        document.getElementById('statusResultContainer').style.display = 'block';
+      } else {
+        alert(res.message);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Management — Obsyra Admin Portal</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar" style="background:#0f172a;">
+    <a href="dashboard.html" class="nav-brand"><span style="color:#38bdf8;">OBSYRA</span> RECRUITER ADMIN</a>
+    <ul class="nav-menu">
+      <li><a href="dashboard.html">📊 Dashboard</a></li>
+      <li><a href="jobs.html">💼 Jobs</a></li>
+      <li><a href="candidates.html">👥 Candidates</a></li>
+      <li><a href="applications.html" class="active">📋 Applications</a></li>
+      <li><a href="interviews.html">🗓 Interviews</a></li>
+      <li><a href="reports.html">📈 Reports</a></li>
+      <li><a href="settings.html">⚙️ Settings</a></li>
+    </ul>
+    <div style="color:white; font-size:0.85rem; font-weight:700;">ADMIN-002 (HR Manager)</div>
+  </nav>
+
+  <main class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
+    <!-- APPLICATION TABS -->
+    <div class="form-card" style="margin-bottom: 1.5rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem;">📋 APPLICATION WORKFLOW & JOINING TRACKER</h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">Transition candidates to JOINED to decrement remaining vacancies and trigger auto-closure.</p>
+
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; font-size: 0.825rem; font-weight: 700;">
+        <button class="btn btn-primary btn-sm">All Applications (386)</button>
+        <button class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">Under Review (112)</button>
+        <button class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">Shortlisted (74)</button>
+        <button class="btn btn-outline btn-sm" style="color:var(--dark); border-color:#cbd5e1;">Selected (16)</button>
+        <button class="btn btn-outline btn-sm" style="color:#10b981; border-color:#34d399;">Joined (11)</button>
+      </div>
+    </div>
+
+    <!-- APPLICATION CARDS -->
+    <div style="display: grid; gap: 1.25rem;">
+      
+      <!-- APPLICATION CARD 1: OFFER ACCEPTED -> JOINED -->
+      <div class="form-card" style="border-left: 4px solid #10b981;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <span class="tag" style="background:#d1fae5; color:#10b981; font-weight:800;">🟢 OFFER ACCEPTED</span>
+            <span style="font-size:0.8rem; color:var(--text-muted); font-weight:700; margin-left:0.5rem;">APP-2026-000386</span>
+            <h3 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.35rem;">Rahul Sharma</h3>
+            <p style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Applied for: <strong style="color:var(--dark);">Network Engineer (OBS-JOB-00125)</strong> — 📍 Maharashtra</p>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Joining Date: 05 Sep 2026</div>
+            <div style="font-size: 0.85rem; font-weight: 800; color: #10b981;">Target: 5/5 Joined</div>
+          </div>
+        </div>
+
+        <div style="background:#f0fdf4; border:1px solid #10b981; padding:0.85rem; border-radius:6px; margin:0.85rem 0; font-size:0.825rem;">
+          <strong>2. JOINING CONFIRMATION & VACANCY MATH:</strong>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem;">
+            <button onclick="handleMarkJoined('APP-2026-000386', 'OBS-JOB-00125')" class="btn btn-primary btn-sm" style="background:#10b981; border:none;">✓ MARK CANDIDATE AS JOINED (INCREMENT JOINED COUNT)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- APPLICATION CARD 2: CANDIDATE REUSE FOR UNSELECTED APPLICANTS -->
+      <div class="form-card" style="border-left: 4px solid #f59e0b;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <span class="tag" style="background:#fef3c7; color:#d97706; font-weight:800;">🟡 POSITION FILLED / ON HOLD</span>
+            <span style="font-size:0.8rem; color:var(--text-muted); font-weight:700; margin-left:0.5rem;">APP-2026-000388</span>
+            <h3 style="font-size: 1.25rem; font-weight: 800; margin-top: 0.35rem;">Vijay Kumar</h3>
+            <p style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Applied for: <strong style="color:var(--dark);">Network Engineer (OBS-JOB-00125 - Closed)</strong></p>
+          </div>
+        </div>
+
+        <!-- 7. CANDIDATE REUSE RECOMMENDER -->
+        <div style="background:#e0f2fe; border:1px solid #0284c7; padding:0.85rem; border-radius:6px; margin:0.85rem 0; font-size:0.825rem; color:#0369a1;">
+          <strong>🎯 HR CANDIDATE REUSE — RECOMMENDED MATCHING OPEN VACANCIES:</strong>
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:0.5rem;">
+            <div>• 5G Protocol Testing Engineer (OBS-JOB-00126) — 🎯 91% Match</div>
+            <button onclick="alert('Re-routing Vijay Kumar to OBS-JOB-00126 with candidate consent...')" class="btn btn-primary btn-sm" style="padding:0.25rem 0.6rem; font-size:0.75rem;">RE-ROUTE TO THIS VACANCY →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-bottom">&copy; 2026 Obsyra Pvt Ltd. Admin Control Portal.</div>
+  </footer>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    async function handleMarkJoined(appId, jobId) {
+      const res = await API.request('markCandidateJoined', { applicationId: appId, jobId: jobId });
+      if (res.success) {
+        alert(res.message);
+        window.location.href = 'dashboard.html';
+      }
+    }
+  </script>
+</body>
+</html>

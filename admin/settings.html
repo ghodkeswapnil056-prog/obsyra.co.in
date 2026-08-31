@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Settings & Audit Logs — Obsyra Admin Portal</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar" style="background:#0f172a;">
+    <a href="dashboard.html" class="nav-brand"><span style="color:#38bdf8;">OBSYRA</span> RECRUITER ADMIN</a>
+    <ul class="nav-menu">
+      <li><a href="dashboard.html">📊 Dashboard</a></li>
+      <li><a href="jobs.html">💼 Jobs</a></li>
+      <li><a href="candidates.html">👥 Candidates</a></li>
+      <li><a href="applications.html">📋 Applications</a></li>
+      <li><a href="interviews.html">🗓 Interviews</a></li>
+      <li><a href="reports.html">📈 Reports</a></li>
+      <li><a href="settings.html" class="active">⚙️ Settings</a></li>
+    </ul>
+    <div style="color:white; font-size:0.85rem; font-weight:700;">ADMIN-001 (Super Admin)</div>
+  </nav>
+
+  <main class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
+    
+    <!-- 16 & 17. ADMIN USERS & ROLE-BASED ACCESS CONTROL -->
+    <div class="form-card" style="margin-bottom: 2rem;">
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">👥 ADMIN USERS & ROLE-BASED ACCESS</h3>
+      
+      <div style="overflow-x: auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.875rem;">
+          <thead>
+            <tr style="background:#f1f5f9; text-align:left;">
+              <th style="padding:0.75rem; border-bottom:2px solid #cbd5e1;">Admin ID</th>
+              <th style="padding:0.75rem; border-bottom:2px solid #cbd5e1;">Name</th>
+              <th style="padding:0.75rem; border-bottom:2px solid #cbd5e1;">Email</th>
+              <th style="padding:0.75rem; border-bottom:2px solid #cbd5e1;">Role</th>
+              <th style="padding:0.75rem; border-bottom:2px solid #cbd5e1;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:0.75rem; border-bottom:1px solid #e2e8f0; font-weight:700;">ADMIN-001</td>
+              <td style="padding:0.75rem; border-bottom:1px solid #e2e8f0;">Surekha Aade</td>
+              <td style="padding:0.75rem; border-bottom:1px solid #e2e8f0;">surekha@obsyra.com</td>
+              <td style="padding:0.75rem; border-bottom:1px solid #e2e8f0;"><span class="tag" style="background:#0284c7; color:white;">Super Admin</span></td>
+              <td style="padding:0.75rem; border-bottom:1px solid #e2e8f0; color:#10b981; font-weight:700;">Active</td>
+            </tr>
+            <tr>
+              <td style="padding:0.75rem; border-bottom:1px solid #e2e8f0; font-weight:700;">ADMIN-002</td>
+              <td style="padding:0.75rem; border-bottom:1px solid #e2e8f0;">Anil Kumar</td>
+              <td style="padding:0.75rem; border-bottom:1px solid #e2e8f0;">anil.kumar@obsyra.com</td>
+              <td style="padding:0.75rem; border-bottom:1px solid #e2e8f0;"><span class="tag" style="background:#8b5cf6; color:white;">HR Manager</span></td>
+              <td style="padding:0.75rem; border-bottom:1px solid #e2e8f0; color:#10b981; font-weight:700;">Active</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 18. SYSTEM AUDIT LOGS -->
+    <div class="form-card">
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem;">📜 AUDIT LOG TRAIL (AUDIT_LOG Table)</h3>
+      <div id="auditLogContainer" style="font-size: 0.85rem;">
+        <!-- Loaded dynamically by JS -->
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-bottom">&copy; 2026 Obsyra Pvt Ltd. Admin Control Portal.</div>
+  </footer>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const res = await API.request('getAuditLogs');
+      const container = document.getElementById('auditLogContainer');
+      if (container && res.success && res.logs) {
+        container.innerHTML = `
+          <table style="width:100%; border-collapse:collapse;">
+            <thead>
+              <tr style="background:#f1f5f9; text-align:left;">
+                <th style="padding:0.6rem; border-bottom:2px solid #cbd5e1;">Audit ID</th>
+                <th style="padding:0.6rem; border-bottom:2px solid #cbd5e1;">Admin ID</th>
+                <th style="padding:0.6rem; border-bottom:2px solid #cbd5e1;">Action</th>
+                <th style="padding:0.6rem; border-bottom:2px solid #cbd5e1;">Record ID</th>
+                <th style="padding:0.6rem; border-bottom:2px solid #cbd5e1;">Old Status</th>
+                <th style="padding:0.6rem; border-bottom:2px solid #cbd5e1;">New Status</th>
+                <th style="padding:0.6rem; border-bottom:2px solid #cbd5e1;">Timestamp</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${res.logs.map(l => `
+                <tr>
+                  <td style="padding:0.6rem; border-bottom:1px solid #e2e8f0; font-weight:700;">${l.auditId}</td>
+                  <td style="padding:0.6rem; border-bottom:1px solid #e2e8f0;">${l.adminId}</td>
+                  <td style="padding:0.6rem; border-bottom:1px solid #e2e8f0;">${l.action}</td>
+                  <td style="padding:0.6rem; border-bottom:1px solid #e2e8f0;">${l.recordId}</td>
+                  <td style="padding:0.6rem; border-bottom:1px solid #e2e8f0; color:#d97706;">${l.oldValue}</td>
+                  <td style="padding:0.6rem; border-bottom:1px solid #e2e8f0; color:#10b981; font-weight:700;">${l.newValue}</td>
+                  <td style="padding:0.6rem; border-bottom:1px solid #e2e8f0; color:var(--text-muted);">${l.dateTime}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
