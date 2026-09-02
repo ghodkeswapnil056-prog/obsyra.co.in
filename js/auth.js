@@ -1,5 +1,6 @@
-/* OBSYRA CAREER PORTAL - AUTHENTICATION ENGINE */
+/* OBSYRA CAREER PORTAL - AUTHENTICATION & SECURITY GATE ENGINE (v5.4.0) */
 const AUTH = {
+  /* CANDIDATE AUTHENTICATION */
   isLoggedIn() {
     return localStorage.getItem('obsyra_candidate_token') !== null;
   },
@@ -23,6 +24,39 @@ const AUTH = {
     localStorage.removeItem('obsyra_candidate_token');
     localStorage.removeItem('obsyra_candidate_user');
     window.location.href = 'index.html';
+  },
+
+  /* RECRUITER ADMIN AUTHENTICATION & PASSWORD GATE */
+  isAdminLoggedIn() {
+    return localStorage.getItem('obsyra_admin_token') !== null;
+  },
+
+  getAdminUser() {
+    const str = localStorage.getItem('obsyra_admin_user');
+    if (!str) return null;
+    try { return JSON.parse(str); } catch(e) { return null; }
+  },
+
+  setAdminSession(adminUser) {
+    localStorage.setItem('obsyra_admin_token', 'ADMIN_TOKEN_' + Date.now());
+    localStorage.setItem('obsyra_admin_user', JSON.stringify(adminUser));
+  },
+
+  adminLogout() {
+    localStorage.removeItem('obsyra_admin_token');
+    localStorage.removeItem('obsyra_admin_user');
+    window.location.href = 'login.html';
+  },
+
+  checkAdminAuth() {
+    // If on an admin page (path includes /admin/ or admin file) and not logged in
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('/admin/') && !path.includes('login.html')) {
+      if (!this.isAdminLoggedIn()) {
+        console.warn('Unauthenticated access attempt to Admin Control Center. Redirecting to admin login...');
+        window.location.href = 'login.html';
+      }
+    }
   },
 
   renderNavbarAuth() {
@@ -64,5 +98,6 @@ const AUTH = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  AUTH.checkAdminAuth();
   AUTH.renderNavbarAuth();
 });
