@@ -1,4 +1,4 @@
-/* OBSYRA CAREER PORTAL - MASTER PRODUCTION STYLESHEET (v4.4.0 ENHANCEMENT PASS) */
+/* OBSYRA CAREER PORTAL - MASTER PRODUCTION STYLESHEET (v5.1.0 HIGH-SECURITY) */
 :root {
   --primary: #0284c7;
   --primary-hover: #0369a1;
@@ -103,6 +103,20 @@ body {
   background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* HIGH SECURITY SHIELD BADGES */
+.security-shield-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 /* NAVBAR & NAVIGATION */
