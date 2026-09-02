@@ -1,5 +1,7 @@
-/* OBSYRA CAREER PORTAL - API CLIENT */
+/* OBSYRA CAREER PORTAL - FULL-STACK DUAL-BRIDGE API CLIENT (v9.0.0) */
 const API = {
+  localApiBaseUrl: 'http://localhost:3000/api',
+
   mockVacancies: [
     { jobId: 'OBS-JOB-00125', title: 'Network Engineer', location: 'Maharashtra', required: 5, selected: 5, joined: 5, remaining: 0, reqStatus: 'REQUIREMENT FULFILLED', jobStatus: 'CLOSED' },
     { jobId: 'OBS-JOB-00126', title: '5G Protocol Testing Engineer', location: 'Maharashtra / Hybrid', required: 5, selected: 4, joined: 3, remaining: 2, reqStatus: 'PARTIALLY FULFILLED', jobStatus: 'OPEN' },
@@ -16,7 +18,24 @@ const API = {
 
   async request(action, payload = {}) {
     payload.action = action;
-    
+
+    // 1. ATTEMPT LOCAL NODE.JS EXPRESS REST API
+    try {
+      const nodeRes = await fetch(`${this.localApiBaseUrl}/${action}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (nodeRes.ok) {
+        const data = await nodeRes.json();
+        console.log(`[Node.js Express SQL Backend] Action: ${action}`, data);
+        return data;
+      }
+    } catch (e) {
+      // Local Node server offline; proceed to Cloud Apps Script or Mock API
+    }
+
+    // 2. ATTEMPT CLOUD GOOGLE APPS SCRIPT API
     if (CONFIG.API_URL && CONFIG.API_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL') {
       try {
         const response = await fetch(CONFIG.API_URL, {
@@ -26,10 +45,11 @@ const API = {
         });
         return await response.json();
       } catch (err) {
-        console.warn('API Error, using fallback mock response:', err);
+        console.warn('Google Apps Script API Error, using fallback mock response:', err);
       }
     }
 
+    // 3. FALLBACK TO IN-MEMORY MOCK API
     return this.handleMock(action, payload);
   },
 

@@ -1,0 +1,24 @@
+{
+  "name": "obsyra-backend-server",
+  "version": "9.0.0",
+  "description": "Obsyra Job & Career Portal - Production Node.js & Express SQL Backend Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.7"
+  },
+  "keywords": [
+    "obsyra",
+    "recruitment",
+    "express",
+    "sqlite",
+    "backend"
+  ],
+  "author": "Obsyra Pvt Ltd",
+  "license": "MIT"
+}
