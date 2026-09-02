@@ -1,4 +1,4 @@
-/* OBSYRA CAREER PORTAL - MAIN APP & JOBS UI CONTROLLER (v4.3.0 UPGRADE) */
+/* OBSYRA CAREER PORTAL - MAIN APP & JOBS UI CONTROLLER (v4.4.0 ENHANCEMENT PASS) */
 const APP = {
   allJobs: [],
   filteredJobs: [],
@@ -32,8 +32,36 @@ const APP = {
     { title: '💼 Recruiter Job Management', url: 'admin/jobs.html', tag: 'Admin Portal' },
     { title: '📋 Recruiter Application Workflow', url: 'admin/applications.html', tag: 'Admin Portal' },
     { title: '🗓 Recruiter Interview Scheduler', url: 'admin/interviews.html', tag: 'Admin Portal' },
+    { title: '🧪 Automated E2E Test Suite', url: 'test-runner.html', tag: 'Testing' },
     { title: '⚙️ Candidate Account Settings', url: 'settings.html', tag: 'Settings' }
   ],
+
+  /* FLOATING SUPPORT & BACK TO TOP WIDGET */
+  initFloatingWidget() {
+    let widget = document.getElementById('floatingWidget');
+    if (!widget) {
+      widget = document.createElement('div');
+      widget.id = 'floatingWidget';
+      widget.className = 'floating-widget';
+      widget.innerHTML = `
+        <button id="btnScrollTop" onclick="APP.scrollToTop()" class="floating-btn btn-float-top" title="Back to Top">⬆</button>
+        <a href="https://wa.me/919876543210?text=Hi%20Obsyra%20Support,%20I%20need%20assistance" target="_blank" class="floating-btn btn-float-wa" title="Chat on WhatsApp">💬</a>
+      `;
+      document.body.appendChild(widget);
+    }
+
+    window.addEventListener('scroll', () => {
+      const topBtn = document.getElementById('btnScrollTop');
+      if (topBtn) {
+        if (window.scrollY > 300) topBtn.classList.add('show');
+        else topBtn.classList.remove('show');
+      }
+    });
+  },
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },
 
   /* DARK / LIGHT THEME TOGGLE */
   initTheme() {
@@ -71,7 +99,7 @@ const APP = {
       modal.className = 'command-palette-overlay';
       modal.innerHTML = `
         <div class="command-palette-card">
-          <input type="text" id="cmdPaletteInput" class="command-palette-input" placeholder="🔍 Type a command or search page (e.g. Jobs, Profile, Resume, Admin)..." onkeyup="APP.filterCommandPalette()">
+          <input type="text" id="cmdPaletteInput" class="command-palette-input" placeholder="🔍 Type a command or search page (e.g. Jobs, Profile, Resume, Admin, Test)..." onkeyup="APP.filterCommandPalette()">
           <div id="cmdPaletteResults" class="command-palette-results"></div>
         </div>
       `;
@@ -361,5 +389,6 @@ const APP = {
 document.addEventListener('DOMContentLoaded', () => {
   APP.initTheme();
   APP.initCommandPalette();
+  APP.initFloatingWidget();
   APP.animateCounters();
 });

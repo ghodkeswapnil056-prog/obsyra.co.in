@@ -1,4 +1,4 @@
-/* OBSYRA CAREER PORTAL - MASTER PRODUCTION STYLESHEET (v4.3.0 UPGRADE) */
+/* OBSYRA CAREER PORTAL - MASTER PRODUCTION STYLESHEET (v4.4.0 ENHANCEMENT PASS) */
 :root {
   --primary: #0284c7;
   --primary-hover: #0369a1;
@@ -206,6 +206,51 @@ body {
 .theme-toggle-btn:hover {
   transform: rotate(180deg);
   background: rgba(255, 255, 255, 0.1);
+}
+
+/* FLOATING QUICK SUPPORT & BACK TO TOP WIDGET */
+.floating-widget {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 1500;
+}
+
+.floating-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  font-size: 1.25rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  border: none;
+}
+
+.floating-btn:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+.btn-float-wa {
+  background: #25d366;
+}
+
+.btn-float-top {
+  background: #0284c7;
+  display: none;
+}
+
+.btn-float-top.show {
+  display: flex;
 }
 
 /* COMMAND PALETTE OVERLAY MODAL */
@@ -936,4 +981,29 @@ body {
 
 .footer-bottom a:hover {
   color: #38bdf8 !important;
+}
+
+/* PRINT-TO-PDF STYLES (A4 CLEAN EXPORT) */
+@media print {
+  .navbar, .footer, .sidebar-nav, .mobile-bottom-nav, .floating-widget, .cmd-palette-btn, .theme-toggle-btn, .btn-primary {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .form-card {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    background: white !important;
+  }
 }
