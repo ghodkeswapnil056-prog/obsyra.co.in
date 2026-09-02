@@ -1,8 +1,9 @@
-/* OBSYRA CAREER PORTAL - MAIN APP & JOBS UI CONTROLLER */
+/* OBSYRA CAREER PORTAL - MAIN APP & JOBS UI CONTROLLER (v4.3.0 UPGRADE) */
 const APP = {
   allJobs: [],
   filteredJobs: [],
   allDocuments: [],
+  currentTheme: localStorage.getItem('obsyra_theme') || 'light',
 
   stateCityMap: {
     'Maharashtra': ['All Cities', 'Pune', 'Mumbai', 'Nagpur', 'Nashik', 'Aurangabad', 'Solapur', 'Thane'],
@@ -13,6 +14,108 @@ const APP = {
     'Telangana': ['All Cities', 'Hyderabad', 'Warangal'],
     'Uttar Pradesh': ['All Cities', 'Noida', 'Lucknow', 'Kanpur', 'Agra'],
     'PAN India': ['Multiple Locations / Field Sites']
+  },
+
+  paletteItems: [
+    { title: '🏠 Corporate Homepage', url: 'index.html', tag: 'Public' },
+    { title: '🔎 Find All Jobs & Vacancies', url: 'jobs.html', tag: 'Marketplace' },
+    { title: '🚀 Main Careers Landing Page', url: 'careers.html', tag: 'Careers' },
+    { title: '📊 Candidate Dashboard Overview', url: 'candidate-dashboard.html', tag: 'Candidate Portal' },
+    { title: '👤 Master Profile Management', url: 'profile.html', tag: 'Profile' },
+    { title: '📄 Candidate Resume Builder', url: 'resume-builder.html', tag: 'Tools' },
+    { title: '📁 Document Vault', url: 'documents.html', tag: 'Vault' },
+    { title: '📋 My Applications', url: 'applications.html', tag: 'Candidate Portal' },
+    { title: '📅 Interview Schedule', url: 'interview.html', tag: 'Candidate Portal' },
+    { title: '📝 Request a Service (Client Form)', url: 'service-request.html', tag: 'Services' },
+    { title: '📈 Service Request Status Tracker', url: 'service-request-status.html', tag: 'Services' },
+    { title: '🔐 Recruiter Admin Control Center', url: 'admin/dashboard.html', tag: 'Admin Portal' },
+    { title: '💼 Recruiter Job Management', url: 'admin/jobs.html', tag: 'Admin Portal' },
+    { title: '📋 Recruiter Application Workflow', url: 'admin/applications.html', tag: 'Admin Portal' },
+    { title: '🗓 Recruiter Interview Scheduler', url: 'admin/interviews.html', tag: 'Admin Portal' },
+    { title: '⚙️ Candidate Account Settings', url: 'settings.html', tag: 'Settings' }
+  ],
+
+  /* DARK / LIGHT THEME TOGGLE */
+  initTheme() {
+    if (this.currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  },
+
+  toggleTheme() {
+    this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('obsyra_theme', this.currentTheme);
+    this.initTheme();
+    this.showToast(`Theme switched to ${this.currentTheme.toUpperCase()} mode`, 'info');
+  },
+
+  /* COMMAND PALETTE ENGINE (Ctrl+K) */
+  initCommandPalette() {
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        this.toggleCommandPalette();
+      } else if (e.key === 'Escape') {
+        this.closeCommandPalette();
+      }
+    });
+  },
+
+  toggleCommandPalette() {
+    let modal = document.getElementById('cmdPaletteModal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'cmdPaletteModal';
+      modal.className = 'command-palette-overlay';
+      modal.innerHTML = `
+        <div class="command-palette-card">
+          <input type="text" id="cmdPaletteInput" class="command-palette-input" placeholder="🔍 Type a command or search page (e.g. Jobs, Profile, Resume, Admin)..." onkeyup="APP.filterCommandPalette()">
+          <div id="cmdPaletteResults" class="command-palette-results"></div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) this.closeCommandPalette();
+      });
+    }
+
+    modal.classList.toggle('show');
+    if (modal.classList.contains('show')) {
+      const input = document.getElementById('cmdPaletteInput');
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      this.filterCommandPalette();
+    }
+  },
+
+  closeCommandPalette() {
+    const modal = document.getElementById('cmdPaletteModal');
+    if (modal) modal.classList.remove('show');
+  },
+
+  filterCommandPalette() {
+    const query = document.getElementById('cmdPaletteInput') ? document.getElementById('cmdPaletteInput').value.toLowerCase() : '';
+    const resultsContainer = document.getElementById('cmdPaletteResults');
+    if (!resultsContainer) return;
+
+    const filtered = this.paletteItems.filter(item => !query || item.title.toLowerCase().includes(query) || item.tag.toLowerCase().includes(query));
+
+    if (filtered.length === 0) {
+      resultsContainer.innerHTML = `<div style="padding:1.5rem; text-align:center; color:#94a3b8; font-size:0.9rem;">No command shortcuts found for "${this.escapeHtml(query)}"</div>`;
+      return;
+    }
+
+    resultsContainer.innerHTML = filtered.map(item => `
+      <a href="${item.url}" class="command-palette-item">
+        <span>${item.title}</span>
+        <span class="command-palette-tag">${item.tag}</span>
+      </a>
+    `).join('');
   },
 
   animateCounters() {
@@ -256,5 +359,7 @@ const APP = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  APP.initTheme();
+  APP.initCommandPalette();
   APP.animateCounters();
 });
