@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automated E2E Test Suite — Obsyra Portal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .terminal-box {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #1e293b;
+    }
+    .test-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.875rem;
+    }
+    .test-row.pass { background: #f0fdf4; }
+    .test-row.fail { background: #fef2f2; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand"><span style="color:var(--primary);">OBSYRA</span> AUTOMATED TEST SUITE</a>
+    <div style="color:white; font-size:0.85rem; font-weight:700;">Engine v4.3.0</div>
+  </nav>
+
+  <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+    <!-- TEST SUITE HEADER STATS -->
+    <div class="form-card" style="margin-bottom: 1.5rem;">
+      <div style="display:flex; justify-space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <span class="tag" style="background:#0284c7; color:white; font-size:0.8rem;">🧪 AUTOMATED E2E VERIFICATION</span>
+          <h2 style="font-size:1.6rem; font-weight:800; margin-top:0.35rem;">OBSYRA SYSTEM TEST RUNNER</h2>
+          <p style="font-size:0.875rem; color:var(--text-muted);">Executes 27 automated end-to-end unit, integration, and endpoint tests.</p>
+        </div>
+        <button onclick="runTests()" class="btn btn-primary" style="padding:0.85rem 1.8rem; font-size:1rem;">▶ RUN ALL 27 TESTS</button>
+      </div>
+
+      <div class="progress-container" style="margin-top:1.5rem;">
+        <div id="testProgressBar" class="progress-bar" style="width: 0%;"></div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; color:var(--dark);">
+        <span id="testProgressText">Status: Idle (0/27 Tests)</span>
+        <span id="testScoreText">Pass Rate: --%</span>
+      </div>
+    </div>
+
+    <!-- STAT SUMMARY CARDS -->
+    <div class="stat-card-grid" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-bottom:1.5rem;">
+      <div class="stat-card">
+        <div class="stat-value" id="statTotal">27</div>
+        <div class="stat-label">TOTAL TESTS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statPassed" style="color:#10b981;">0</div>
+        <div class="stat-label">PASSED</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statFailed" style="color:#ef4444;">0</div>
+        <div class="stat-label">FAILED</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statTime">0 ms</div>
+        <div class="stat-label">EXECUTION TIME</div>
+      </div>
+    </div>
+
+    <!-- RESULTS & LOG CONSOLE GRID -->
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+      <!-- LEFT: TEST CASES LIST -->
+      <div class="form-card">
+        <h3 style="font-size:1.15rem; font-weight:800; margin-bottom:1rem; color:var(--dark);">📋 TEST CASE VERIFICATIONS</h3>
+        <div id="testCasesContainer" style="max-height: 400px; overflow-y: auto;">
+          <div style="text-align:center; padding:3rem 1rem; color:var(--text-muted);">Click "RUN ALL 27 TESTS" to execute system verification suite.</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: TERMINAL LOG CONSOLE -->
+      <div class="form-card">
+        <h3 style="font-size:1.15rem; font-weight:800; margin-bottom:1rem; color:var(--dark);">💻 EXECUTION LOG TERMINAL</h3>
+        <div id="terminalLog" class="terminal-box">
+          [System Ready] Obsyra Test Runner v4.3.0 initialized.<br>
+          [Ready] Waiting for test execution trigger...<br>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-bottom">&copy; 2026 Obsyra Pvt Ltd. Test Runner Framework.</div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/e2e-test-suite.js"></script>
+  <script>
+    async function runTests() {
+      const container = document.getElementById('testCasesContainer');
+      const terminal = document.getElementById('terminalLog');
+      const progressBar = document.getElementById('testProgressBar');
+      const progressText = document.getElementById('testProgressText');
+      const scoreText = document.getElementById('testScoreText');
+      
+      container.innerHTML = '';
+      terminal.innerHTML = `[${new Date().toLocaleTimeString()}] Starting Obsyra Automated Test Suite Execution...\n<br>`;
+      progressBar.style.width = '0%';
+      
+      let passedCount = 0;
+      let failedCount = 0;
+      const startTime = performance.now();
+
+      await TEST_SUITE.runAllTests((current, total, lastResult) => {
+        const percent = Math.round((current / total) * 100);
+        progressBar.style.width = `${percent}%`;
+        progressText.innerText = `Running Test ${current}/${total}...`;
+
+        if (lastResult.status === 'PASSED') passedCount++;
+        else failedCount++;
+
+        document.getElementById('statPassed').innerText = passedCount;
+        document.getElementById('statFailed').innerText = failedCount;
+
+        const row = document.createElement('div');
+        row.className = `test-row ${lastResult.status === 'PASSED' ? 'pass' : 'fail'}`;
+        row.innerHTML = `
+          <div>
+            <strong>${lastResult.name}</strong><br>
+            <span style="font-size:0.75rem; color:var(--text-muted);">${lastResult.message}</span>
+          </div>
+          <div style="text-align:right;">
+            <span class="tag" style="background:${lastResult.status === 'PASSED' ? '#d1fae5' : '#fee2e2'}; color:${lastResult.status === 'PASSED' ? '#10b981' : '#ef4444'};">${lastResult.status}</span>
+            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">${lastResult.duration} ms</div>
+          </div>
+        `;
+        container.appendChild(row);
+
+        terminal.innerHTML += `[${new Date().toLocaleTimeString()}] TEST ${current}/${total}: ${lastResult.name} -> <span style="color:${lastResult.status === 'PASSED' ? '#10b981' : '#ef4444'};">${lastResult.status}</span> (${lastResult.duration}ms)<br>`;
+        terminal.scrollTop = terminal.scrollHeight;
+      });
+
+      const totalTime = Math.round(performance.now() - startTime);
+      document.getElementById('statTime').innerText = `${totalTime} ms`;
+      const passRate = Math.round((passedCount / 27) * 100);
+      scoreText.innerText = `Pass Rate: ${passRate}%`;
+      progressText.innerText = `✓ Suite Completed (${passedCount}/27 Passed)`;
+
+      terminal.innerHTML += `<br>[${new Date().toLocaleTimeString()}] 🎉 TEST SUITE EXECUTED CLEANLY! ${passedCount}/27 PASSED (${passRate}% Success Rate in ${totalTime}ms).<br>`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      runTests();
+    });
+  </script>
+</body>
+</html>
