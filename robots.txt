@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /backend/
+
+Sitemap: https://ghodkeswapnil056-prog.github.io/obsyra.co.in/sitemap.xml
