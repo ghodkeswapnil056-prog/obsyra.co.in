@@ -1,4 +1,4 @@
-/* OBSYRA CAREER PORTAL - AUTHENTICATION & SECURITY GATE ENGINE (v5.4.0) */
+/* OBSYRA CAREER PORTAL - AUTHENTICATION & SECURITY GATE ENGINE (v6.1.0) */
 const AUTH = {
   /* CANDIDATE AUTHENTICATION */
   isLoggedIn() {
@@ -45,7 +45,18 @@ const AUTH = {
   adminLogout() {
     localStorage.removeItem('obsyra_admin_token');
     localStorage.removeItem('obsyra_admin_user');
-    window.location.href = 'login.html';
+    
+    // Redirect cleanly to admin/login.html
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('/admin/')) {
+      window.location.href = 'login.html';
+    } else {
+      window.location.href = 'admin/login.html';
+    }
+  },
+
+  logoutAdmin() {
+    this.adminLogout();
   },
 
   checkAdminAuth() {
