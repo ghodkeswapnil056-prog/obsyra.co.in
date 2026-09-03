@@ -278,13 +278,18 @@
       const data = await API.request('getCandidateDashboardData');
       if (data.success) {
         // Set welcome header
-        const user = data.user;
-        const firstName = user.firstName || 'Rahul';
+        const currentUser = (typeof AUTH !== 'undefined' && AUTH.getCurrentUser()) || data.user || { fullName: 'Candidate', candidateId: 'CAN-100234' };
+        const nameParts = (currentUser.fullName || currentUser.firstName || 'Candidate').split(' ');
+        const firstName = nameParts[0] || 'Candidate';
+        const lastName = nameParts.slice(1).join(' ') || currentUser.lastName || '';
+        const initials = (firstName[0] || 'C') + (lastName[0] || (firstName[1] || '').toUpperCase());
+
         document.getElementById('welcomeTitle').innerText = `Good Morning, ${firstName} 👋`;
-        document.getElementById('headerName').innerText = `${firstName} ${user.lastName || ''}`;
-        document.getElementById('sidebarName').innerText = `${firstName} ${user.lastName || ''}`;
-        document.getElementById('headerAvatar').innerText = (firstName[0] || 'R') + (user.lastName ? user.lastName[0] : 'S');
-        document.getElementById('sidebarAvatar').innerText = (firstName[0] || 'R') + (user.lastName ? user.lastName[0] : 'S');
+        document.getElementById('headerName').innerText = `${firstName} ${lastName}`.trim();
+        document.getElementById('sidebarName').innerText = `${firstName} ${lastName}`.trim();
+        if (document.getElementById('sidebarCandId')) document.getElementById('sidebarCandId').innerText = currentUser.candidateId || 'CAN-100234';
+        document.getElementById('headerAvatar').innerText = initials;
+        document.getElementById('sidebarAvatar').innerText = initials;
 
         // Set KPI stats
         const stats = data.stats;

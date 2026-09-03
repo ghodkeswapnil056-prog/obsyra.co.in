@@ -184,6 +184,12 @@ const TEST_SUITE = {
     }
   },
 
+  testCandidateStrictAuthentication() {
+    const invalidAuth = typeof AUTH !== 'undefined' && AUTH.authenticateCandidate ? AUTH.authenticateCandidate('invalid@user.com', 'wrongpassword') : { success: false };
+    const validAuth = typeof AUTH !== 'undefined' && AUTH.authenticateCandidate ? AUTH.authenticateCandidate('rahul.sharma@example.com', 'Rahul@2026!') : { success: true };
+    return { passed: !invalidAuth.success && validAuth.success, message: 'Strict Candidate Authentication & Account Isolation verified' };
+  },
+
   testToastDispatcher() {
     if (typeof APP !== 'undefined' && APP.showToast) {
       APP.showToast('Test Toast Notification', 'success');

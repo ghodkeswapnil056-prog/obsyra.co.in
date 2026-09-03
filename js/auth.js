@@ -1,4 +1,4 @@
-/* OBSYRA CAREER PORTAL - PRODUCTION AUTHENTICATION & CREDENTIALS ENGINE (v10.1.0) */
+/* OBSYRA CAREER PORTAL - STRICT AUTHENTICATION & CANDIDATE REGISTRY ENGINE (v11.0.0) */
 const AUTH = {
   /* PRODUCTION ADMIN / RECRUITER ACCOUNTS REGISTRY */
   adminAccounts: [
@@ -6,56 +6,96 @@ const AUTH = {
     { email: 'anil.kumar@obsyra.com', pass: 'Obsyra@2026!', adminId: 'ADMIN-002', name: 'Anil Kumar', role: 'HR Manager' }
   ],
 
-  addAdminAccount(email, password, name = 'HR Recruiter', role = 'HR Manager') {
-    const existing = this.adminAccounts.find(a => a.email.toLowerCase() === email.toLowerCase());
-    if (existing) {
-      existing.pass = password;
-      existing.name = name;
-      existing.role = role;
-      console.log(`✓ Updated existing admin account: ${email}`);
-    } else {
-      const newAdmin = {
-        email: email,
-        pass: password,
-        adminId: 'ADMIN-00' + (this.adminAccounts.length + 1),
-        name: name,
-        role: role
-      };
-      this.adminAccounts.push(newAdmin);
-      console.log(`✓ Added new admin account: ${email} (${role})`);
-    }
+  /* REGISTERED CANDIDATE ACCOUNTS REGISTRY */
+  registeredCandidates: [
+    { candidateId: 'CAN-2026-000125', fullName: 'Rahul Sharma', email: 'rahul.sharma@example.com', mobile: '+91 9876543210', pass: 'Rahul@2026!', profileCompletion: '92%' }
+  ],
 
+  loadStoredData() {
     try {
-      localStorage.setItem('obsyra_custom_admin_accounts', JSON.stringify(this.adminAccounts));
-    } catch(e) {}
+      const storedAdmin = localStorage.getItem('obsyra_custom_admin_accounts');
+      if (storedAdmin) {
+        this.adminAccounts = JSON.parse(storedAdmin);
+      }
 
-    return true;
-  },
-
-  loadStoredAdminAccounts() {
-    try {
-      const stored = localStorage.getItem('obsyra_custom_admin_accounts');
-      if (stored) {
-        this.adminAccounts = JSON.parse(stored);
+      const storedCand = localStorage.getItem('obsyra_registered_candidates');
+      if (storedCand) {
+        this.registeredCandidates = JSON.parse(storedCand);
       }
     } catch(e) {}
   },
 
-  validateAdminCredentials(email, password) {
-    this.loadStoredAdminAccounts();
-    const account = this.adminAccounts.find(a => a.email.toLowerCase() === email.toLowerCase().trim() && a.pass === password);
-    if (account) {
-      return {
-        adminId: account.adminId,
-        name: account.name,
-        email: account.email,
-        role: account.role
-      };
-    }
-    return null;
+  saveStoredCandidates() {
+    try {
+      localStorage.setItem('obsyra_registered_candidates', JSON.stringify(this.registeredCandidates));
+    } catch(e) {}
   },
 
-  /* CANDIDATE AUTHENTICATION */
+  /* CANDIDATE REGISTRATION & AUTHENTICATION */
+  registerCandidate(fullName, email, mobile, password) {
+    this.loadStoredData();
+    const cleanEmail = email.toLowerCase().trim();
+    const cleanMobile = mobile.replace(/\D/g, '');
+
+    // Duplicate account protection
+    const existing = this.registeredCandidates.find(c =>
+      c.email.toLowerCase().trim() === cleanEmail ||
+      c.mobile.replace(/\D/g, '').includes(cleanMobile)
+    );
+
+    if (existing) {
+      return {
+        success: false,
+        message: '⚠ An account with this Email or Mobile Number already exists! Please login instead.'
+      };
+    }
+
+    const newCandidate = {
+      candidateId: 'CAN-2026-' + Math.floor(100000 + Math.random() * 900000),
+      fullName: fullName.trim(),
+      email: cleanEmail,
+      mobile: mobile,
+      pass: password,
+      profileCompletion: '50%',
+      registeredDate: new Date().toLocaleDateString()
+    };
+
+    this.registeredCandidates.push(newCandidate);
+    this.saveStoredCandidates();
+
+    return {
+      success: true,
+      candidate: newCandidate,
+      message: '🎉 Account registered successfully!'
+    };
+  },
+
+  authenticateCandidate(identifier, password) {
+    this.loadStoredData();
+    const cleanId = identifier.toLowerCase().trim();
+    const cleanPhone = cleanId.replace(/\D/g, '');
+
+    const account = this.registeredCandidates.find(c => {
+      const emailMatch = c.email.toLowerCase().trim() === cleanId;
+      const phoneMatch = cleanPhone.length >= 8 && c.mobile.replace(/\D/g, '').includes(cleanPhone);
+      return (emailMatch || phoneMatch) && c.pass === password;
+    });
+
+    if (account) {
+      return {
+        success: true,
+        candidate: account,
+        message: '✓ Login successful!'
+      };
+    }
+
+    return {
+      success: false,
+      message: '❌ Invalid Email/Mobile or Password! Please check your credentials or create a new account.'
+    };
+  },
+
+  /* CANDIDATE SESSION MANAGEMENT */
   isLoggedIn() {
     return localStorage.getItem('obsyra_candidate_token') !== null;
   },
@@ -71,6 +111,7 @@ const AUTH = {
   },
 
   setSession(candidate) {
+    if (!candidate) return;
     localStorage.setItem('obsyra_candidate_token', 'TOKEN_' + Date.now());
     localStorage.setItem('obsyra_candidate_user', JSON.stringify(candidate));
   },
@@ -92,6 +133,49 @@ const AUTH = {
   },
 
   /* RECRUITER ADMIN AUTHENTICATION */
+  addAdminAccount(email, password, name = 'HR Recruiter', role = 'HR Manager') {
+    this.loadStoredData();
+    const existing = this.adminAccounts.find(a => a.email.toLowerCase() === email.toLowerCase());
+    if (existing) {
+      existing.pass = password;
+      existing.name = name;
+      existing.role = role;
+    } else {
+      const newAdmin = {
+        email: email,
+        pass: password,
+        adminId: 'ADMIN-00' + (this.adminAccounts.length + 1),
+        name: name,
+        role: role
+      };
+      this.adminAccounts.push(newAdmin);
+    }
+
+    try {
+      localStorage.setItem('obsyra_custom_admin_accounts', JSON.stringify(this.adminAccounts));
+    } catch(e) {}
+
+    return true;
+  },
+
+  loadStoredAdminAccounts() {
+    this.loadStoredData();
+  },
+
+  validateAdminCredentials(email, password) {
+    this.loadStoredData();
+    const account = this.adminAccounts.find(a => a.email.toLowerCase() === email.toLowerCase().trim() && a.pass === password);
+    if (account) {
+      return {
+        adminId: account.adminId,
+        name: account.name,
+        email: account.email,
+        role: account.role
+      };
+    }
+    return null;
+  },
+
   isAdminLoggedIn() {
     return localStorage.getItem('obsyra_admin_token') !== null;
   },
@@ -151,17 +235,18 @@ const AUTH = {
 
     if (this.isLoggedIn()) {
       const user = this.getCurrentUser() || { fullName: 'Candidate' };
+      const initials = user.fullName ? user.fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'C';
       navAuthContainer.innerHTML = `
         <div class="profile-dropdown-container">
           <button class="profile-avatar-btn" onclick="APP.toggleProfileDropdown()">
-            <span style="background:var(--primary); color:white; width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:800;">${user.fullName ? user.fullName.charAt(0) : 'C'}</span>
+            <span style="background:var(--primary); color:white; width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:800;">${initials}</span>
             <span>${APP.escapeHtml(user.fullName || 'Candidate')}</span>
             <span style="font-size:0.65rem;">▼</span>
           </button>
           <div class="dropdown-menu" id="profileDropdownMenu">
             <div style="padding:0.75rem 1rem; border-bottom:1px solid #e2e8f0;">
               <div style="font-size:0.85rem; font-weight:700; color:var(--dark);">${APP.escapeHtml(user.fullName || 'Candidate')}</div>
-              <div style="font-size:0.75rem; color:var(--text-muted);">${APP.escapeHtml(user.email || '')}</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">${APP.escapeHtml(user.email || user.candidateId || '')}</div>
             </div>
             <a href="candidate-dashboard.html">📊 Dashboard Overview</a>
             <a href="profile.html">👤 My Profile</a>
@@ -184,7 +269,7 @@ const AUTH = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  AUTH.loadStoredAdminAccounts();
+  AUTH.loadStoredData();
   AUTH.checkAdminAuth();
   AUTH.checkCandidateAuth();
   AUTH.renderNavbarAuth();

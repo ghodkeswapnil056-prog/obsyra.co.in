@@ -124,10 +124,16 @@ const API = {
         return { success: true, message: '✓ Requirement submitted successfully!', requestId: 'OBS-SR-2026-000125' };
 
       case 'registerCandidate':
-        return { success: true, message: '✓ Account registered successfully!', candidateId: 'CAN-2026-000125' };
+        if (typeof AUTH !== 'undefined' && AUTH.registerCandidate) {
+          return AUTH.registerCandidate(payload.fullName || payload.name, payload.email, payload.mobile || '', payload.password || payload.pass);
+        }
+        return { success: true, message: '✓ Account registered successfully!', candidate: { candidateId: 'CAN-2026-000125', fullName: payload.fullName, email: payload.email } };
 
       case 'loginCandidate':
-        return { success: true, message: '✓ Login successful!', user: { candidateId: 'CAN-000125', name: 'Rahul Sharma', email: payload.email } };
+        if (typeof AUTH !== 'undefined' && AUTH.authenticateCandidate) {
+          return AUTH.authenticateCandidate(payload.username || payload.email, payload.password || payload.pass);
+        }
+        return { success: true, message: '✓ Login successful!', candidate: { candidateId: 'CAN-000125', fullName: 'Rahul Sharma', email: payload.email } };
 
       case 'applyForJob':
         return { success: true, message: '🎉 Application submitted successfully!', applicationId: 'APP-2026-000386' };
