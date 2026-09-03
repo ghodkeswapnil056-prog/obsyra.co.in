@@ -164,6 +164,12 @@ const TEST_SUITE = {
     return { passed: Array.isArray(items) && items.length >= 10, message: `Command palette shortcuts verified (${items.length} shortcuts)` };
   },
 
+  testLogoutFunctions() {
+    const candidateLogoutExists = typeof AUTH !== 'undefined' && typeof AUTH.logoutCandidate === 'function' && typeof AUTH.logout === 'function';
+    const adminLogoutExists = typeof AUTH !== 'undefined' && typeof AUTH.adminLogout === 'function' && typeof AUTH.logoutAdmin === 'function';
+    return { passed: candidateLogoutExists && adminLogoutExists, message: 'AUTH.logoutCandidate() and AUTH.adminLogout() functions verified' };
+  },
+
   testThemeSwitcher() {
     try {
       const initial = (typeof APP !== 'undefined' && APP.currentTheme) ? APP.currentTheme : 'light';

@@ -1,4 +1,4 @@
-/* OBSYRA CAREER PORTAL - PRODUCTION AUTHENTICATION & CREDENTIALS ENGINE (v10.0.0) */
+/* OBSYRA CAREER PORTAL - PRODUCTION AUTHENTICATION & CREDENTIALS ENGINE (v10.1.0) */
 const AUTH = {
   /* PRODUCTION ADMIN / RECRUITER ACCOUNTS REGISTRY */
   adminAccounts: [
@@ -6,11 +6,6 @@ const AUTH = {
     { email: 'anil.kumar@obsyra.com', pass: 'Obsyra@2026!', adminId: 'ADMIN-002', name: 'Anil Kumar', role: 'HR Manager' }
   ],
 
-  /**
-   * ADD NEW ADMIN / RECRUITER CREDENTIALS
-   * Call this function to register new recruiter accounts!
-   * Example: AUTH.addAdminAccount('hr.john@obsyra.com', 'SecurePass@2026', 'John Doe', 'HR Specialist')
-   */
   addAdminAccount(email, password, name = 'HR Recruiter', role = 'HR Manager') {
     const existing = this.adminAccounts.find(a => a.email.toLowerCase() === email.toLowerCase());
     if (existing) {
@@ -30,7 +25,6 @@ const AUTH = {
       console.log(`✓ Added new admin account: ${email} (${role})`);
     }
 
-    // Persist custom admin accounts in localStorage
     try {
       localStorage.setItem('obsyra_custom_admin_accounts', JSON.stringify(this.adminAccounts));
     } catch(e) {}
@@ -84,7 +78,17 @@ const AUTH = {
   logout() {
     localStorage.removeItem('obsyra_candidate_token');
     localStorage.removeItem('obsyra_candidate_user');
-    window.location.href = 'login.html';
+    sessionStorage.clear();
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('/admin/')) {
+      window.location.href = '../login.html';
+    } else {
+      window.location.href = 'login.html';
+    }
+  },
+
+  logoutCandidate() {
+    this.logout();
   },
 
   /* RECRUITER ADMIN AUTHENTICATION */
@@ -106,6 +110,7 @@ const AUTH = {
   adminLogout() {
     localStorage.removeItem('obsyra_admin_token');
     localStorage.removeItem('obsyra_admin_user');
+    sessionStorage.clear();
     
     const path = window.location.pathname.toLowerCase();
     if (path.includes('/admin/')) {
@@ -165,7 +170,7 @@ const AUTH = {
             <a href="documents.html">📁 Document Vault</a>
             <a href="resume-builder.html">📄 Resume Builder</a>
             <div class="dropdown-divider"></div>
-            <button onclick="AUTH.logout()" style="color:var(--danger); font-weight:600;">🚪 Sign Out</button>
+            <button onclick="AUTH.logoutCandidate()" style="color:var(--danger); font-weight:600;">🚪 Sign Out</button>
           </div>
         </div>
       `;
