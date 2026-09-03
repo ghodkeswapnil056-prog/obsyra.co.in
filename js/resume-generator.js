@@ -28,25 +28,40 @@ const RESUME = {
   },
 
   init() {
+    const user = typeof AUTH !== 'undefined' ? AUTH.getCurrentUser() : null;
+    if (user) {
+      this.data.fullName = user.fullName || 'Candidate';
+      this.data.email = user.email || '';
+      this.data.mobile = user.mobile || '';
+      this.data.title = user.jobTitle || 'Applicant';
+    } else {
+      this.data.fullName = 'Candidate';
+      this.data.email = '';
+      this.data.mobile = '';
+      this.data.title = 'Applicant';
+    }
     this.updatePreview();
     this.calculateScore();
   },
 
   generateFromProfile() {
-    const user = AUTH.getCurrentUser();
-    this.data.fullName = user.fullName || 'Rahul Sharma';
-    this.data.email = user.email || 'rahul.sharma@example.com';
-    this.data.mobile = user.mobile || '+91 98765 43210';
-    this.data.objective = 'Motivated ' + (this.data.title || 'Technical Professional') + ' seeking opportunities to apply engineering skills to enterprise telecom and software projects at Obsyra Pvt Ltd.';
-    
-    document.getElementById('resFullName').value = this.data.fullName;
-    document.getElementById('resEmail').value = this.data.email;
-    document.getElementById('resMobile').value = this.data.mobile;
-    document.getElementById('resObjective').value = this.data.objective;
-    
-    this.updatePreview();
-    this.calculateScore();
-    alert('✓ Pre-filled resume fields from your Obsyra Master Profile!');
+    const user = typeof AUTH !== 'undefined' ? AUTH.getCurrentUser() : null;
+    if (user) {
+      this.data.fullName = user.fullName || 'Candidate';
+      this.data.email = user.email || '';
+      this.data.mobile = user.mobile || '';
+      this.data.title = user.jobTitle || 'Applicant';
+      this.data.objective = 'Motivated ' + (this.data.title || 'Technical Professional') + ' seeking opportunities to apply engineering skills at Obsyra Pvt Ltd.';
+      
+      if (document.getElementById('resFullName')) document.getElementById('resFullName').value = this.data.fullName;
+      if (document.getElementById('resEmail')) document.getElementById('resEmail').value = this.data.email;
+      if (document.getElementById('resMobile')) document.getElementById('resMobile').value = this.data.mobile;
+      if (document.getElementById('resObjective')) document.getElementById('resObjective').value = this.data.objective;
+      
+      this.updatePreview();
+      this.calculateScore();
+      alert('✓ Pre-filled resume fields from your Obsyra Master Profile!');
+    }
   },
 
   calculateScore() {

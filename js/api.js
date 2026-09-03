@@ -61,14 +61,42 @@ const API = {
         return { success: true, status: 'Obsyra API Bridge Online', timestamp: new Date() };
 
       case 'getCandidateDashboardData':
+        const currentDashboardUser = (typeof AUTH !== 'undefined' && AUTH.getCurrentUser()) || { candidateId: 'CAN-2026-000125', fullName: 'Candidate Account', email: 'candidate@obsyra.com' };
+        const dNameParts = (currentDashboardUser.fullName || 'Candidate').split(' ');
         return {
           success: true,
-          user: { candidateId: 'CAN-000125', firstName: 'Rahul', lastName: 'Sharma', email: 'rahul.sharma@example.com' },
-          stats: { totalApplications: 12, shortlisted: 3, upcomingInterviews: 2, selected: 1, savedJobs: 7, profilePercent: 92 },
+          user: {
+            candidateId: currentDashboardUser.candidateId || 'CAN-2026-000125',
+            firstName: dNameParts[0] || 'Candidate',
+            lastName: dNameParts.slice(1).join(' ') || '',
+            fullName: currentDashboardUser.fullName || 'Candidate',
+            email: currentDashboardUser.email || ''
+          },
+          stats: { totalApplications: 3, shortlisted: 1, upcomingInterviews: 1, selected: 0, savedJobs: 4, profilePercent: 85 },
           recommendedJobs: [
             { jobId: 'OBS-JOB-00125', title: 'Network Engineer', client: 'Obsyra Pvt Ltd', location: 'Maharashtra', experience: '2-5 Yrs', matchScore: 95 },
             { jobId: 'OBS-JOB-00126', title: '5G Protocol Testing Engineer', client: 'Obsyra Pvt Ltd', location: 'Maharashtra / Hybrid', experience: '3-6 Yrs', matchScore: 91 }
           ]
+        };
+
+      case 'getCandidateProfile':
+        const currentProfUser = (typeof AUTH !== 'undefined' && AUTH.getCurrentUser()) || { candidateId: 'CAN-2026-000125', fullName: 'Candidate Account', email: 'candidate@obsyra.com' };
+        const pNameParts = (currentProfUser.fullName || 'Candidate').split(' ');
+        return {
+          success: true,
+          candidate: {
+            candidateId: currentProfUser.candidateId || 'CAN-2026-000125',
+            firstName: pNameParts[0] || 'Candidate',
+            lastName: pNameParts.slice(1).join(' ') || '',
+            fullName: currentProfUser.fullName || 'Candidate',
+            email: currentProfUser.email || '',
+            mobile: currentProfUser.mobile || '',
+            city: currentProfUser.city || 'Pune',
+            state: currentProfUser.state || 'Maharashtra',
+            jobTitle: currentProfUser.jobTitle || 'Applicant',
+            total_experience: currentProfUser.total_experience || '2.0',
+            skills: currentProfUser.skills || [{ skill_name: 'Software' }, { skill_name: 'Engineering' }]
+          }
         };
 
       case 'getCandidateDocuments':

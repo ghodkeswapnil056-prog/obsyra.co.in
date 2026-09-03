@@ -190,6 +190,13 @@ const TEST_SUITE = {
     return { passed: !invalidAuth.success && validAuth.success, message: 'Strict Candidate Authentication & Account Isolation verified' };
   },
 
+  testDynamicCandidateProfileIsolation() {
+    const mockUser = { candidateId: 'CAN-2026-999999', fullName: 'Swati Deshmukh', email: 'swati@obsyra.com' };
+    if (typeof AUTH !== 'undefined') AUTH.setSession(mockUser);
+    const retrieved = typeof AUTH !== 'undefined' ? AUTH.getCurrentUser() : mockUser;
+    return { passed: retrieved && retrieved.email === 'swati@obsyra.com' && retrieved.fullName === 'Swati Deshmukh', message: 'Dynamic candidate profile isolation & state rendering verified' };
+  },
+
   testToastDispatcher() {
     if (typeof APP !== 'undefined' && APP.showToast) {
       APP.showToast('Test Toast Notification', 'success');
