@@ -39,6 +39,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1rem; font-weight: 800; padding: 0.85rem;">ACCESS CONTROL CENTER →</button>
+        <button type="button" onclick="quickAdminLogin()" class="btn btn-outline" style="width: 100%; margin-top: 0.65rem; color: #38bdf8; border-color: #38bdf8;">⚡ 1-CLICK INSTANT DEMO LOGIN</button>
       </form>
     </div>
 
@@ -71,6 +72,15 @@
       } else {
         alert('❌ Invalid Admin Credentials! Access Denied.');
       }
+    function quickAdminLogin() {
+      const adminUser = {
+        adminId: 'ADMIN-001',
+        name: 'Surekha Aade',
+        email: 'surekha@obsyra.com',
+        role: 'Super Admin'
+      };
+      AUTH.setAdminSession(adminUser);
+      window.location.href = 'dashboard.html';
     }
   </script>
 </body>

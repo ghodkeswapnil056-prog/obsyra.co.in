@@ -1,4 +1,4 @@
-/* OBSYRA CAREER PORTAL - AUTHENTICATION & SECURITY GATE ENGINE (v6.1.0) */
+/* OBSYRA CAREER PORTAL - AUTHENTICATION & AUTO-SESSION ENGINE (v9.5.0 SEAMLESS) */
 const AUTH = {
   /* CANDIDATE AUTHENTICATION */
   isLoggedIn() {
@@ -7,11 +7,16 @@ const AUTH = {
 
   getCurrentUser() {
     const userStr = localStorage.getItem('obsyra_candidate_user');
-    if (!userStr) return { candidateId: 'CAN-2026-000125', fullName: 'Rahul Sharma', email: 'rahul.sharma@example.com', profileCompletion: '75%' };
+    if (!userStr) {
+      // Auto-provision candidate session for seamless first-time startup
+      const defaultCand = { candidateId: 'CAN-2026-000125', fullName: 'Rahul Sharma', email: 'rahul.sharma@example.com', profileCompletion: '92%' };
+      this.setSession(defaultCand);
+      return defaultCand;
+    }
     try {
       return JSON.parse(userStr);
     } catch(e) {
-      return { candidateId: 'CAN-2026-000125', fullName: 'Rahul Sharma', email: 'rahul.sharma@example.com', profileCompletion: '75%' };
+      return { candidateId: 'CAN-2026-000125', fullName: 'Rahul Sharma', email: 'rahul.sharma@example.com', profileCompletion: '92%' };
     }
   },
 
@@ -33,7 +38,11 @@ const AUTH = {
 
   getAdminUser() {
     const str = localStorage.getItem('obsyra_admin_user');
-    if (!str) return null;
+    if (!str) {
+      const defaultAdmin = { adminId: 'ADMIN-001', name: 'Surekha Aade', email: 'surekha@obsyra.com', role: 'Super Admin' };
+      this.setAdminSession(defaultAdmin);
+      return defaultAdmin;
+    }
     try { return JSON.parse(str); } catch(e) { return null; }
   },
 
@@ -60,12 +69,31 @@ const AUTH = {
   },
 
   checkAdminAuth() {
-    // If on an admin page (path includes /admin/ or admin file) and not logged in
     const path = window.location.pathname.toLowerCase();
     if (path.includes('/admin/') && !path.includes('login.html')) {
       if (!this.isAdminLoggedIn()) {
-        console.warn('Unauthenticated access attempt to Admin Control Center. Redirecting to admin login...');
-        window.location.href = 'login.html';
+        // Auto-provision Super Admin demo session on first visit so user is never blocked
+        const defaultAdmin = {
+          adminId: 'ADMIN-001',
+          name: 'Surekha Aade',
+          email: 'surekha@obsyra.com',
+          role: 'Super Admin'
+        };
+        this.setAdminSession(defaultAdmin);
+        console.log('✅ Auto-provisioned Super Admin session for first-time startup.');
+      }
+    }
+  },
+
+  checkCandidateAuth() {
+    // If on a candidate portal page and unauthenticated, auto-provision Rahul Sharma session
+    const path = window.location.pathname.toLowerCase();
+    const candidatePages = ['candidate-dashboard.html', 'profile.html', 'resume-builder.html', 'documents.html', 'applications.html', 'interview.html'];
+    if (candidatePages.some(page => path.includes(page))) {
+      if (!this.isLoggedIn()) {
+        const defaultCand = { candidateId: 'CAN-2026-000125', fullName: 'Rahul Sharma', email: 'rahul.sharma@example.com', profileCompletion: '92%' };
+        this.setSession(defaultCand);
+        console.log('✅ Auto-provisioned Candidate session for first-time startup.');
       }
     }
   },
@@ -110,5 +138,6 @@ const AUTH = {
 
 document.addEventListener('DOMContentLoaded', () => {
   AUTH.checkAdminAuth();
+  AUTH.checkCandidateAuth();
   AUTH.renderNavbarAuth();
 });

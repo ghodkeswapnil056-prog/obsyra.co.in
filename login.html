@@ -45,6 +45,7 @@
       </div>
 
       <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 0.95rem; font-weight: 800;">LOGIN TO CANDIDATE PORTAL</button>
+      <button type="button" onclick="quickCandidateLogin()" class="btn btn-outline" style="width: 100%; margin-top: 0.65rem; border-color: var(--primary); color: var(--primary);">⚡ 1-CLICK INSTANT DEMO LOGIN</button>
     </form>
 
     <div style="text-align: center; margin-top: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
@@ -105,6 +106,11 @@
         AUTH.setSession(res.candidate);
         window.location.href = 'candidate-dashboard.html';
       }
+    }
+
+    function quickCandidateLogin() {
+      AUTH.setSession({ candidateId: 'CAN-2026-000125', fullName: 'Rahul Sharma', email: 'rahul.sharma@example.com', profileCompletion: '92%' });
+      window.location.href = 'candidate-dashboard.html';
     }
   </script>
 </body>
