@@ -116,9 +116,15 @@ const AUTH = {
     localStorage.setItem('obsyra_candidate_user', JSON.stringify(candidate));
   },
 
-  logout() {
+  clearCandidateSession() {
     localStorage.removeItem('obsyra_candidate_token');
     localStorage.removeItem('obsyra_candidate_user');
+    sessionStorage.removeItem('obsyra_candidate_user');
+    sessionStorage.removeItem('obsyra_candidate_token');
+  },
+
+  logout() {
+    this.clearCandidateSession();
     sessionStorage.clear();
     const path = window.location.pathname.toLowerCase();
     if (path.includes('/admin/')) {

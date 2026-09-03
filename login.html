@@ -18,12 +18,13 @@
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Access your dashboard, applications, resume, and scheduled interviews.</p>
     </div>
 
+    <!-- ERROR ALERT -->
     <div id="loginErrorAlert" style="display:none; background:#fee2e2; border:1px solid #f87171; color:#991b1b; padding:0.85rem; border-radius:6px; font-size:0.85rem; margin-bottom:1.25rem;"></div>
 
     <form id="formLogin" onsubmit="event.preventDefault(); handleLoginSubmit();">
       <div class="form-group">
         <label>Email Address or Mobile Number *</label>
-        <input type="text" id="loginUsername" class="form-control" placeholder="rahul.sharma@example.com or 9876543210" required>
+        <input type="text" id="loginUsername" class="form-control" placeholder="name@example.com or 9876543210" required>
       </div>
 
       <div class="form-group">
@@ -45,6 +46,7 @@
       </div>
 
       <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 0.95rem; font-weight: 800;">LOGIN TO CANDIDATE PORTAL</button>
+      <button type="button" onclick="resetCandidateSession()" class="btn btn-outline" style="width: 100%; margin-top: 0.65rem; color: #64748b; border-color: #cbd5e1; font-size:0.8rem;">🧹 Reset Session & Clear Token Cache</button>
     </form>
 
     <div style="text-align: center; margin-top: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
@@ -52,7 +54,7 @@
     </div>
   </div>
 
-  <!-- 16. FORGOT PASSWORD MODAL -->
+  <!-- FORGOT PASSWORD MODAL -->
   <div id="forgotModal" class="modal-overlay">
     <div class="modal-content">
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:0.75rem; margin-bottom:1rem;">
@@ -93,23 +95,26 @@
       const errAlert = document.getElementById('loginErrorAlert');
       errAlert.style.display = 'none';
 
-      const res = await API.request('loginCandidate', {
-        username: document.getElementById('loginUsername').value,
-        password: document.getElementById('loginPass').value
-      });
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPass').value;
+
+      const res = await API.request('loginCandidate', { username, password });
 
       if (!res.success) {
+        if (typeof AUTH !== 'undefined') AUTH.clearCandidateSession();
         errAlert.innerHTML = res.message;
         errAlert.style.display = 'block';
       } else {
         AUTH.setSession(res.candidate);
+        alert(`✓ Welcome back, ${res.candidate.fullName}!`);
         window.location.href = 'candidate-dashboard.html';
       }
     }
 
-    function quickCandidateLogin() {
-      AUTH.setSession({ candidateId: 'CAN-2026-000125', fullName: 'Rahul Sharma', email: 'rahul.sharma@example.com', profileCompletion: '92%' });
-      window.location.href = 'candidate-dashboard.html';
+    function resetCandidateSession() {
+      if (typeof AUTH !== 'undefined') AUTH.clearCandidateSession();
+      alert('✓ Browser candidate session and token cache have been completely reset.');
+      window.location.reload();
     }
   </script>
 </body>
